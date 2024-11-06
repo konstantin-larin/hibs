@@ -1,0 +1,57 @@
+@font-face {
+  font-family: 'Roboto';
+  src: url('./assets/fonts/Roboto/Roboto-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('./assets/fonts/Roboto/Roboto-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('./assets/fonts/Roboto/Roboto-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+// FONTS
+$font-family: "Roboto", sans-serif;
+
+// COLORS
+$color-red: #F1423B;
+$color-gray: #7B809A;
+$color-blue: #344767;
+$color-light-blue: #16C0E8;
+$color-orange: #FB8E03;
+$color-light-green: #BCE1BE;
+$color-light-green-limpid: #4CAF5033;
+$color-green: Linear/Green;
+$color-light-gray: #C7CCD0;
+$color-white: #FFF;
+
+// GRADIENTS
+$gradient-dark: linear-gradient(180deg, #4A4A4A 0%, #000000 100%);
+$gradient-gray: linear-gradient(0deg, #D1D6DC 0.08%, #E5E9EF 100.08%);
+$gradient-red: linear-gradient(180deg, #FF694C 0%, #EF3E39 100%);
+$gradient-blue: linear-gradient(180deg, #439DEE 0%, #1E78E9 100%);
+$gradient-light-blue: linear-gradient(0deg, rgba(22, 192, 232, 0.25) 0%, rgba(12, 108, 130, 0.05) 100.21%);;
+$gradient-green: linear-gradient(180deg, #63B967 0%, #4BA64F 100%);
+$gradient-orange: linear-gradient(0deg, #FB8E03 0.08%, #FEA321 100.08%);
+
+// BOX-SHADOWS
+$shadow-red:  0px 2px 6px 0px #DC22655C;
+$shadow-dark: 0px 2px 6px 0px #00000040;
+
+
+img{
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+
