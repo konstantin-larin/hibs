@@ -1,12 +1,12 @@
 import * as React from "react";
+import "./style.scss";
 
-const AuthLogo = (props) => (
+const Logo = (props) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="123"
-        height="48"
         fill="none"
         viewBox="0 0 123 48"
+        className={'logo'}
     >
         <g clipPath="url(#clip0_1338_28617)">
             <path fill="#F0AC9F" d="m20.942 21.797 2.858-1.644-2.858-1.643z"></path>
@@ -83,4 +83,4 @@ const AuthLogo = (props) => (
     </svg>
 );
 
-export default AuthLogo;
+export default Logo;

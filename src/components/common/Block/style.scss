@@ -1,0 +1,8 @@
+@use "@styles" as *;
+
+.block-default{
+    background: $color-white;
+    border-radius: $lg-radius;
+    box-shadow: $shadow-dark;
+    padding: $inset-y-1 $inset-x-1;
+}

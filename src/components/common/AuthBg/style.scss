@@ -1,0 +1,19 @@
+@use "@styles" as *;
+
+.auth-bg{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: $layer-minus-1;
+  img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;  /* Растягиваем на 100% ширины экрана */
+    height: 100%; /* Растягиваем на 100% высоты экрана */
+    object-fit: cover; /* Картинка не сжимаемая, но обрезается по необходимости */
+    transform: translate(-50%, -50%);  /* Центрируем изображение */
+  }
+}

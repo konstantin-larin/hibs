@@ -1,1 +1,30 @@
+@use "@styles" as *;
+@import "normalize.css";
+html{
+  font-size: 10px;
+}
+body{
+  font-family: $font-family;
+}
+img{
+  display: block;
+  width: 100%;
+  height: auto;
+}
 
+//UTILITIES
+.screen{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.mt-1{
+  margin-top: $offset-1;
+}
+.mt-2{
+  margin-top: $offset-2;
+}
