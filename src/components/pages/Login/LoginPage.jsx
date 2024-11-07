@@ -43,7 +43,7 @@ export default function LoginPage() {
         }
 
         auth.login({user: {email, password}, remember: rememberMe});
-        navigate('/');
+        navigate('/profile');
     }
 
     return (

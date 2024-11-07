@@ -1,9 +1,10 @@
 import Text from "@common/Text/Text.jsx";
+import Layout from "@common/Layout/Layout.jsx";
 
 export default function ProfilePage(){
     return (
-        <div>
-
-        </div>
+        <Layout>
+            гра
+        </Layout>
     )
 }

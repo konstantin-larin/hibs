@@ -64,7 +64,7 @@ export default function RegisterPage() {
             return;
         }
 
-        navigate('/');
+        navigate('/profile');
     }
     function handleNameOnChange(evt) {
         setName(evt.target.value);
