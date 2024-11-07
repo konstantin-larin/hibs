@@ -1,4 +1,7 @@
 @use "@styles" as *;
+
+
+
 .text-h3{
     font-size: 2.2rem;
     font-weight: 700;
@@ -14,26 +17,16 @@
 }
 
 .text-label{
-    @include text-sm($color-gray, 700);
+    @include text-sm($color-gray, 400);
 }
 .text-btn{
-    @include text-xs($color-white, 400);
+    text-transform: uppercase;
+    @include text-xs($color-white, 700);
 }
-.text-sm_important{
-    @include text-sm($color-red);
-}
-
-
-@mixin text-sm($color: $color-gray, $fw: 400){
-    font-weight: $fw;
-    font-size: 1.4rem;
-    line-height: 1.3em;
-    color: $color;
-}
-@mixin text-xs($color: $color-white, $fw: 400){
-    font-weight: $fw;
-    font-size: 1.2rem;
-    line-height: 1.33em;
-    color: $color;
+.text-link{
+    @include text-sm($color-red, 700);
 }
 
+.text-error{
+    @include text-sm($color-red, 400);
+}

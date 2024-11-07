@@ -1,6 +1,21 @@
 @use "@styles" as *;
 
-.login-block{
+.login-block {
     width: 40rem;
 
+    &__header {
+        width: 100%;
+
+        border-radius: $radius-sm;
+        position: relative;
+        top: calc(-1* ($offset-3 + $inset-y-1));
+
+        @include center-flex;
+        flex-direction: column;
+        gap: $offset-2;
+
+        @include padding-1;
+
+        background: $gradient-dark;
+    }
 }

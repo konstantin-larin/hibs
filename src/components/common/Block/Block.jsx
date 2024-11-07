@@ -1,9 +1,10 @@
 import "./style.scss"
 
-export default function Block({style="default", className='', children}) {
+export default function Block({style="default", tag = 'div', children, className, ...props}) {
+    const Tag = tag;
     return (
-        <div className={`block-${style} ${className}`}>
+        <Tag className={`block-${style} ${className}`} {...props}>
             {children}
-        </div>
+        </Tag>
     )
 }

@@ -7,6 +7,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
+      "@services": resolve("src/services"),
       '@images': resolve('src/assets/images'),        // Путь до папки assets
       '@fonts': resolve('src/assets/fonts'),
       '@styles': resolve('src/index.scss'),

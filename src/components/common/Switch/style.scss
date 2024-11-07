@@ -1,0 +1,39 @@
+@use "@styles" as *;
+
+
+.switch{
+    display: flex;
+    gap: 0.6rem;
+    user-select: none;
+    align-items: center;
+
+    &__toggler{
+        cursor: pointer;
+        background: $color-light-gray;
+        border-radius: 50% / 100%;
+        width: 3rem;
+        height: 1.5rem;
+        position: relative;
+        transition: $transition-default;
+
+        &-element{
+            position: absolute;
+            top: -2.5px;
+            height: 2rem;
+            width: 2rem;
+            border-radius: 9999px;
+            border: $border-input;
+            background-color: $color-white;
+            box-shadow: $shadow-dark;
+            transition: all $transition-duration ease-in-out;
+        }
+
+
+        &_switched {
+            background: $color-dark;
+            .switch__toggler-element{
+                transform: translateX(50%);
+            }
+        }
+    }
+}

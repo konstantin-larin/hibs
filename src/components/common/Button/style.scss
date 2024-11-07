@@ -1,10 +1,6 @@
 @use "@styles" as *;
 
-.button{
-    background: $gradient-red;
-    padding: 1.2rem 2.4rem;
-    @include center-flex;
-    &_sm{
-        max-width: 19rem;
-    }
+.button-stretched{
+    @include button;
+    width: 100%;
 }
