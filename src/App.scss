@@ -36,6 +36,8 @@ img, svg{
   height: 100vh;
   display: flex;
   justify-content: center;
+  background: $color-dark-gray-5;
+
   align-items: center;
 }
 .center-flex{
@@ -54,10 +56,10 @@ img, svg{
 .mt-2{
   margin-top: $offset-2;
 }
-.mt-4{
+.mt-3{
   margin-top: $offset-4;
 }
-.mt-5{
+.mt-4{
   margin-top: $offset-5;
 }
 

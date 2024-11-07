@@ -1,6 +1,6 @@
 import "./style.scss";
 
-export default function Header() {
+export default function Layout() {
     return (
         <></>
     )

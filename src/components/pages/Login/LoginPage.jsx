@@ -79,10 +79,10 @@ export default function LoginPage() {
                     autoComplete="current-password"
                 ></NiceInput>
 
-                <Switch label={'Запомнить меня'} className={'mt-1'} switched={rememberMe}
+                <Switch label={'Запомнить меня'} className={'mt-3'} switched={rememberMe}
                     setSwitched={setRememberMe}></Switch>
-                <Button style={'stretched'} className={'mt-5'} type={'submit'}>ВОЙТИ</Button>
-                <div className={'mt-5 text-center mb-1'}>
+                <Button style={'stretched'} className={'mt-4'} type={'submit'}>ВОЙТИ</Button>
+                <div className={'mt-4 text-center mb-1'}>
                     <Text style={'label'} tag={'span'}>Нет аккаунта?{" "}</Text>
                     <Link to={'/register'}><Text style={"link"} tag={'span'}>Зарегистрироваться</Text></Link>
                 </div>

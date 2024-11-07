@@ -3,9 +3,16 @@
 .button-stretched{
     @include button;
     width: 100%;
+
+    &:hover{
+        box-shadow: 0rem 0.875rem 1.625rem -0.75rem rgba(244, 67, 53, 0.4), 0rem 0.25rem 1.4375rem 0rem rgba(244, 67, 53, 0.15), 0rem 0.5rem 0.625rem -0.3125rem rgba(244, 67, 53, 0.2);
+    }
 }
 
 .button-black{
     @include button($gradient-dark);
     width: fit-content;
+    &:hover{
+        box-shadow: 0rem 0.875rem 1.625rem -0.75rem rgba(52, 71, 103, 0.4),0rem 0.25rem 1.4375rem 0rem rgba(52, 71, 103, 0.15),0rem 0.5rem 0.625rem -0.3125rem rgba(52, 71, 103, 0.2);
+    }
 }

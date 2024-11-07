@@ -11,14 +11,16 @@
         cursor: pointer;
         background: $color-light-gray;
         border-radius: 50% / 100%;
-        width: 3rem;
-        height: 1.5rem;
+        width: calc(3rem + 0.2vw);
+        height: calc(1.5rem + 0.2vw);
         position: relative;
         transition: $transition-default;
+
 
         &-element{
             position: absolute;
             top: -2.5px;
+            left: 0;
             height: 2rem;
             width: 2rem;
             border-radius: 9999px;
@@ -26,13 +28,27 @@
             background-color: $color-white;
             box-shadow: $shadow-dark;
             transition: all $transition-duration ease-in-out;
+
+            &-anim{
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                border-radius: 9999px;
+                display: block;
+                background: $color-dark-gray;
+            }
+            &-anim_active{
+                animation: expandAndFade $transition-duration ease-out;
+            }
         }
 
 
         &_switched {
             background: $color-dark;
             .switch__toggler-element{
-                transform: translateX(50%);
+                left: 45%;
             }
         }
     }

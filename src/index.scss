@@ -26,8 +26,10 @@ $font-family: "Roboto", sans-serif;
 $color-red: #F1423B;
 $color-dark: #000000;
 $color-dark-gray: #4F4F52;
+$color-dark-gray-5: rgba(79, 79, 82, 0.5);
 $color-gray: #7B809A;
-$color-blue: #344767;
+$color-dark-blue: #344767;
+$color-blue: #1E78E9;
 $color-light-blue: #16C0E8;
 $color-orange: #FB8E03;
 $color-light-green: #BCE1BE;
@@ -50,10 +52,6 @@ $gradient-orange: linear-gradient(0deg, #FB8E03 0.08%, #FEA321 100.08%);
 // BOX-SHADOWS
 $shadow-red: 0px 0.2rem 0.6rem 0px #DC22655C;
 $shadow-dark: 0px 0.2rem 0.6rem 0px #00000040;
-
-//ANIMATION
-$transition-duration: 0.2s;
-$transition-default:  all $transition-duration ease-in-out;
 
 //LAYERS
 $layer-minus-1: -1;
@@ -103,11 +101,13 @@ $breakpoint-md: 768px;
     bottom: 0;
 }
 @mixin input(){
-    position: relative;
-    width: 100%;
-    background-color: $color-white;
-    display: flex;
-    transition: $transition-default;
+    &{
+        position: relative;
+        width: 100%;
+        background-color: $color-white;
+        display: flex;
+        transition: $transition-default;
+    }
 
     &__input {
         border: none;
@@ -126,7 +126,7 @@ $breakpoint-md: 768px;
     &:focus-within{
         svg{
             path{
-                fill: $color-light-blue !important;
+                fill: $color-blue !important;
             }
         }
     }
@@ -168,5 +168,25 @@ $breakpoint-md: 768px;
     cursor: pointer;
     @include  padding-btn;
     border-radius: $radius-sm;
+    transition: all $transition-duration-2 ease-out;
     @include center-flex;
 }
+
+
+//ANIMATIONS
+@keyframes expandAndFade {
+    0% {
+        width: 70%;
+        height: 70%;
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 0.1;
+        width: 250%;
+        height: 250%;
+    }
+}
+
+$transition-duration: 0.1s;
+$transition-duration-2: 0.2s;
+$transition-default:  all $transition-duration ease-in-out;

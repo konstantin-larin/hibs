@@ -1,10 +1,12 @@
 @use "@styles" as *;
 
 .nice-input {
-    border-radius: $radius-sm;
-    @include input;
-    @include padding-1;
-    border: $border-input;
+    &{
+        border-radius: $radius-sm;
+        @include input;
+        @include padding-1;
+        border: $border-input;
+    }
 
     &__input {
         @include stretched(absolute);
@@ -38,11 +40,11 @@
             outline: none;
         }
         .nice-input__label{
-            color: $color-light-blue;
+            color: $color-blue;
         }
     }
     &__label_up{
-        transform: translateY(-90%);
+        transform: translateY(-90%) scale(0.9);
     }
 
 }
