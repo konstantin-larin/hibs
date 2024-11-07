@@ -1,0 +1,17 @@
+@use "@styles" as *;
+
+.icon{
+    width: 1.6rem;
+    height: auto;
+    display: block;
+    path{
+        transition: $transition-default;
+    }
+    &_dark-gray{
+        //fill: $color-dark-gray;
+        path{
+            fill: $color-dark-gray;
+        }
+    }
+
+}

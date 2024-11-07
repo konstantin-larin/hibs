@@ -25,6 +25,7 @@ $font-family: "Roboto", sans-serif;
 // COLORS
 $color-red: #F1423B;
 $color-dark: #000000;
+$color-dark-gray: #4F4F52;
 $color-gray: #7B809A;
 $color-blue: #344767;
 $color-light-blue: #16C0E8;
@@ -70,13 +71,19 @@ $border-input-focused: 0.1rem solid $color-light-blue;
 //OFFSETS (по возрастанию)
 $offset-1: 1.4rem;
 $offset-2: 1.8rem;
-$offset-3: 4.2rem;
+$offset-3: 2.2rem;
+$offset-4: 2.8rem;
+$offset-5: 4.2rem;
 
 //INSETS (по возрастанию)
 $inset-x-1: 1.6rem;
 $inset-y-1: 1rem;
 $inset-y-2: 2.3rem;
 
+
+
+//BREAKPOINTS
+$breakpoint-md: 768px;
 
 
 
@@ -94,8 +101,46 @@ $inset-y-2: 2.3rem;
     right: 0;
     bottom: 0;
 }
+@mixin input(){
+    position: relative;
+    width: 100%;
+    background-color: $color-white;
+    display: flex;
+    transition: $transition-default;
 
+    &__input {
+        border: none;
+        @include text-sm($color-gray, 400);
+        &::placeholder {
+            @include text-sm($color-light-gray, 300);
+        }
+    }
+
+    svg{
+        path{
+            fill: $color-gray;
+        }
+    }
+
+    &:focus-within{
+        svg{
+            path{
+                fill: $color-light-blue !important;
+            }
+        }
+    }
+
+
+
+
+    &__label_error{
+        color: $color-red !important;
+    }
+}
 @mixin padding-1{
+    padding: $inset-y-1 $inset-x-1;
+}
+@mixin padding-2_1 {
     padding: $inset-y-2 $inset-x-1;
 }
 @mixin padding-btn{

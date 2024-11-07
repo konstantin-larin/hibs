@@ -1,0 +1,27 @@
+@use "@styles" as *;
+
+
+.register{
+    max-width: 90rem;
+    min-width: 25rem;
+    width: 55%;
+    padding-bottom: $offset-5;
+    justify-content: center;
+    align-items: center;
+}
+
+.register__header{
+    width: 100%;
+
+    border-radius: $radius-sm;
+    position: relative;
+    top: calc(-1* (#{$offset-5} + #{$inset-y-1}));
+
+    @include center-flex;
+    flex-direction: column;
+    gap: $offset-2;
+
+    @include padding-2_1;
+
+    background: $gradient-red;
+}

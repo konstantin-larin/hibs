@@ -29,13 +29,15 @@ export default function LoginPage() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        setEmailValidation(validateEmail(email));
-        if(emailValidation.error){
+        const emailValid = validateEmail(email);
+        if(emailValid.error){
+            setEmailValidation(emailValid);
             return;
         }
 
-        setPasswordValidation(validatePassword(password));
-        if(passwordValidation.error){
+        const passwordValid = validatePassword(password);
+        if(passwordValid.error){
+            setPasswordValidation(passwordValid)
             return;
         }
 
@@ -45,10 +47,10 @@ export default function LoginPage() {
     return (
         <div className={'screen'}>
             <AuthBg></AuthBg>
-            <Block style={'default'} tag={'form'} className={'login-block'} onSubmit={handleSubmit}>
-                <div className={'login-block__header'}>
+            <Block style={'default'} tag={'form'} className={'login'} onSubmit={handleSubmit}>
+                <div className={'login__header'}>
                     <Logo></Logo>
-                    <Text style={'h3'} tag={'h3'}>
+                    <Text style={'h3'} tag={'h1'}>
                         Вход
                     </Text>
                 </div>
@@ -77,8 +79,8 @@ export default function LoginPage() {
 
                 <Switch label={'Запомнить меня'} className={'mt-1'} switched={rememberMe}
                     setSwitched={setRememberMe}></Switch>
-                <Button style={'stretched'} className={'mt-3'} type={'submit'}>Войти</Button>
-                <div className={'mt-3 text-center mb-1'}>
+                <Button style={'stretched'} className={'mt-5'} type={'submit'}>ВОЙТИ</Button>
+                <div className={'mt-5 text-center mb-1'}>
                     <Text style={'label'} tag={'span'}>Нет аккаунта?{" "}</Text>
                     <Link to={'/register'}><Text style={"link"} tag={'span'}>Зарегистрироваться</Text></Link>
                 </div>

@@ -5,6 +5,8 @@ html{
 }
 body{
   font-family: $font-family;
+  font-size: 1.4rem;
+  color: $color-gray;
 }
 *,
 *::before,
@@ -17,7 +19,11 @@ body{
 a{
   text-decoration: none;
 }
-img{
+a.active,
+a{
+  color: inherit;
+}
+img, svg{
   display: block;
   width: 100%;
   height: auto;
@@ -31,6 +37,14 @@ img{
   justify-content: center;
   align-items: center;
 }
+.center-flex{
+  @include center-flex;
+}
+.center-row{
+  display: flex;
+  align-items: center;
+}
+
 
 
 .mt-1{
@@ -39,8 +53,11 @@ img{
 .mt-2{
   margin-top: $offset-2;
 }
-.mt-3{
-  margin-top: $offset-3;
+.mt-4{
+  margin-top: $offset-4;
+}
+.mt-5{
+  margin-top: $offset-5;
 }
 
 .mb-1{
@@ -49,8 +66,15 @@ img{
 .mb-2{
   margin-bottom: $offset-2;
 }
-.mb-3{
-  margin-bottom: $offset-3;
+.mb-4{
+  margin-bottom: $offset-4;
+}
+.mb-5{
+  margin-bottom: $offset-5;
+}
+
+.ml-auto{
+  margin-left: auto;
 }
 
 .text-center{

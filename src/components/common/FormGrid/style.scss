@@ -1,0 +1,11 @@
+@use "@styles" as *;
+
+.form-gird{
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: $offset-3;
+    @media screen and (min-width: $breakpoint-md) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

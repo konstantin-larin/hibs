@@ -19,11 +19,7 @@ export default function NiceInput({label, className, validation, setValidation, 
 
     return (
         <div className={className}>
-            <div className={'nice-input '}>
-                <input {...props} className={'nice-input__input ' + (validation.error ? "nice-input__input_error" : '')}
-                    onFocus={handleOnFocus}
-                    onBlur={handleOnBlur}
-                />
+            <div className={'nice-input ' + (validation.error ? "nice-input_error" : '')} >
                 <Text
                     style={'label'} tag={'label'}
                     className={
@@ -33,6 +29,10 @@ export default function NiceInput({label, className, validation, setValidation, 
                     }>
                     {label}
                 </Text>
+                <input {...props} className={'nice-input__input '}
+                    onFocus={handleOnFocus}
+                    onBlur={handleOnBlur}
+                />
             </div>
 
             {

@@ -6,7 +6,16 @@ export class Validation {
     }
 }
 
+function defaultValidate(value){
+    if(value.trim().length === 0) return new Validation({error: true, message: "Пустое поле"});
+    return false;
+}
+
 export const validateEmail = (email) => {
+    const defaultValidation = defaultValidate(email);
+    if(defaultValidation.error){
+        return defaultValidation;
+    }
     if (email.trim().length === 0 || !email.trim().match(mailFormat)) {
         return new Validation({error:true, message: "Неправильный формат email",});
     }
@@ -14,7 +23,33 @@ export const validateEmail = (email) => {
 }
 
 export const validatePassword = (password) => {
+    const defaultValidation = defaultValidate(password);
+    if(defaultValidation.error){
+        return defaultValidation;
+    }
     if(password.length < 8){
         return new Validation({error: true, message: "Пароль должен быть не менее 8 символов"});
-    } else return new Validation({error: false});
+    }
+    return new Validation({error: false});
+}
+export const validateRepeatedPassword = (password, repeated) => {
+    const defaultValidation = defaultValidate(repeated);
+    if(defaultValidation.error){
+        return defaultValidation;
+    }
+    if(password.length < 8){
+        return new Validation({error: true, message: "Пароль должен быть не менее 8 символов"});
+    }
+    if(password !== repeated){
+        return new Validation({error: true, message: "Пароли не совпадают"});
+    }
+    return new Validation({error: false});
+}
+
+export const validateName = (name) => {
+    const defaultValidation = defaultValidate(name);
+    if(defaultValidation.error){
+        return defaultValidation;
+    }
+    return new Validation({error: false});
 }

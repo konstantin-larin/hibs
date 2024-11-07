@@ -1,20 +1,22 @@
 @use "@styles" as *;
 
-.login-block {
-    width: 40rem;
+.login {
+    max-width: 50rem;
+    min-width: 25rem;
+    width: 25%;
 
     &__header {
         width: 100%;
 
         border-radius: $radius-sm;
         position: relative;
-        top: calc(-1* ($offset-3 + $inset-y-1));
+        top: calc(-1* ($offset-5 + $inset-y-1));
 
         @include center-flex;
         flex-direction: column;
         gap: $offset-2;
 
-        @include padding-1;
+        @include padding-2_1;
 
         background: $gradient-dark;
     }

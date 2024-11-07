@@ -20,7 +20,6 @@
     @include text-sm($color-gray, 400);
 }
 .text-btn{
-    text-transform: uppercase;
     @include text-xs($color-white, 700);
 }
 .text-link{

@@ -1,0 +1,45 @@
+@use "@styles" as *;
+
+
+.common-input {
+    @include input;
+    border-bottom: $border-input;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+
+    &__input{
+        padding-bottom: $inset-y-1;
+        padding-right: $inset-x-1;
+        flex-grow: 1;
+    }
+    &_error{
+        border-bottom: $border-input-error !important;
+    }
+    &__error{
+        margin-top: $inset-y-1;
+    }
+
+    &__label {
+        transition: $transition-default;
+        display: block;
+        width: 100%;
+        margin-bottom: $inset-y-1;
+    }
+
+    &:focus-within {
+        border-bottom: $border-input-focused;
+
+        .common-input__label {
+            color: $color-light-blue !important;
+        }
+
+        //.common-input__input::placeholder {
+        //    color: $color-light-blue !important;
+        //}
+
+        .common-input__input {
+            outline: none;
+        }
+    }
+}
