@@ -4,7 +4,7 @@ import React, { createContext, useContext, useState } from 'react';
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-    // console.log(JSON.parse(localStorage.getItem('user')));
+    console.log(JSON.parse(localStorage.getItem('user')));
     let rememberedUser = localStorage.getItem('user');
     if(rememberedUser){
         rememberedUser = JSON.parse(rememberedUser);
@@ -12,8 +12,6 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(rememberedUser); // user = null означает, что пользователь не авторизован
 
     const login = ({user, remember}) => {
-        console.log(user);
-        console.log(remember);
         if(remember){
             localStorage.setItem('user', JSON.stringify(user));
         } else {

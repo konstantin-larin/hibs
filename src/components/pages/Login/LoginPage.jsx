@@ -7,11 +7,12 @@ import NiceInput from "@common/NiceInput/NiceInput.jsx";
 import {useState} from "react";
 import Switch from "@common/Switch/Switch.jsx";
 import Button from "@common/Button/Button.jsx";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {validateEmail, validatePassword, Validation} from "@services/validation.js";
 import {useAuth} from "@contexts/AuthContext.jsx";
 
 export default function LoginPage() {
+    const navigate = useNavigate();
     const auth = useAuth();
     const [email, setEmail] = useState("");
     const [emailValidation, setEmailValidation] = useState(new Validation());
@@ -41,7 +42,8 @@ export default function LoginPage() {
             return;
         }
 
-        auth.login({user: {email, password}, remember: rememberMe})
+        auth.login({user: {email, password}, remember: rememberMe});
+        navigate('/');
     }
 
     return (
