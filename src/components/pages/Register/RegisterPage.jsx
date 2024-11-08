@@ -16,10 +16,12 @@ import PasswordHideIcon from "../../../assets/icons/PasswordHideIcon.jsx";
 import NameIcon from "../../../assets/icons/NameIcon.jsx";
 import {Link, Navigate, useNavigate} from "react-router-dom";
 import Button from "@common/Button/Button.jsx";
+import {usePreferences} from "@contexts/PreferencesContext.jsx";
 
 export default function RegisterPage() {
     const navigate =useNavigate();
 
+    const {isMobile} = usePreferences();
     const [name, setName] = useState('');
     const [nameValidation, setNameValidation] = useState(new Validation());
     const [surname, setSurname] = useState('');
@@ -119,7 +121,7 @@ export default function RegisterPage() {
                         value={email} onChange={handleEmailOnChange} type={'email'}
                     >
                     </CommonInput>
-                    <div></div>
+                    {!isMobile && <div></div>}
                     <CommonInput
                         placeholder={'Введите ваш пароль'}
                         autoComplete={'new-password'}
