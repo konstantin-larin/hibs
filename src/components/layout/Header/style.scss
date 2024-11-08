@@ -22,6 +22,7 @@
 
     &__burger {
         & {
+            z-index: $layer-2;
             position: fixed;
             right: $offset-1;
             top: $offset-1;
