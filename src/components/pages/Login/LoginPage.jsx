@@ -52,7 +52,7 @@ export default function LoginPage() {
     } else {
         return (
             <div className={'screen'}>
-                <AuthBg></AuthBg>
+                {/*<AuthBg></AuthBg>*/}
                 <Block style={'default'} tag={'form'} className={'login'} onSubmit={handleSubmit}>
                     <div className={'login__header'}>
                         <Logo></Logo>

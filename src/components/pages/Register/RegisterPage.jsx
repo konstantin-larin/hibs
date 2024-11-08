@@ -88,7 +88,7 @@ export default function RegisterPage() {
 
     return (
         <div className={'screen'}>
-            <AuthBg></AuthBg>
+            {/*<AuthBg></AuthBg>*/}
             <Block style={'default'} className={'register'} tag={'form'} onSubmit={handleOnSubmit}>
                 <div className={'register__header'}>
                     <Text style={'h3-white'} tag={'h1'}>Регистрация</Text>
