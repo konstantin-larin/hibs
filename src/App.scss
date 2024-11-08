@@ -2,12 +2,16 @@
 //@import "normalize.css";
 html{
   font-size: 10px;
+  scroll-behavior: smooth;
 }
 body{
   font-family: $font-family;
   font-size: 1.4rem;
   color: $color-gray;
   background: $color-light;
+}
+div{
+  width: 100%;
 }
 *,
 *::before,
@@ -30,7 +34,18 @@ img, svg{
   height: auto;
 }
 
+ul{
+  li{
+    list-style-position: inside;
+    &::marker{
+      color: inherit;
+    }
+  }
+}
+
 //UTILITIES
+
+
 .screen{
   width: 100vw;
   height: 100vh;
@@ -96,4 +111,32 @@ img, svg{
 
 .transition-default{
   transition: $transition-default;
+}
+.transition-4{
+  transition: all $transition-duration-4 ease-out;
+}
+
+
+.w-full{
+  width: 100% !important;
+}
+.w-fit{
+  width: fit-content!important;
+}
+
+
+.text-h3-white{
+  @include text-h3($color-white, 400);
+}
+
+.text-h4-dark-blue{
+  @include text-h4($color-dark-blue, 700);
+}
+
+.text-h5-white{
+  @include text-h5($color-white, 500);
+}
+
+.text-h5-gray{
+  @include text-h5($color-gray, 400);
 }

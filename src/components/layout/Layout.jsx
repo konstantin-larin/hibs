@@ -5,17 +5,17 @@ import { useAuth } from "@contexts/AuthContext.jsx";
 import { Navigate } from "react-router-dom"; // Используется для редиректа
 export default function Layout({children}) {
     const { isAuthenticated } = useAuth();
-
-    if (!isAuthenticated) {
-        return <Navigate to="/login" />; // Редирект на страницу логина, если не авторизован
+    const isIn = isAuthenticated();
+    if (isIn) {
+        return (
+            <div className={'layout'}>
+                <Sidebar></Sidebar>
+                <Header></Header>
+                <main>
+                    {children}
+                </main>
+            </div>
+        )
     }
-    return (
-        <div className={'layout'}>
-            <Sidebar></Sidebar>
-            <Header></Header>
-            <main>
-                {children}
-            </main>
-        </div>
-    )
+    return <Navigate to="/login" />; // Редирект на страницу логина, если не авторизован
 }

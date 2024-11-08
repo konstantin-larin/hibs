@@ -1,18 +1,77 @@
 @use "@styles" as *;
 .profile-page{
+    flex-wrap: wrap;
     display: flex;
+    align-items: flex-start;
+    gap: $offset-1;
 }
 
 .profile-nav{
     width: 100%;
     @media screen and (min-width: $breakpoint-md) {
-        width: 300px !important;
+        width: 320px !important;
     }
+
     padding: $offset-4 !important;
     display: flex;
     flex-direction: column;
     gap: $offset-1;
     &__elem{
-        @include text-sm($color-dark-blue, 400)
+        @include text-sm($color-dark-blue, 400);
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
     }
 }
+
+.profile{
+    &{
+        display: flex;
+        flex-direction: column;
+        gap: $offset-3;
+        width: 100%;
+    }
+    &__me{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &__name{
+        &{
+            display: flex;
+            align-items: center;
+            gap: $offset-3;
+            @include text-h4($color-dark-blue, 700);
+        }
+        &-img{
+            width: 5.5rem;
+        }
+    }
+
+    &__password{
+        svg {
+            path{
+                fill: $color-dark-gray;
+            }
+        }
+        &-info{
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-top: $offset-5;
+            ul{
+                li{
+                    @include text-sm($color-gray, 400);
+                }
+                @include padding-1;
+            }
+        }
+    }
+
+    &__delete{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+

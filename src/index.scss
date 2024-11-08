@@ -84,8 +84,8 @@ $inset-y-2: 2.3rem;
 
 
 //BREAKPOINTS
-$breakpoint-md: 768px;
-
+$breakpoint-md: 800px;
+$breakpoint-lg: 1024px;
 
 
 //MIXINS
@@ -182,15 +182,17 @@ $breakpoint-md: 768px;
     color: $color;
 }
 
-@mixin button($bg: $color-red){
+@mixin button($bg: $color-red, $color){
     background: $bg;
     border: none;
     cursor: pointer;
+    white-space: nowrap;
     @include  padding-btn;
     border-radius: $radius-sm;
     transition: all $transition-duration-2 ease-out;
     @include center-flex;
     gap: 0.6rem;
+    color: $color;
 }
 
 

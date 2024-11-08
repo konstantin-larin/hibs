@@ -47,5 +47,9 @@
         transform: translateY(-90%) scale(0.9);
     }
 
+    svg{
+        margin-left: auto ;
+        z-index: $layer-2;
+    }
 }
 

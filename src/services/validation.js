@@ -45,6 +45,16 @@ export const validateRepeatedPassword = (password, repeated) => {
     }
     return new Validation({error: false});
 }
+export const validateCorrectPassword = (correct, password) => {
+    const defaultValidation = defaultValidate(password);
+    if(defaultValidation.error){
+        return defaultValidation;
+    }
+    if(password !== correct){
+        return new Validation({error: true, message: "Неверный пароль"});
+    }
+    return new Validation({error: false});
+}
 
 export const validateName = (name) => {
     const defaultValidation = defaultValidate(name);

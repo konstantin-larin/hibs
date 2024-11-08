@@ -56,7 +56,7 @@ export default function LoginPage() {
                 <Block style={'default'} tag={'form'} className={'login'} onSubmit={handleSubmit}>
                     <div className={'login__header'}>
                         <Logo></Logo>
-                        <Text style={'h3'} tag={'h1'}>
+                        <Text style={'h3-white'} tag={'h1'}>
                             Вход
                         </Text>
                     </div>
@@ -85,12 +85,12 @@ export default function LoginPage() {
 
                     <Switch label={'Запомнить меня'} className={'mt-3'} switched={rememberMe}
                         setSwitched={setRememberMe}></Switch>
-                    <Button style={'stretched'} className={'mt-4'} type={'submit'}>
+                    <Button style={'red'} className={'mt-4 w-full'} type={'submit'}>
                         <Text style={'btn'} tag={'p'}>ВОЙТИ</Text>
                     </Button>
                     <div className={'mt-4 text-center mb-1'}>
                         <Text style={'label'} tag={'span'}>Нет аккаунта?{" "}</Text>
-                        <Link to={'/register'}><Text style={"link"} tag={'span'}>Зарегистрироваться</Text></Link>
+                        <Link to={'/register'}><Text style={"important"} tag={'span'}>Зарегистрироваться</Text></Link>
                     </div>
                 </Block>
             </div>

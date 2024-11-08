@@ -1,6 +1,6 @@
 // AuthContext.js
 import React, { createContext, useContext, useState } from 'react';
-
+import avatar from "@images/richard.png";
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
@@ -12,6 +12,13 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(rememberedUser); // user = null означает, что пользователь не авторизован
 
     const login = ({user, remember}) => {
+        user = {
+            ...user,
+            avatar,
+            name: "Константин",
+            surname: "Ларин",
+
+        }
         if(remember){
             localStorage.setItem('user', JSON.stringify(user));
         } else {

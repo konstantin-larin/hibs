@@ -2,7 +2,11 @@ import "./style.scss";
 import Text from "@common/Text/Text.jsx";
 import {Validation} from "@services/validation.js";
 
-export default function CommonInput({icon = null, label, className, validation, setValidation, ...props}) {
+export default function CommonInput({icon = null,
+                                        label, value, onChange,
+                                        className, validation,
+                                        setValidation,
+                                        ...props}) {
     function handleOnFocus() {
         setValidation(new Validation({error: false}));
     }
@@ -19,7 +23,9 @@ export default function CommonInput({icon = null, label, className, validation, 
                     {label}
                 </Text>
 
-                <input {...props} className={'common-input__input ' + (validation.error ? "common-input__input_error" : '')}
+
+                <input {...props} onChange={onChange} value={value}
+                    className={'common-input__input ' + (validation.error ? "common-input__input_error" : '')}
                     onFocus={handleOnFocus}
                 />
                 {icon &&  <Icon className={'common-input__icon'}></Icon>}

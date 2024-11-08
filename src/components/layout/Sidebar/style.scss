@@ -2,16 +2,37 @@
 
 .sidebar{
     &{
-        position: sticky;
+        position: fixed;
+        z-index: $layer-2;
+        @media screen and (min-width: $breakpoint-md){
+            position: sticky;
+        }
         background: $gradient-dark;
         top: 0;
         left: 0;
         width: 100%;
         height: 100vh;
 
+        transition: all $transition-duration-4 ease-in-out;
         padding: $inset-y-1 calc(#{$inset-x-1} /2);
     }
 
+    &_closed{
+        transform: translateX(-100%);
+    }
+
+    & .cross-container{
+        position: absolute;
+        right: $offset-1;
+        top: $offset-1;
+        width: fit-content;
+        cursor: pointer;
+    }
+    & .cross{
+        pointer-events: none;
+        fill: $color-white;
+        width: 3rem;
+    }
     &__hidden-content,
     &__content{
         display: flex;

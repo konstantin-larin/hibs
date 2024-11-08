@@ -1,12 +1,9 @@
 import "./style.scss";
 import Logo from "@common/Logo/Logo.jsx";
 import SidebarLink from "@layout/Sidebar/SidebarLink.jsx";
-import profile from '@images/brooklyn_alice.png';
 import ExercisesIcon from "../../../assets/icons/ExercisesIcon.jsx";
 import Text from "@common/Text/Text.jsx";
-import {Link} from "react-router-dom";
 import {useAuth} from "@contexts/AuthContext.jsx";
-import {useState} from "react";
 import ShevronUp from "../../../assets/icons/ShevronUp.jsx";
 import ExSavedIcon from "../../../assets/icons/ExSavedIcon.jsx";
 import ExLibIcon from "../../../assets/icons/ExLibIcon.jsx";
@@ -14,19 +11,34 @@ import MyExercisesIcon from "../../../assets/icons/MyExercisesIcon.jsx";
 import CalendarIcon from "../../../assets/icons/CalendarIcon.jsx";
 import StatisticIcon from "../../../assets/icons/StatisticIcon.jsx";
 import {usePreferences} from "@contexts/PreferencesContext.jsx";
-
+import {enableBodyScroll, disableBodyScroll} from "body-scroll-lock";
+import {useEffect, useState} from "react";
+import breakpoints from "@services/breakpoints.js";
+import CrossIcon from "../../../assets/icons/CrossIcon.jsx";
 
 function ProfileImg() {
+    const {user} = useAuth();
     return (
-        <img src={profile} alt="Профиль"/>
+        <img src={user.avatar} alt="Профиль"/>
     )
 }
 
 export default function Sidebar() {
-    const {exercisesIsOpened, setExercisesIsOpened} = usePreferences();
+    const {exercisesIsOpened, setExercisesIsOpened, isMobile, sidebarIsClosed, setSidebarIsClosed} = usePreferences();
+
+    function handleCrossOnClick() {
+        setSidebarIsClosed(true);
+    }
 
     return (
-        <aside className={'sidebar'}>
+        <aside className={'sidebar ' + (isMobile && sidebarIsClosed ? 'sidebar_closed' : '')}>
+            {
+                isMobile && (
+                    <div className={'cross-container'} onClick={handleCrossOnClick}>
+                        <CrossIcon></CrossIcon>
+                    </div>
+                )
+            }
             <div className={'sidebar__content'}>
                 <Logo></Logo>
             </div>
@@ -45,10 +57,10 @@ export default function Sidebar() {
                     <div className={'sidebar__link-label'}>
                         <Text style={'h5'}>Занятия</Text>
                     </div>
-                    <div className={'transition-default ' + (exercisesIsOpened ? '' : 'rotate-180')}>
+                    <div className={'transition-4 w-fit ' + (exercisesIsOpened ? '' : 'rotate-180')}>
                         <ShevronUp></ShevronUp></div>
                 </div>
-                <div className={'sidebar__hidden ' + (exercisesIsOpened ? ' sidebar__hidden_opened' : '')}>
+                <div className={'sidebar__hidden  ' + (exercisesIsOpened ? ' sidebar__hidden_opened' : '')}>
                     <div className={"sidebar__hidden-content "}>
                         <SidebarLink label={"Занятия на устройстве"} img={ExSavedIcon}
                             to={'/exercises/saved'}></SidebarLink>
@@ -57,9 +69,8 @@ export default function Sidebar() {
                     </div>
                 </div>
             </div>
-            <Text style={'h5'} tag={'p'}>ДНЕВНИК</Text>
+            <p className={'text-h5-white'}>Дневник</p>
             <div className={'sidebar__content'}>
-
                 <SidebarLink label={'Календарь'} img={CalendarIcon} to={'/calendar'}></SidebarLink>
                 <SidebarLink label={'Статистика'} img={StatisticIcon} to={'/statistic'}></SidebarLink>
             </div>

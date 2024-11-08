@@ -1,23 +1,47 @@
 @use "../../../index" as *;
 
-.header{
-    &{
-        position: sticky;
+.header {
+    & {
+        position: relative;
         padding: $inset-y-1 0;
         width: 100%;
     }
 
-    &__path{
+    &__path {
         display: flex;
+        width: fit-content;
         gap: 1rem;
         @include text-sm($color-gray, 400);
         cursor: default;
-        &-current{
+
+        &-current {
+            white-space: nowrap;
             color: $color-dark-blue;
         }
     }
 
-    &__title{
+    &__burger {
+        & {
+            position: fixed;
+            right: $offset-1;
+            top: $offset-1;
+            width: 2.5rem;
+            height: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: stretch;
+            cursor: pointer;
+        }
+
+        & > div {
+            border-radius: $radius-xs;
+            height: 0.35rem;
+            background: $color-gray;
+        }
+    }
+
+    &__title {
         margin-top: 0.6rem;
         @include text-h5($color-dark-blue, 700);
     }

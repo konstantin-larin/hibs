@@ -3,9 +3,9 @@ import Text from "@common/Text/Text.jsx";
 import {useState} from "react";
 import {Validation} from "@services/validation.js";
 
-export default function NiceInput({label, className, validation, setValidation, ...props}) {
+export default function NiceInput({label, icon = null, className, validation, setValidation, value, onChange, ...props}) {
     const [isVoid, setIsVoid] = useState(true);
-
+    const Icon = icon;
     function handleOnFocus() {
         setValidation(new Validation({error: false}));
         setIsVoid(false);
@@ -30,9 +30,12 @@ export default function NiceInput({label, className, validation, setValidation, 
                     {label}
                 </Text>
                 <input {...props} className={'nice-input__input '}
+                    value={value}
+                    onChange={onChange}
                     onFocus={handleOnFocus}
                     onBlur={handleOnBlur}
                 />
+                {Icon && <Icon></Icon>}
             </div>
 
             {

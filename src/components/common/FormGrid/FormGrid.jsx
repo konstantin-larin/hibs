@@ -1,9 +1,10 @@
 import "./style.scss";
 
-export default function FormGrid({children}) {
+export default function FormGrid({children, className= '', tag = 'div', ...props}) {
+    const Tag = tag;
     return (
-        <div className={'form-gird'}>
+        <Tag className={'form-gird ' + className} {...props}>
             {children}
-        </div>
+        </Tag>
     )
 }
