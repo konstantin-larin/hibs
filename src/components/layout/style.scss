@@ -1,0 +1,29 @@
+@use "../../index" as *;
+
+
+.layout{
+
+    & {
+        @media screen and (min-width: $breakpoint-md) {
+            display: grid;
+            grid-template-areas:
+            "sidebar header"
+            "sidebar content";
+            grid-template-columns: 300px auto;
+            grid-template-rows: 5rem auto;
+            grid-gap: $offset-5;
+        }
+    }
+
+    & > .sidebar{
+        grid-area: sidebar;
+    }
+    & > .header{
+        grid-area: header;
+    }
+    & > main{
+        grid-area: content;
+    }
+}
+
+

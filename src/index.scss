@@ -27,6 +27,7 @@ $color-red: #F1423B;
 $color-dark: #000000;
 $color-dark-gray: #4F4F52;
 $color-dark-gray-5: rgba(79, 79, 82, 0.5);
+$color-dark-gray-2: rgba(79, 79, 82, 0.5);
 $color-gray: #7B809A;
 $color-dark-blue: #344767;
 $color-blue: #1E78E9;
@@ -63,6 +64,7 @@ $layer-4: 40;
 //BORDERS
 $radius-lg: 1.2rem;
 $radius-sm: 0.8rem;
+$radius-xs: 0.4rem;
 $border-input: 0.1rem solid $color-light-gray;
 $border-input-error: 0.1rem solid $color-red;
 $border-input-focused: 0.1rem solid $color-light-blue;
@@ -108,7 +110,6 @@ $breakpoint-md: 768px;
         display: flex;
         transition: $transition-default;
     }
-
     &__input {
         border: none;
         @include text-sm($color-gray, 400);
@@ -161,6 +162,25 @@ $breakpoint-md: 768px;
     line-height: 1.33em;
     color: $color;
 }
+@mixin text-h3($color: $color-white, $fw: 400){
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1.4em;
+    color: $color;
+}
+@mixin text-h4($color: $color-white, $fw: 400){
+    font-size: 2rem;
+    line-height: 1.4em;
+    font-weight: $fw;
+    color: $color;
+}
+
+@mixin text-h5($color: $color-white, $fw: 400){
+    font-size: 1.6rem;
+    line-height: 1.4em;
+    font-weight: $fw;
+    color: $color;
+}
 
 @mixin button($bg: $color-red){
     background: $bg;
@@ -170,6 +190,7 @@ $breakpoint-md: 768px;
     border-radius: $radius-sm;
     transition: all $transition-duration-2 ease-out;
     @include center-flex;
+    gap: 0.6rem;
 }
 
 
@@ -189,4 +210,5 @@ $breakpoint-md: 768px;
 
 $transition-duration: 0.1s;
 $transition-duration-2: 0.2s;
+$transition-duration-4: 0.4s;
 $transition-default:  all $transition-duration ease-in-out;

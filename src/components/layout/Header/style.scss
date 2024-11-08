@@ -1,0 +1,24 @@
+@use "../../../index" as *;
+
+.header{
+    &{
+        position: sticky;
+        padding: $inset-y-1 0;
+        width: 100%;
+    }
+
+    &__path{
+        display: flex;
+        gap: 1rem;
+        @include text-sm($color-gray, 400);
+        cursor: default;
+        &-current{
+            color: $color-dark-blue;
+        }
+    }
+
+    &__title{
+        margin-top: 0.6rem;
+        @include text-h5($color-dark-blue, 700);
+    }
+}

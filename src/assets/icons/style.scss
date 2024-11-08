@@ -4,7 +4,7 @@
     width: 1.6rem;
     height: auto;
     display: block;
-    path{
+    path, rect{
         transition: $transition-default;
     }
     &_dark-gray{
@@ -12,6 +12,12 @@
         path{
             fill: $color-dark-gray;
         }
+        rect{
+            fill: $color-dark-gray;
+        }
     }
 
+    &_sm{
+        width: 1rem;
+    }
 }

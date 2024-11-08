@@ -4,7 +4,7 @@ import React, { createContext, useContext, useState } from 'react';
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-    console.log(JSON.parse(localStorage.getItem('user')));
+    // console.log(JSON.parse(localStorage.getItem('user')));
     let rememberedUser = localStorage.getItem('user');
     if(rememberedUser){
         rememberedUser = JSON.parse(rememberedUser);

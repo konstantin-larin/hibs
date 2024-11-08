@@ -2,27 +2,30 @@
 
 
 
-.text-h3{
-    font-size: 2.2rem;
-    font-weight: 700;
-    line-height: 1.4em;
-    color: $color-white;
+.text-h3-white{
+    @include text-h3($color-white, 400);
 }
 
-.text-h4{
-    font-size: 2rem;
-    line-height: 1.4em;
-    font-weight: 700;
-    color: $color-dark-blue;
+.text-h4-dark-blue{
+    @include text-h4($color-dark-blue, 700);
 }
 
-.text-label{
+.text-h5{
+    @include text-h5($color-white, 500);
+}
+
+.text-sm-gray{
     @include text-sm($color-gray, 400);
 }
-.text-btn{
+
+
+
+.text-xs-white{
     @include text-xs($color-white, 700);
 }
-.text-link{
+
+
+.text-important{
     @include text-sm($color-red, 700);
 }
 

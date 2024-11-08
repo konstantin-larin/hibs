@@ -1,0 +1,18 @@
+@use "@styles" as *;
+.profile-page{
+    display: flex;
+}
+
+.profile-nav{
+    width: 100%;
+    @media screen and (min-width: $breakpoint-md) {
+        width: 300px !important;
+    }
+    padding: $offset-4 !important;
+    display: flex;
+    flex-direction: column;
+    gap: $offset-1;
+    &__elem{
+        @include text-sm($color-dark-blue, 400)
+    }
+}

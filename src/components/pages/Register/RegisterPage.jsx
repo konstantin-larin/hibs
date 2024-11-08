@@ -147,7 +147,7 @@ export default function RegisterPage() {
                         </Text>
                     </div>
                     <Button style={'black'} type={'submit'} className={'ml-auto'}>
-                        Далее
+                        <Text style={'btn'} tag={'p'}>Далее</Text>
                     </Button>
                 </FormGrid>
             </Block>
