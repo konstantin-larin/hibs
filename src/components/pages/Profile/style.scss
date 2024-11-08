@@ -39,7 +39,6 @@
         grid-gap: $offset-1;
         & > *{
             width: 100% !important;
-            text-align: center;
         }
         @media screen and (min-width: $breakpoint-md) {
             grid-template-columns: repeat(2, 1fr);
