@@ -12,7 +12,8 @@
             grid-template-columns: 300px auto;
             grid-template-rows: 5rem auto;
             grid-gap: $offset-5;
-            padding: 0 0 $offset-1 0;
+            padding: 0;
+            padding-right: $offset-1;
         }
 
     }
