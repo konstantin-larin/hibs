@@ -29,28 +29,30 @@ export default function Header() {
                     <div></div>
                 </div>
             )}
-            <div className="header__path">
-                <Home></Home>
-                <div>/</div>
-                <div>HIBS</div>
-                {
-                    pathes.map((path, index) => {
-                        if (index === pathes.length - 1) {
+            <div>
+                <div className="header__path">
+                    <Home></Home>
+                    <div>/</div>
+                    <div>HIBS</div>
+                    {
+                        pathes.map((path, index) => {
+                            if (index === pathes.length - 1) {
+                                return (
+                                    <div className={'header__path-current'} key={index}>{pathesDictionary[path]}</div>
+                                )
+                            }
                             return (
-                                <div className={'header__path-current'} key={index}>{pathesDictionary[path]}</div>
+                                <Fragment key={index}>
+                                    <div>{pathesDictionary[path]}</div>
+                                    <div>/</div>
+                                </Fragment>
                             )
-                        }
-                        return (
-                            <Fragment key={index}>
-                                <div>{pathesDictionary[path]}</div>
-                                <div>/</div>
-                            </Fragment>
-                    )
-                    })
-                }
-            </div>
-            <div className="header__title">
-                {pathesDictionary[pathes[pathes.length - 1]]}
+                        })
+                    }
+                </div>
+                <div className="header__title">
+                    {pathesDictionary[pathes[pathes.length - 1]]}
+                </div>
             </div>
         </header>
     )
