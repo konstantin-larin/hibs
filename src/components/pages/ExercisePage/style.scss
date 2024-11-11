@@ -1,1 +1,51 @@
 @use "@styles" as *;
+
+.exercise{
+    &{
+        display: flex;
+        flex-direction: column;
+        gap: $offset-2;
+    }
+    &__head{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
+    &__table{
+        &{
+            border-spacing: 0;
+            min-width: 100%;
+            max-width: 100%;
+        }
+        td, th{
+            padding: calc($offset-1 /2) 0;
+            text-align: left;
+        }
+        th{
+            @include text-less(gray, 500);
+            padding-right: 2rem;
+            white-space: nowrap;
+           text-transform: uppercase;
+            border-bottom: 1px $color-most-light-gray solid;
+        }
+
+        tbody{
+            border-spacing: 1rem;
+        }
+
+        td{
+            padding-right: 2rem;
+            border-bottom: 1px $color-light-gray solid;
+        }
+        &-container{
+
+            //overflow-x: auto;
+        }
+        &-buttons{
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+
+        }
+    }
+}

@@ -1,5 +1,6 @@
 import './App.scss'
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {useEffect} from "react";
+import {BrowserRouter, Route, Routes, useLocation} from "react-router-dom";
 import ProfilePage from "./components/pages/Profile/ProfilePage.jsx";
 import {AuthProvider} from "./contexts/AuthContext.jsx";
 import LoginPage from "./components/pages/Login/LoginPage.jsx";
@@ -17,8 +18,9 @@ function App() {
     return (
         <AuthProvider>
             <UsersExercisesProvider>
-                <PreferencesProvider>
-                    <BrowserRouter basename={'/hibs/'}>
+
+                <BrowserRouter basename={'/hibs/'}>
+                    <PreferencesProvider>
                         <Routes>
                             <Route path={'/exercises/exercise'} element={<ExercisePage/>}></Route>
                             <Route path="/login" element={<LoginPage/>}/>
@@ -31,8 +33,8 @@ function App() {
                             <Route path={'/exercises/saved'} element={<SavedExercisesPage/>}></Route>
                             <Route path={"*"} element={<LoginPage/>}></Route>
                         </Routes>
-                    </BrowserRouter>
-                </PreferencesProvider>
+                    </PreferencesProvider>
+                </BrowserRouter>
             </UsersExercisesProvider>
         </AuthProvider>
     )

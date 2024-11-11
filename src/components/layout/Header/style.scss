@@ -2,9 +2,16 @@
 
 .header {
     & {
-        position: relative;
         padding: $inset-y-1 0;
         width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__buttons{
+        display: flex;
+        justify-content: flex-end;
+        gap: $offset-3;
     }
 
     &__path {
@@ -20,12 +27,10 @@
         }
     }
 
+    &__create-exercise{
+    }
     &__burger {
         & {
-            z-index: $layer-1;
-            position: fixed;
-            right: $offset-1;
-            top: $offset-1;
             width: 2.5rem;
             height: 2rem;
             display: flex;

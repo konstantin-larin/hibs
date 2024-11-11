@@ -1,0 +1,17 @@
+@use "@styles" as *;
+
+.number-input{
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    height: 100%;
+
+    &__input{
+        width: 4rem;
+        border:none;
+        color: inherit;
+        &:focus{
+            outline: none;
+        }
+    }
+}

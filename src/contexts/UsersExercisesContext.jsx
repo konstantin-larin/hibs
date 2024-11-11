@@ -1,7 +1,8 @@
 // взаимодействует с БД. Хранит все занятия пользователя
 // при взаимодействии с приложением эти занятия постоянно меняются, поэтому контекст необходим
-import {createContext, useContext, useState} from "react";
-import {Exercise, ExercisePause, Train, hands, trainTypes, targets} from "@services/exercises.js";
+import {createContext, useContext, useEffect, useState} from "react";
+import {Exercise} from "@services/exercises.js";
+import {useLocation} from "react-router-dom";
 
 // ДВЕ КНОПКИ - ДОБАВИТЬ ПАУЗУ И ДОБАВИТЬ ТРЕНИРОВКУ
 const UsersExercisesContext = createContext({});
@@ -9,6 +10,7 @@ const UsersExercisesContext = createContext({});
 // так как это взаимодействие с бд нужны функции как add, delete, edit, чтобы не было ошибок с бд, чтобы
 // контекст понимал какой запрос отправлять в бд
 export const UsersExercisesProvider = ({children}) => {
+
     const [exercises, setExercises] = useState([]); // массив экземпляров Exercises (в будущем поступает из бд)
     const [currentExercise, _setCurrentExercise] = useState(null); //занятие, которое щас добавляется или редактируется. Это нужно для страницы ExercisePage
 
@@ -55,7 +57,7 @@ export const UsersExercisesProvider = ({children}) => {
     }
     function setCurrentExercise(exercise){
         if (!(exercise instanceof Exercise)){
-            throw new Error("Это не занятие");
+            _setCurrentExercise(null);
         } else _setCurrentExercise(exercise);
     }
 
@@ -66,4 +68,4 @@ export const UsersExercisesProvider = ({children}) => {
     )
 }
 
-export const useUsersExercisesContext = () => (useContext(UsersExercisesContext));
+export const useUsersExercises = () => (useContext(UsersExercisesContext));

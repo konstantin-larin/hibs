@@ -4,9 +4,10 @@ import {Validation} from "@services/validation.js";
 
 export default function CommonInput({icon = null,
                                         label, value, onChange,
-                                        className, validation,
-                                        setValidation,
+                                        className, validation=(new Validation()),
+                                        setValidation=() => (new Validation()),
                                         ...props}) {
+
     function handleOnFocus() {
         setValidation(new Validation({error: false}));
     }
