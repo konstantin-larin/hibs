@@ -8,8 +8,12 @@
         justify-content: space-between;
         flex-wrap: wrap;
     }
+    &__content{
+        width: fit-content;
+    }
 
     &__buttons{
+        width: fit-content;
         display: flex;
         justify-content: flex-end;
         gap: $offset-3;
@@ -17,8 +21,7 @@
 
     &__path {
         display: flex;
-        width: fit-content;
-        gap: 1rem;
+        gap: 0.5rem;
         @include text-sm($color-gray, 400);
         cursor: default;
 
