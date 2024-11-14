@@ -7,10 +7,11 @@ import Button from "@common/Button/Button.jsx";
 import CommonInput from "@common/CommonInput/CommonInput.jsx";
 import {useEffect, useState} from "react";
 import {useUsersExercises} from "@contexts/UsersExercisesContext.jsx";
-import {Navigate} from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
 import {useAuth} from "@contexts/AuthContext.jsx";
 export default function EditExercisePage() {
     const {user} = useAuth();
+    const navigate = useNavigate();
     const {currentExercise, setCurrentExercise, sendExercise} = useUsersExercises();
     const [name, setName] = useState('');
     const [shortName, setShortName] = useState('');
@@ -29,12 +30,14 @@ export default function EditExercisePage() {
 
     function handleOnSubmit(e){
         e.preventDefault();
-
+        currentExercise.name = name;
+        currentExercise.shortName = shortName;
+        currentExercise.description = description;
         setIsPending(true);
         sendExercise(currentExercise).then(res => {
             if(res){
                 setIsPending(false);
-                alert('Добавлено!');
+                navigate(-1);
             }
         })
     }
@@ -52,9 +55,11 @@ export default function EditExercisePage() {
                         </div>
                     </div>
                     <CommonInput value={name} onChange={handleNameOnChange}
+                        required={true}
                         className={'mt-3'}
                         label={'Название'} placeholder={'Введите название'}></CommonInput>
                     <CommonInput value={shortName} onChange={handleShortNameOnChange}
+                        required={true}
                         label={'Короткое описание (отображается в тренажере)'}
                         placeholder={'Введите описание'}></CommonInput>
                     <CommonInput value={description} onChange={handleDescriptionOnChange}

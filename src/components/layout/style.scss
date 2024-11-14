@@ -27,6 +27,9 @@
     }
     & > main{
         grid-area: content;
+        @media screen and (min-width: $breakpoint-md) {
+            padding-bottom: $offset-5;
+        }
     }
 }
 

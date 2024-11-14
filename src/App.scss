@@ -179,3 +179,8 @@ ul{
 .text-h5-dark-blue{
   @include text-h5($color-dark-blue, 400);
 }
+
+
+.text-xs-gray{
+  @include text-xs($color-gray, 400);
+}

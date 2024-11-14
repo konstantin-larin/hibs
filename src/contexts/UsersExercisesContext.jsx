@@ -49,10 +49,10 @@ export const UsersExercisesProvider = ({children}) => {
         const existedExercise = exercises.find(_exercise => _exercise.id === exercise.id);
         if(existedExercise){ //делаем put
             console.log("меняем");
-            setExercises([...exercises, exercise]);
+            setExercises([...exercises]);
         } else { //делаем post
             console.log("добавляем");
-            setExercises([...exercises]);
+            setExercises([...exercises, exercise]);
         }
         return Promise.resolve(true);
     }

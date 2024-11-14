@@ -65,7 +65,6 @@ export default function TrainsTable({exercise, setCurrentExercise}) {
                                             }
 
                                             const value = part[key];
-                                            console.log(value);
                                             if(value !== null){
                                                 Inserted =() => <NumInput
                                                     setCurrentExercise={setCurrentExercise}
