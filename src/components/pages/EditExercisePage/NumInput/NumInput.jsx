@@ -7,9 +7,15 @@ export default function NumInput({currentExercise, setCurrentExercise, part, fie
 
 
     function handleOnChange(e){
+        const str = e.target.value;
         let newValue = +e.target.value;
         if(newValue < 0) newValue = 0;
-        if(newValue > 500){
+
+        // else if(newValue > 0 && str.includes('0')){
+        //     setValue(str.split('').filter(s => s !== '0').join(''));
+        // }
+
+        else if(newValue > 500){
             newValue = 500;
         }
         setValue(newValue);

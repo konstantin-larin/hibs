@@ -2,9 +2,9 @@ import "./style.scss";
 import {useEffect, useRef} from "react";
 import {Exercise, Pause, Train} from "@services/exercises.js";
 import Button from "@common/Button/Button.jsx";
-import Dropdown from "@pages/ExercisePage/Dropdown/Dropdown.jsx";
+import Dropdown from "@pages/EditExercisePage/Dropdown/Dropdown.jsx";
 import { v4 as uuidv4 } from 'uuid';
-import NumInput from "@pages/ExercisePage/NumInput/NumInput.jsx";
+import NumInput from "@pages/EditExercisePage/NumInput/NumInput.jsx";
 
 
 export default function TrainsTable({exercise, setCurrentExercise}) {
@@ -39,12 +39,12 @@ export default function TrainsTable({exercise, setCurrentExercise}) {
                         {exercise.parts.map((part, i) => {
                             const Instance = part instanceof Train ? Train : Pause;
 
+
                             return (
                                 <tr key={uuidv4()}>
-                                    {Object.keys(part).map((key, i) => {
+                                    {Object.keys(part).filter(key => key in fields).map((key, i) => {
                                         const fieldType = Instance.types[key];
                                         const value = part[key];
-
 
                                         // определяем компонент
                                         let Inserted;
@@ -58,20 +58,27 @@ export default function TrainsTable({exercise, setCurrentExercise}) {
                                         else if(fieldType === 'NUMBER'){
                                             let add = '';
                                             if(key === 'hitsRange'){
-                                                 add = 'уд. (1 - 100)'
+                                                 add = 'уд.'
                                             }
                                             else if(key === 'pauseTime'){
                                                 add = ' сек.';
                                             }
-                                            Inserted =() => <NumInput
-                                                setCurrentExercise={setCurrentExercise}
-                                                currentExercise={exercise}
-                                                addValue={add}
-                                                field={key}
-                                                part={part}
-                                            >
 
-                                            </NumInput>
+                                            const value = part[key];
+                                            console.log(value);
+                                            if(value !== null){
+                                                Inserted =() => <NumInput
+                                                    setCurrentExercise={setCurrentExercise}
+                                                    currentExercise={exercise}
+                                                    addValue={add}
+                                                    field={key}
+                                                    part={part}
+                                                >
+
+                                                </NumInput>
+                                            } else {
+                                                Inserted = () => <p>Н/Д</p>
+                                            }
                                         }
 
 

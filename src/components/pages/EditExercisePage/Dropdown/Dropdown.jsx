@@ -28,7 +28,7 @@ export default function Dropdown({currentExercise, setCurrentExercise, part, fie
 
     function valOnClick(val){
         part[field] = val;
-
+        currentExercise.parts.splice(currentExercise.parts.indexOf(part), 1, new Train(part));
         setCurrentExercise(new Exercise(currentExercise));
     }
     return (

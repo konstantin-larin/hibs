@@ -8,6 +8,14 @@
     }
 }
 
+.button-green{
+    @include button($gradient-green, $color-white);
+    width: fit-content;
+    &:hover{
+        box-shadow: 0rem 0.875rem 1.625rem -0.75rem rgba(52, 103, 53, 0.4),0rem 0.25rem 1.4375rem 0rem rgba(71, 103, 52, 0.15),0rem 0.5rem 0.625rem -0.3125rem rgba(52, 103, 53, 0.2);
+    }
+}
+
 .button-black{
     @include button($gradient-dark, $color-white);
     width: fit-content;

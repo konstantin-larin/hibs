@@ -15,6 +15,7 @@ export const AuthProvider = ({ children }) => {
         user = {
             ...user,
             avatar,
+            role: 'admin',
             name: "Константин",
             surname: "Ларин",
 

@@ -5,11 +5,12 @@
     @include padding-1;
     & {
         @media screen and (min-width: $breakpoint-md) {
+            max-width: 1900px;
             display: grid;
             grid-template-areas:
             "sidebar header"
             "sidebar content";
-            grid-template-columns: 300px auto;
+            grid-template-columns: 25% calc(75% - $offset-5);
             grid-template-rows: 5rem auto;
             grid-gap: $offset-5;
             padding: 0;

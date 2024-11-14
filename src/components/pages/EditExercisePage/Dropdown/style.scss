@@ -18,8 +18,8 @@
     &__list{
         position: absolute;
         top: 100%;
-        left: 0;
-        right: 0;
+        min-width: 100%;
+        width: fit-content;
         padding: 0;
         background: $color-white;
         z-index: $layer-1;
@@ -28,11 +28,14 @@
         overflow-y: hidden;
         &_opened{
             padding: 0.5rem 0;
-            max-height: 1000px;
+            max-height: 7.5rem;
+            overflow-y: auto;
+
         }
 
         & > *{
             transition: $transition-default;
+            margin-top: 0.5rem;
             //&:hover{
             //
             //}

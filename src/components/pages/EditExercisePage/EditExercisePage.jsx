@@ -1,6 +1,6 @@
 import "./style.scss";
 import {Exercise, Pause, Train} from "@services/exercises.js";
-import TrainsTable from "@pages/ExercisePage/TrainsTable.jsx";
+import TrainsTable from "@pages/EditExercisePage/TrainsTable.jsx";
 import Layout from "@layout/Layout.jsx";
 import Block from "@common/Block/Block.jsx";
 import Button from "@common/Button/Button.jsx";
@@ -8,7 +8,9 @@ import CommonInput from "@common/CommonInput/CommonInput.jsx";
 import {useEffect, useState} from "react";
 import {useUsersExercises} from "@contexts/UsersExercisesContext.jsx";
 import {Navigate} from "react-router-dom";
-export default function ExercisePage() {
+import {useAuth} from "@contexts/AuthContext.jsx";
+export default function EditExercisePage() {
+    const {user} = useAuth();
     const {currentExercise, setCurrentExercise, sendExercise} = useUsersExercises();
     const [name, setName] = useState('');
     const [shortName, setShortName] = useState('');
@@ -27,6 +29,7 @@ export default function ExercisePage() {
 
     function handleOnSubmit(e){
         e.preventDefault();
+
         setIsPending(true);
         sendExercise(currentExercise).then(res => {
             if(res){
@@ -43,7 +46,10 @@ export default function ExercisePage() {
                 <Block style={'default'} tag={'form'} onSubmit={handleOnSubmit} className={'exercise'}>
                     <div className={'exercise__head'}>
                         <h1 className={'text-h4-dark-blue'}>О занятии</h1>
-                        <Button style={'black'} disabled={isPending} type={'submit'}>Сохранить</Button>
+                        <div className={'exercise__head-buttons'}>
+                            {user.role === 'admin' && <Button style={'green'}>Опубликовать</Button>}
+                            <Button style={'black'} disabled={isPending} type={'submit'}>Сохранить</Button>
+                        </div>
                     </div>
                     <CommonInput value={name} onChange={handleNameOnChange}
                         className={'mt-3'}
@@ -62,7 +68,10 @@ export default function ExercisePage() {
         let lastPath;
         if(history.length > 1){
             history.pop();
-            lastPath  = history[history.length - 1]
+            lastPath  = history[history.length - 1];
+            if (lastPath.includes('exercise')){
+                lastPath = '/'
+            }
         } else {
             lastPath = '/';
         }

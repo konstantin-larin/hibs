@@ -10,6 +10,12 @@
         display: flex;
         width: 100%;
         justify-content: space-between;
+        &-buttons{
+            display: flex;
+            gap: 1rem;
+            width: fit-content;
+        }
+
     }
     &__table{
         &{
@@ -20,6 +26,7 @@
         td, th{
             padding: calc($offset-1 /2) 0;
             text-align: left;
+            white-space: nowrap;
         }
         th{
             @include text-less(gray, 500);
@@ -36,10 +43,14 @@
         td{
             padding-right: 2rem;
             border-bottom: 1px $color-light-gray solid;
+
+            & > * {
+                width: 100%;
+            }
         }
         &-container{
             overflow-x: auto;
-            padding-bottom: 2rem;
+            padding-bottom: 7.5rem;
         }
         &-buttons{
             display: flex;

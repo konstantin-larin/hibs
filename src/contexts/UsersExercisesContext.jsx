@@ -12,7 +12,7 @@ const UsersExercisesContext = createContext({});
 export const UsersExercisesProvider = ({children}) => {
 
     const [exercises, setExercises] = useState([]); // массив экземпляров Exercises (в будущем поступает из бд)
-    const [currentExercise, _setCurrentExercise] = useState(null); //занятие, которое щас добавляется или редактируется. Это нужно для страницы ExercisePage
+    const [currentExercise, _setCurrentExercise] = useState(null); //занятие, которое щас добавляется или редактируется. Это нужно для страницы EditExercisePage
 
     // async function addExercise(exercise) { //делает кнопка сохранить на странице "Добавить занятие"
     //
@@ -35,6 +35,7 @@ export const UsersExercisesProvider = ({children}) => {
     //
     // }
 
+    console.log(exercises);
     function sendExercise(exercise){
     //     функция обработчик, которая определяет что сделать - добавить новое занятие или изменить старое
     //     считаю это можно обобщить, так как для интерфейса в принципе все равно - верстка одна и та же

@@ -35,7 +35,7 @@ export default function Header() {
 
     function handleCreateExerciseOnClick() {
         setCurrentExercise(new Exercise());
-        navigate('/exercises/exercise');
+        navigate('/exercises/edit');
     }
 
     function handleCancelCreationOnClick(){

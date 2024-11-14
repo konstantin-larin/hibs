@@ -29,6 +29,26 @@ input::-webkit-inner-spin-button {
   margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
+/* Chrome, Safari, Edge */
+*::-webkit-scrollbar {
+  width: 6px; /* толщина скроллбара */
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent; /* прозрачный фон трека */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2); /* цвет и прозрачность ползунка */
+  border-radius: 10px; /* скругление */
+}
+
+
+/* Firefox */
+* {
+  scrollbar-width: thin; /* тонкий скроллбар */
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent; /* цвет ползунка и трека */
+}
 a{
   text-decoration: none;
 }
@@ -154,4 +174,8 @@ ul{
 
 .text-h5-gray{
   @include text-h5($color-gray, 400);
+}
+
+.text-h5-dark-blue{
+  @include text-h5($color-dark-blue, 400);
 }
