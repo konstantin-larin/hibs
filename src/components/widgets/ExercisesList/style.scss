@@ -8,7 +8,7 @@
         grid-column-gap: $offset-2;
         grid-row-gap: calc($offset-1 + $offset-5);
         grid-template-columns: repeat(1, 1fr);
-        @media screen and (min-width: $breakpoint-md) {
+        @media screen and (min-width: $breakpoint-lg) {
             grid-template-columns: repeat(2, 1fr);
         }
         @media screen and (min-width: $breakpoint-xxl) {

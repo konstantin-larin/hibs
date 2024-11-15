@@ -75,7 +75,7 @@ export default function Header() {
 
             <div className={'header__buttons'}>
                 {isExercisePage && (
-                    (pathes.includes('exercise')
+                    (pathes.includes('edit')
                         ? (
                             <Button style={'red'} className={'header__create-exercise'} onClick={handleCancelCreationOnClick}>
                                 <ArrowRight></ArrowRight>

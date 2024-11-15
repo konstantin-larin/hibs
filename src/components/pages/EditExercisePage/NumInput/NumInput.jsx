@@ -2,32 +2,38 @@ import "./style.scss";
 import {Exercise} from "@services/exercises.js";
 import {useState} from "react";
 
-export default function NumInput({currentExercise, setCurrentExercise, part, field, addValue}) {
+export default function NumInput({currentExercise, setCurrentExercise, part, field, addValue, max, disabled=false}) {
     const [value, setValue] = useState(part[field]);
 
 
-    function handleOnChange(e){
-        const str = e.target.value;
-        let newValue = +e.target.value;
-        if(newValue < 0) newValue = 0;
-
-        // else if(newValue > 0 && str.includes('0')){
-        //     setValue(str.split('').filter(s => s !== '0').join(''));
-        // }
-
-        else if(newValue > 500){
-            newValue = 500;
+    function handleOnInput(e){
+        let value = e.target.value;
+        if(value.startsWith("0") && !value.includes(',') && value.length > 1){
+            value = value.slice(1)
         }
-        setValue(newValue);
+        if(value.length === 0){
+            value = 0;
+        }
+        const num = Number(value);
+        if (num < 0) value = 0;
+        else if(num > max) value = max;
+
+        setValue(value);
     }
 
     function handleOnBlur(e){
-        part[field] = value;
+        part[field] = +value;
         setCurrentExercise(new Exercise(currentExercise));
     }
     return (
         <div className={'number-input'}>
-            <input className={'number-input__input'} type={"number"} value={value} onChange={handleOnChange} onBlur={handleOnBlur}/>
+            <input style={{
+                width: (value + '').length * 0.9 + 'rem'
+            }} className={'number-input__input'}
+                type={"number"} onInput={handleOnInput}
+                value={value}
+                disabled={disabled}
+                onBlur={handleOnBlur}/>
             <div className={'number-input__add'}>{addValue}</div>
         </div>
     )

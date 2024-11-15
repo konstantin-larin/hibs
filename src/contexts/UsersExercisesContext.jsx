@@ -1,7 +1,7 @@
 // взаимодействует с БД. Хранит все занятия пользователя
 // при взаимодействии с приложением эти занятия постоянно меняются, поэтому контекст необходим
 import {createContext, useContext, useEffect, useState} from "react";
-import {Exercise} from "@services/exercises.js";
+import {Exercise, Pause, Train} from "@services/exercises.js";
 import {useLocation} from "react-router-dom";
 
 // ДВЕ КНОПКИ - ДОБАВИТЬ ПАУЗУ И ДОБАВИТЬ ТРЕНИРОВКУ
@@ -11,7 +11,166 @@ const UsersExercisesContext = createContext({});
 // контекст понимал какой запрос отправлять в бд
 export const UsersExercisesProvider = ({children}) => {
 
-    const [exercises, setExercises] = useState([]); // массив экземпляров Exercises (в будущем поступает из бд)
+    const [exercises, setExercises] = useState([
+        new Exercise({
+            id: "2024-11-15T11:35:24.699Z",
+            name: "1",
+            shortName: "1",
+            description: "",
+            parts: [
+                new Train({
+                    "_id": 1731670526210,
+                    "hitsRange": 100,
+                    "trainType": "Базовая",
+                    "hand": "Правая",
+                    "target": "L1",
+                    "ringBefore": 30,
+                    "ringAfter": 20,
+                    "swing": 16,
+                    "speed": 0.6,
+                    "delay": 1.5
+                }),
+                new Train({
+                    "_id": 1731670526715,
+                    "hitsRange": 200,
+                    "trainType": "Базовая",
+                    "hand": "Правая",
+                    "target": "L1",
+                    "ringBefore": 30,
+                    "ringAfter": 20,
+                    "swing": 16,
+                    "speed": 0.6,
+                    "delay": 1.5
+                }),
+                new Train({
+                    "_id": 1731670533442,
+                    "hitsRange": 300,
+                    "trainType": "Базовая",
+                    "hand": "Правая",
+                    "target": "L1",
+                    "ringBefore": 30,
+                    "ringAfter": 20,
+                    "swing": 16,
+                    "speed": 0.6,
+                    "delay": 1.5
+                }),
+                new Train({
+                    "_id": 1731670534136,
+                    "hitsRange": 400,
+                    "trainType": "Базовая",
+                    "hand": "Правая",
+                    "target": "L1",
+                    "ringBefore": 30,
+                    "ringAfter": 20,
+                    "swing": 16,
+                    "speed": 0.6,
+                    "delay": 1.5
+                }),
+                new Train({
+                    "_id": 1731670535321,
+                    "hitsRange": 500,
+                    "trainType": "Базовая",
+                    "hand": "Правая",
+                    "target": "L1",
+                    "ringBefore": 30,
+                    "ringAfter": 20,
+                    "swing": 16,
+                    "speed": 0.6,
+                    "delay": 1.5
+                }),
+                new Train({
+                    "_id": 1731670540102,
+                    "hitsRange": 600,
+                    "trainType": "Базовая",
+                    "hand": "Правая",
+                    "target": "L1",
+                    "ringBefore": 30,
+                    "ringAfter": 20,
+                    "swing": 16,
+                    "speed": 0.6,
+                    "delay": 1.5
+                }),
+                new Train({
+                    "_id": 1731670541202,
+                    "hitsRange": 700,
+                    "trainType": "Базовая",
+                    "hand": "Правая",
+                    "target": "L1",
+                    "ringBefore": 30,
+                    "ringAfter": 20,
+                    "swing": 16,
+                    "speed": 0.6,
+                    "delay": 1.5
+                }),
+                new Train({
+                    "_id": 1731670541851,
+                    "hitsRange": 800,
+                    "trainType": "Базовая",
+                    "hand": "Правая",
+                    "target": "L1",
+                    "ringBefore": 30,
+                    "ringAfter": 20,
+                    "swing": 16,
+                    "speed": 0.6,
+                    "delay": 1.5
+                }),
+                new Train({
+                    "_id": 1731670542497,
+                    "hitsRange": 900,
+                    "trainType": "Базовая",
+                    "hand": "Правая",
+                    "target": "L1",
+                    "ringBefore": 30,
+                    "ringAfter": 20,
+                    "swing": 16,
+                    "speed": 0.6,
+                    "delay": 1.5
+                })
+            ]
+        }),
+        new Exercise({
+            "id": 1731671414913,
+            "name": "2",
+            "shortName": "2",
+            "description": "2",
+            "parts": [
+                new Train({
+                    "_id": 1731671687745,
+                    "hitsRange": 22,
+                    "trainType": "Силовая",
+                    "hand": "Правая",
+                    "target": "L1",
+                    "ringBefore": 30,
+                    "ringAfter": 20,
+                    "swing": 16,
+                    "speed": 1,
+                    "delay": 1.5
+                }),
+                new Pause(
+                    {
+                        "_id": 1731671639273,
+                        "pause": "Пауза",
+                        "pauseTime": 100
+                    }
+                ),
+                new Train(
+                    {
+                        "_id": 1731671645073,
+                        "hitsRange": 100,
+                        "trainType": "Базовая",
+                        "hand": "Правая",
+                        "target": "L1",
+                        "ringBefore": 30,
+                        "ringAfter": 20,
+                        "swing": 16,
+                        "speed": 0.4644444444,
+                        "delay": 1.5324567555442337
+                    }
+                )
+            ]
+        }),
+
+    ]); // массив экземпляров Exercises (в будущем поступает из бд)
     const [currentExercise, _setCurrentExercise] = useState(null); //занятие, которое щас добавляется или редактируется. Это нужно для страницы EditExercisePage
 
     // async function addExercise(exercise) { //делает кнопка сохранить на странице "Добавить занятие"
@@ -35,7 +194,6 @@ export const UsersExercisesProvider = ({children}) => {
     //
     // }
 
-    console.log(exercises);
     function sendExercise(exercise){
     //     функция обработчик, которая определяет что сделать - добавить новое занятие или изменить старое
     //     считаю это можно обобщить, так как для интерфейса в принципе все равно - верстка одна и та же

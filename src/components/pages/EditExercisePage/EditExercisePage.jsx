@@ -37,7 +37,7 @@ export default function EditExercisePage() {
         sendExercise(currentExercise).then(res => {
             if(res){
                 setIsPending(false);
-                navigate(-1);
+                setCurrentExercise(null);
             }
         })
     }
@@ -74,7 +74,7 @@ export default function EditExercisePage() {
         if(history.length > 1){
             history.pop();
             lastPath  = history[history.length - 1];
-            if (lastPath.includes('exercise')){
+            if (lastPath.includes('edit')){
                 lastPath = '/'
             }
         } else {

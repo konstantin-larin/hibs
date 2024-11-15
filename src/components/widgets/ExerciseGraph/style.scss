@@ -1,11 +1,86 @@
 @use "@styles" as *;
 
-.exercise-graph{
-    background: $gradient-red;
-    width: 100%;
-    position: relative;
-    top: -$offset-5;
-    border-radius: $radius-sm;
-    box-shadow: 0px 2px 6px 0px #DC22655C;
-    height: 300px;
+.exercise-graph {
+    &__container {
+        background: $gradient-red;
+        width: 100%;
+        position: relative;
+        top: -$offset-5;
+        border-radius: $radius-sm;
+        box-shadow: 0px 2px 6px 0px #DC22655C;
+        padding: 4rem;
+    }
+
+    & {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    table {
+        width: 100%;
+        height: 100%;
+        border-collapse: collapse;
+
+
+        tr:first-of-type{
+            td:first-child{
+                position: relative;
+                &:before{
+                    content: attr(data-max);
+                    position: absolute;
+                    top: -1rem;
+                    left: -1.5rem;
+                    transform: translate(-50%, -50%);
+                    color: rgba(255, 255, 255, 0.4);
+                }
+            }
+        }
+        td:first-child{
+            position: relative;
+            &:after{
+                content: attr(data-y);
+                position: absolute;
+                bottom: -1rem;
+                left: -1.5rem;
+                transform: translate(-50%, -50%);
+                color: rgba(255, 255, 255, 0.4);
+            }
+        }
+
+        tr:last-of-type{
+            td{
+                position: relative;
+                &:before{
+                    content: attr(data-x);
+                    position: absolute;
+                    bottom: -1rem;
+                    right: 0rem;
+                    transform: translate(50%, 50%);
+                    color: rgba(255, 255, 255, 0.4);
+                }
+            }
+        }
+
+        td {
+            border: 1.5px dashed rgba(255, 255, 255, 0.4);
+        }
+    }
+    svg{
+        &{
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: $layer-1;
+        }
+
+        line {
+            stroke-linecap: round;
+            stroke-width: 0.5rem;
+            stroke: $color-white;
+        }
+    }
 }

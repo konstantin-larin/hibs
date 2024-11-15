@@ -13,12 +13,12 @@ export default function ExercisesList({exercises}) {
                         let hitsSum = 0;
                         exercise.parts.forEach(train => {
                             if (train instanceof Train){
-                                hitsSum += train.hitsRange;
+                                hitsSum += (train.hitsRange ?? 0);
                             }
                         })
                         return (
-                            <Block style={'default'}>
-                                <ExerciseGraph></ExerciseGraph>
+                            <Block style={'default'} key={uuidv4()}>
+                                <ExerciseGraph exercise={exercise}></ExerciseGraph>
                                 <div className={'text-xs-gray'}>{hitsSum}</div>
                                 <div className={'text-h5-dark-blue'}>{exercise.name}</div>
                             </Block>
