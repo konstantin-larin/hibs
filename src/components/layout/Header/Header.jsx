@@ -26,21 +26,26 @@ export default function Header() {
     const pathName = location.pathname;
     const pathes = pathName.split('/');
     const {isMobile, setSidebarIsClosed} = usePreferences();
-    const {setCurrentExercise} = useUsersExercises();
-    const [isExercisePage, setIsExercisePage] = useState(pathes.includes('exercises'));
+    const {setEditedExercise, setViewedExercise} = useUsersExercises();
+    const [isEditExercisePage, setIsEditExercisePage] = useState(pathes.includes('exercises'));
+    const [isViewExercisePage, setIsViewExercisePage] = useState(pathName.includes('exercises/exercise'));
 
     function handleBurgerOnClick() {
         setSidebarIsClosed(false);
     }
 
     function handleCreateExerciseOnClick() {
-        setCurrentExercise(new Exercise());
+        setEditedExercise(new Exercise());
         navigate('/exercises/edit');
     }
 
     function handleCancelCreationOnClick(){
-        setCurrentExercise(null);
+        setEditedExercise(null);
         // navigate(-1);
+    }
+
+    function handleBackFromViewOnClick(){
+        setViewedExercise(null);
     }
 
 
@@ -74,7 +79,7 @@ export default function Header() {
             </div>
 
             <div className={'header__buttons'}>
-                {isExercisePage && (
+                {(isEditExercisePage && !isViewExercisePage) && (
                     (pathes.includes('edit')
                         ? (
                             <Button style={'red'} className={'header__create-exercise'} onClick={handleCancelCreationOnClick}>
@@ -91,6 +96,12 @@ export default function Header() {
                         </Button>
                     ))
                 )}
+                {
+                    isViewExercisePage &&
+                    <Button className={'header__create-exercise'} style={'red'} onClick={setViewedExercise}>
+                        Назад
+                    </Button>
+                }
                 {isMobile && (
                     <div className={'header__burger'} onClick={handleBurgerOnClick}>
                         <div></div>

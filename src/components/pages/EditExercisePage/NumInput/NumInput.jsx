@@ -2,7 +2,7 @@ import "./style.scss";
 import {Exercise} from "@services/exercises.js";
 import {useState} from "react";
 
-export default function NumInput({currentExercise, setCurrentExercise, part, field, addValue, max, disabled=false}) {
+export default function NumInput({editedExercise, setEditedExercise, part, field, addValue, max, disabled=false}) {
     const [value, setValue] = useState(part[field]);
 
 
@@ -23,7 +23,7 @@ export default function NumInput({currentExercise, setCurrentExercise, part, fie
 
     function handleOnBlur(e){
         part[field] = +value;
-        setCurrentExercise(new Exercise(currentExercise));
+        setEditedExercise(new Exercise(editedExercise));
     }
     return (
         <div className={'number-input'}>

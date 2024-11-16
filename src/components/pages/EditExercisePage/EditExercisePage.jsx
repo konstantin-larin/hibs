@@ -5,18 +5,28 @@ import Layout from "@layout/Layout.jsx";
 import Block from "@common/Block/Block.jsx";
 import Button from "@common/Button/Button.jsx";
 import CommonInput from "@common/CommonInput/CommonInput.jsx";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useUsersExercises} from "@contexts/UsersExercisesContext.jsx";
 import {Navigate, useNavigate} from "react-router-dom";
 import {useAuth} from "@contexts/AuthContext.jsx";
 export default function EditExercisePage() {
     const {user} = useAuth();
     const navigate = useNavigate();
-    const {currentExercise, setCurrentExercise, sendExercise} = useUsersExercises();
+    const {editedExercise, setEditedExercise, sendExercise} = useUsersExercises();
     const [name, setName] = useState('');
     const [shortName, setShortName] = useState('');
     const [description, setDescription] = useState('');
     const [isPending, setIsPending] = useState(false);
+    const history = JSON.parse(sessionStorage.getItem('history'));
+    const pathName = location.pathname;
+    const lastPath = useRef('/');
+
+    if(history.length > 1){
+        const _lastPath = history.at(-1);
+        if(!pathName.includes(_lastPath)){
+            lastPath.current = _lastPath;
+        }
+    }
 
     function handleNameOnChange(e){
         setName(e.target.value);
@@ -30,26 +40,26 @@ export default function EditExercisePage() {
 
     function handleOnSubmit(e){
         e.preventDefault();
-        currentExercise.name = name;
-        currentExercise.shortName = shortName;
-        currentExercise.description = description;
+        editedExercise.name = name;
+        editedExercise.shortName = shortName;
+        editedExercise.description = description;
         setIsPending(true);
-        sendExercise(currentExercise).then(res => {
+        sendExercise(editedExercise).then(res => {
             if(res){
                 setIsPending(false);
-                setCurrentExercise(null);
+                setEditedExercise(null);
             }
         })
     }
 
-    if(currentExercise){
+    if(editedExercise){
 
         return (
             <Layout>
-                <Block style={'default'} tag={'form'} onSubmit={handleOnSubmit} className={'exercise'}>
-                    <div className={'exercise__head'}>
-                        <h1 className={'text-h4-dark-blue'}>О занятии</h1>
-                        <div className={'exercise__head-buttons'}>
+                <Block style={'default'} tag={'form'} onSubmit={handleOnSubmit} className={'edited-exercise'}>
+                    <div className={'edited-exercise__head'}>
+                        <h1 className={'text-h4-dark-blue'}>О&nbsp;занятии</h1>
+                        <div className={'edited-exercise__head-buttons'}>
                             {user.role === 'admin' && <Button style={'green'}>Опубликовать</Button>}
                             <Button style={'black'} disabled={isPending} type={'submit'}>Сохранить</Button>
                         </div>
@@ -64,23 +74,12 @@ export default function EditExercisePage() {
                         placeholder={'Введите описание'}></CommonInput>
                     <CommonInput value={description} onChange={handleDescriptionOnChange}
                         label={'Описание'} placeholder={'Введите описание'}></CommonInput>
-                    <TrainsTable exercise={currentExercise} setCurrentExercise={setCurrentExercise}></TrainsTable>
+                    <TrainsTable exercise={editedExercise} setEditedExercise={setEditedExercise}></TrainsTable>
                 </Block>
             </Layout>
         )
     } else {
-        const history = JSON.parse(sessionStorage.getItem('history'));
-        let lastPath;
-        if(history.length > 1){
-            history.pop();
-            lastPath  = history[history.length - 1];
-            if (lastPath.includes('edit')){
-                lastPath = '/'
-            }
-        } else {
-            lastPath = '/';
-        }
-        return (<Navigate to={lastPath}>fijg</Navigate>)
+        return (<Navigate to={lastPath.current}></Navigate>)
     }
 
 }

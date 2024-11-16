@@ -16,6 +16,31 @@ export class Exercise {
         this.parts = [...parts];
 
     }
+
+    getMaxHits(){
+        let max = 0;
+        for(let part of this.parts){
+            if (part instanceof Train){
+                if (max < part.hitsRange){
+                    max = part.hitsRange;
+                }
+            }
+        }
+        return max;
+    }
+
+    getMaxEnergy(){
+        let max = 0;
+        for(let part of this.parts){
+            if (part instanceof Train){
+                const energy = part.getEnergy();
+                if (max < energy){
+                    max = energy;
+                }
+            }
+        }
+        return max;
+    }
 }
 
 
@@ -140,7 +165,7 @@ export class Pause {
     speed = undefined; //или число (если null, то Н/Д)
     delay = undefined;
 
-    constructor({pause = 'Пауза', pauseTime = 10}) {
+    constructor({pause = 'Пауза', pauseTime = 10} = {}) {
         this.pause = pause;
         this.pauseTime = pauseTime;
     }

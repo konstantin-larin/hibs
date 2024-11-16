@@ -4,7 +4,7 @@ import {Exercise, Pause, Train} from "@services/exercises.js";
 import {useEffect, useState, useRef} from "react";
 import { v4 as uuidv4 } from 'uuid';
 
-export default function Dropdown({currentExercise, setCurrentExercise, part, field}) {
+export default function Dropdown({editedExercise, setEditedExercise, part, field}) {
     const [isOpened, setIsOpened] = useState(false);
     const el = useRef(null);
     const Instance = part instanceof Train ? Train : Pause;
@@ -28,8 +28,8 @@ export default function Dropdown({currentExercise, setCurrentExercise, part, fie
 
     function valOnClick(val){
         part[field] = val;
-        currentExercise.parts.splice(currentExercise.parts.indexOf(part), 1, new Train(part));
-        setCurrentExercise(new Exercise(currentExercise));
+        editedExercise.parts.splice(editedExercise.parts.indexOf(part), 1, new Train(part));
+        setEditedExercise(new Exercise(editedExercise));
     }
     return (
         <div className={'dropdown'} ref={el}>

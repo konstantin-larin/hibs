@@ -16,6 +16,7 @@ export default function ExerciseGraph({
                                           exercise,
                                           pointsOnX = 5,
                                           pointsOnY = 5,
+                                          className = ''
                                       }) {
 
 
@@ -67,17 +68,17 @@ export default function ExerciseGraph({
 
 
     return (
-        <div className={'exercise-graph__container'}>
+        <div className={'exercise-graph__container ' + className}>
             <div className={'exercise-graph'} style={{
                 height: height + 'px',
             }} ref={block}
             >
-                <table >
+                <table>
                     <tbody>
                     {Array.from({length: pointsOnY}).map((_, i) => {
                         const numY = (pointsOnY - (i + 1)) * scaleY;
                         return (
-                            <tr  key={uuidv4()}>
+                            <tr key={uuidv4()}>
                                 {Array.from({length: pointsOnX}).map((_, i) => {
                                     const numX = (i + 1) * scaleX;
                                     return (
@@ -92,10 +93,10 @@ export default function ExerciseGraph({
                 <svg width={width} height={height}>
                     {graph.map(point => {
                         const x = Math.floor((point.x / maxX) * width) - 5;
-                        const y = height -  Math.floor((point.y / maxY) * height);
-                       return (
-                           <line x1={x} y1={height - 3} x2={x} y2={y}></line>
-                       )
+                        const y = height - Math.floor((point.y / maxY) * height);
+                        return (
+                            <line x1={x} y1={height - 3} x2={x} y2={y}></line>
+                        )
                     })}
                 </svg>
             </div>

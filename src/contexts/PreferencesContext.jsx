@@ -11,7 +11,7 @@ export const PreferencesProvider = ({children}) => {
     useEffect(() => {
         const history = JSON.parse(sessionStorage.getItem('history'));
         const pathname = location.pathname;
-        if (pathname !== 'exercises/exercise'){
+        if(history.at(-1) !== pathname){
             sessionStorage.setItem('history', JSON.stringify([...history, pathname]));
         }
     }, [location])
@@ -20,9 +20,10 @@ export const PreferencesProvider = ({children}) => {
     const [isMobile, setIsMobile] = useState(window.innerWidth <= breakpoints.mdBreakpoint);
     const [sidebarIsClosed, setSidebarIsClosed] = useState(true);
 
-    function windowOnResize(){
+    function windowOnResize() {
         setIsMobile(window.innerWidth <= breakpoints.mdBreakpoint);
     }
+
     useEffect(() => {
         window.addEventListener('resize', windowOnResize);
         return () => {
@@ -31,13 +32,13 @@ export const PreferencesProvider = ({children}) => {
     }, []);
 
     useEffect(() => {
-        if(!isMobile){
+        if (!isMobile) {
             setSidebarIsClosed(true);
         }
     }, [isMobile]);
 
     useEffect(() => {
-        if(sidebarIsClosed){
+        if (sidebarIsClosed) {
             enableBodyScroll(document.body);
         } else {
             disableBodyScroll(document.body);
@@ -48,7 +49,8 @@ export const PreferencesProvider = ({children}) => {
     const [exercisesIsOpened, setExercisesIsOpened] = useState(true);
 
     return (
-        <PreferencesContext.Provider value={{exercisesIsOpened, setExercisesIsOpened, isMobile, setSidebarIsClosed, sidebarIsClosed}}>
+        <PreferencesContext.Provider
+            value={{exercisesIsOpened, setExercisesIsOpened, isMobile, setSidebarIsClosed, sidebarIsClosed}}>
             {children}
         </PreferencesContext.Provider>
     )

@@ -13,6 +13,7 @@ import SavedExercisesPage from "@pages/SavedExercisesPage/SavedExercisesPage.jsx
 import {PreferencesProvider} from "@contexts/PreferencesContext.jsx";
 import {UsersExercisesProvider} from "@contexts/UsersExercisesContext.jsx";
 import EditExercisePage from "@pages/EditExercisePage/EditExercisePage.jsx";
+import ViewExercisePage from "@pages/ViewExercisePage/ViewExercisePage.jsx";
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                 <BrowserRouter basename={'/hibs/'}>
                     <PreferencesProvider>
                         <Routes>
+                            <Route path={'/exercises/exercise'} element={<ViewExercisePage/>}></Route>
                             <Route path={'/exercises/edit'} element={<EditExercisePage/>}></Route>
                             <Route path="/login" element={<LoginPage/>}/>
                             <Route path={'/register'} element={<RegisterPage/>}></Route>

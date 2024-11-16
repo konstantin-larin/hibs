@@ -7,28 +7,29 @@ import {v4 as uuidv4} from 'uuid';
 import NumInput from "@pages/EditExercisePage/NumInput/NumInput.jsx";
 
 
-export default function TrainsTable({exercise, setCurrentExercise}) {
+export default function TrainsTable({exercise, setEditedExercise}) {
     const fields = Train.fieldsDictionary;
 
     function addTrain() {
         const train = new Train();
         const newEx = new Exercise(exercise);
         newEx.parts.push(train);
-        setCurrentExercise(newEx);
+        setEditedExercise(newEx);
     }
 
     function addPause() {
         const pause = new Pause();
+
         const newEx = new Exercise(exercise);
         newEx.parts.push(pause);
-        setCurrentExercise(newEx);
+        setEditedExercise(newEx);
     }
 
     return (
         <>
             <h2 className={'text-h4-dark-blue'}>Состав занятия</h2>
-            <div className={'exercise__table-container'}>
-                <table className={'exercise__table'}>
+            <div className={'edited-exercise__table-container'}>
+                <table className={'edited-exercise__table'}>
                     <thead>
                     <tr>
                         {Object.values(fields).map((field, i) => (<th key={i}>{field}</th>))}
@@ -52,8 +53,8 @@ export default function TrainsTable({exercise, setCurrentExercise}) {
                                         Inserted = () => <p>{value}</p>;
                                     } else if (Array.isArray(fieldType)) {
                                         Inserted = () => <Dropdown part={part} field={key}
-                                            setCurrentExercise={setCurrentExercise}
-                                            currentExercise={exercise}></Dropdown>
+                                            setEditedExercise={setEditedExercise}
+                                            editedExercise={exercise}></Dropdown>
                                     } else if (fieldType === 'NUMBER') {
                                         let add = '';
                                         let max = 100;
@@ -85,8 +86,8 @@ export default function TrainsTable({exercise, setCurrentExercise}) {
 
                                         if (value !== null) {
                                             Inserted = () => <NumInput
-                                                setCurrentExercise={setCurrentExercise}
-                                                currentExercise={exercise}
+                                                setEditedExercise={setEditedExercise}
+                                                editedExercise={exercise}
                                                 addValue={add}
                                                 field={key}
                                                 part={part}
@@ -110,7 +111,7 @@ export default function TrainsTable({exercise, setCurrentExercise}) {
                     </tbody>
                 </table>
             </div>
-            <div className={'exercise__table-buttons'}>
+            <div className={'edited-exercise__table-buttons'}>
                 <Button style={'black'} onClick={addPause}>Добавить паузу</Button>
                 <Button style={'black'} onClick={addTrain}>Добавить тренировку</Button>
             </div>

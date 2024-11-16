@@ -14,5 +14,11 @@
         @media screen and (min-width: $breakpoint-xxl) {
             grid-template-columns: repeat(3, 1fr);
         }
+        & > *{
+            cursor: pointer;
+        }
     }
+}
+.graph-on-card{
+    top: -$offset-5;
 }

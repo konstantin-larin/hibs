@@ -171,7 +171,8 @@ export const UsersExercisesProvider = ({children}) => {
         }),
 
     ]); // массив экземпляров Exercises (в будущем поступает из бд)
-    const [currentExercise, _setCurrentExercise] = useState(null); //занятие, которое щас добавляется или редактируется. Это нужно для страницы EditExercisePage
+    const [editedExercise, _setEditedExercise] = useState(null); //занятие, которое щас добавляется или редактируется. Это нужно для страницы EditExercisePage
+    const [viewedExercise, _setViewedExercise] = useState(null); //занятие, которое щас просматривается
 
     // async function addExercise(exercise) { //делает кнопка сохранить на странице "Добавить занятие"
     //
@@ -214,14 +215,20 @@ export const UsersExercisesProvider = ({children}) => {
         }
         return Promise.resolve(true);
     }
-    function setCurrentExercise(exercise){
+    function setEditedExercise(exercise){
         if (!(exercise instanceof Exercise)){
-            _setCurrentExercise(null);
-        } else _setCurrentExercise(exercise);
+            _setEditedExercise(null);
+        } else _setEditedExercise(exercise);
+    }
+
+    function setViewedExercise(exercise){
+        if (!(exercise instanceof Exercise)){
+            _setViewedExercise(null);
+        } else _setViewedExercise(exercise);
     }
 
     return (
-        <UsersExercisesContext.Provider value={{exercises , sendExercise, currentExercise, setCurrentExercise}}>
+        <UsersExercisesContext.Provider value={{exercises , sendExercise, editedExercise, setEditedExercise, viewedExercise, setViewedExercise}}>
             {children}
         </UsersExercisesContext.Provider>
     )
