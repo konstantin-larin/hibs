@@ -12,7 +12,7 @@ import Button from "@common/Button/Button.jsx";
 export default function EditExercisePage() {
     const {user} = useAuth();
     const navigate = useNavigate();
-    const {viewedExercise, setViewedExercise} = useUsersExercises();
+    const {viewedExercise, setViewedExercise, setEditedExercise} = useUsersExercises();
     const history = JSON.parse(sessionStorage.getItem('history'));
     const pathName = location.pathname;
     const lastPath = useRef('/');
@@ -25,6 +25,11 @@ export default function EditExercisePage() {
     }
 
 
+    function editExercise(){
+        setEditedExercise(viewedExercise);
+        navigate('/exercises/edit');
+    }
+
 
     if (viewedExercise) {
 
@@ -35,12 +40,18 @@ export default function EditExercisePage() {
                     <div className={'viewed-exercise__info mt-3'}>
                         <ExerciseGraph exercise={viewedExercise}></ExerciseGraph>
                         <div>
-                            <h3 className={'text-h2-dark-blue'}>{viewedExercise.name}</h3>
-                            <div className={'viewed-exercise__charts'}>
-                                <div className={'viewed-exercise__charts-green'}>{viewedExercise.getMaxEnergy()} BSP
+                            <div className={'viewed-exercise__head'}>
+                                <div>
+                                    <h3 className={'text-h2-dark-blue'}>{viewedExercise.name}</h3>
+                                    <div className={'viewed-exercise__charts'}>
+                                        <div
+                                            className={'viewed-exercise__charts-green'}>{viewedExercise.getMaxEnergy()} BSP
+                                        </div>
+                                        <div>0.7 ip</div>
+                                        <div>{viewedExercise.getMaxHits()} ударов</div>
+                                    </div>
                                 </div>
-                                <div>0.7 ip</div>
-                                <div>{viewedExercise.getMaxHits()} ударов</div>
+                                <Button style={'black'} onClick={editExercise}>Редактировать</Button>
                             </div>
                             <h4 className={'text-sm-dark-blue mt-1'}>Описание</h4>
                             <p className={'mt-1 ml-1'}>
@@ -48,7 +59,8 @@ export default function EditExercisePage() {
                             </p>
 
                             <div className={'mt-2 viewed-exercise__buttons'}>
-                                {!lastPath.current.endsWith('/saved') && <Button style={'blue'}>Добавить на устройство</Button>}
+                                {!lastPath.current.endsWith('/saved') &&
+                                    <Button style={'blue'}>Добавить на устройство</Button>}
                                 {!lastPath.current.endsWith('/my') && <Button style={'green'}>Добавить в Мои занятия</Button>}
                             </div>
                         </div>

@@ -10,6 +10,17 @@
         grid-column-gap: 4.8rem;
     }
 
+    &__head{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: $offset-1;
+        * {
+            width: fit-content;
+        }
+
+    }
     &__charts{
         display: flex;
         align-items: center;
