@@ -95,7 +95,7 @@ export default function ExerciseGraph({
                         const x = Math.floor((point.x / maxX) * width) - 5;
                         const y = height - Math.floor((point.y / maxY) * height);
                         return (
-                            <line x1={x} y1={height - 3} x2={x} y2={y}></line>
+                            <line key={uuidv4()} x1={x} y1={height - 3} x2={x} y2={y}></line>
                         )
                     })}
                 </svg>
