@@ -1,6 +1,5 @@
 import "./style.scss";
 import {Exercise, Pause, Train} from "@services/exercises.js";
-import TrainsTable from "@pages/EditExercisePage/TrainsTable.jsx";
 import Layout from "@layout/Layout.jsx";
 import Block from "@common/Block/Block.jsx";
 import Button from "@common/Button/Button.jsx";
@@ -74,7 +73,6 @@ export default function EditExercisePage() {
                         placeholder={'Введите описание'}></CommonInput>
                     <CommonInput value={description} onChange={handleDescriptionOnChange}
                         label={'Описание'} placeholder={'Введите описание'}></CommonInput>
-                    <TrainsTable exercise={editedExercise} setEditedExercise={setEditedExercise}></TrainsTable>
                 </Block>
             </Layout>
         )

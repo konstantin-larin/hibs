@@ -46,6 +46,28 @@ export class Exercise {
 
 const MAX_HITS = 10000;
 
+export class Part{
+    constructor() {
+    }
+}
+
+export class BaseTrain extends Part{
+
+}
+export class PowerTrain extends Part{
+
+}
+export class ControlSpeedTrain extends Part{
+
+}
+export class FTP extends Part{
+
+}
+export class Pause extends Part{
+    
+}
+
+
 export class Train {
     _id = +new Date();
     static fieldsDictionary = {
@@ -171,61 +193,3 @@ export class Pause {
     }
 }
 
-// значения полей (для выпадающих списков)
-const exercises = [
-    [
-        {
-            "hits": 100,
-            "energy": 18
-        },
-        {
-            "hits": 1999,
-            "energy": 360
-        },
-        {
-            "hits": 2220,
-            "energy": 400
-        },
-        {
-            "hits": 3000,
-            "energy": 540
-        },
-        {
-            "hits": 4000,
-            "energy": 720
-        },
-        {
-            "hits": 10000,
-            "energy": 5000
-        },
-        {
-            "hits": 5000,
-            "energy": 400
-        },
-        {
-            "hits": 5500,
-            "energy": 990
-        },
-        {
-            "hits": 5800,
-            "energy": 464
-        },
-        {
-            "hits": 8000,
-            "energy": 1440
-        },
-        {
-            "hits": 9000,
-            "energy": 1620
-        },
-        {
-            "hits": 9900,
-            "energy": 1782
-        },
-        {
-            "hits": 9990,
-            "energy": 1798
-        }
-    ],
-
-]

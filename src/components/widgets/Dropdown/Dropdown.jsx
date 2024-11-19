@@ -1,5 +1,5 @@
 import "./style.scss";
-import ShevronUp from "../../../../assets/icons/ShevronUp.jsx";
+import ShevronUp from "../../../assets/icons/ShevronUp.jsx";
 import {Exercise, Pause, Train} from "@services/exercises.js";
 import {useEffect, useState, useRef} from "react";
 import { v4 as uuidv4 } from 'uuid';

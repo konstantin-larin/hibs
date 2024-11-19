@@ -20,47 +20,4 @@
         }
 
     }
-    &__table{
-        &{
-            border-spacing: 0;
-            min-width: 100%;
-            max-width: 100%;
-        }
-        td, th{
-            padding: calc($offset-1 /2) 0;
-            text-align: left;
-            white-space: nowrap;
-        }
-        th{
-            @include text-less(gray, 500);
-            padding-right: 2rem;
-            white-space: nowrap;
-           text-transform: uppercase;
-            border-bottom: 1px $color-most-light-gray solid;
-        }
-
-        tbody{
-            border-spacing: 1rem;
-        }
-
-        td{
-            padding-right: 2rem;
-            border-bottom: 1px $color-light-gray solid;
-
-            & > * {
-                width: 100%;
-            }
-        }
-        &-container{
-            overflow-x: auto;
-            padding-bottom: 7.5rem;
-        }
-        &-buttons{
-            display: flex;
-            justify-content: flex-end;
-            flex-wrap: wrap;
-            gap: 1rem;
-
-        }
-    }
 }
