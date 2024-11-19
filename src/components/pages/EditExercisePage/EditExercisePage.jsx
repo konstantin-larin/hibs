@@ -1,5 +1,4 @@
 import "./style.scss";
-import {Exercise, Pause, Train} from "@services/exercises.js";
 import Layout from "@layout/Layout.jsx";
 import Block from "@common/Block/Block.jsx";
 import Button from "@common/Button/Button.jsx";

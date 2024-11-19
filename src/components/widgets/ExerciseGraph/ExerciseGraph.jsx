@@ -1,7 +1,7 @@
 import "./style.scss";
-import {Train} from "@services/exercises.js";
 import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import {v4 as uuidv4} from 'uuid';
+import {Train} from "@services/exercises.js";
 
 
 class Point {
@@ -24,7 +24,7 @@ export default function ExerciseGraph({
     const trains = exercise.parts.filter(part => part instanceof Train);
     const graph = [];
     for (let train of trains) {
-        const hits = train.hitsRange;
+        const hits = train.hits;
         const energy = train.getEnergy();
         const point = graph.find(point => point.x === hits);
         if (point) {

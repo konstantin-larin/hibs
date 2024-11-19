@@ -17,24 +17,35 @@ export class Exercise {
 
     }
 
-    getMaxHits(){
+    getMaxHits() {
         let max = 0;
-        for(let part of this.parts){
-            if (part instanceof Train){
-                if (max < part.hitsRange){
-                    max = part.hitsRange;
+        for (let part of this.parts) {
+            if(part instanceof Train){
+                if (max < part.hits) {
+                    max = part.hits;
                 }
             }
         }
         return max;
     }
 
-    getMaxEnergy(){
+    getHitsSum() {
+        let sum = 0;
+        for (let part of this.parts) {
+            if(part instanceof Train){
+                sum += part.hits;
+            }
+        }
+
+        return sum;
+    }
+
+    getMaxEnergy() {
         let max = 0;
-        for(let part of this.parts){
-            if (part instanceof Train){
+        for (let part of this.parts) {
+            if (part instanceof Train) {
                 const energy = part.getEnergy();
-                if (max < energy){
+                if (max < energy) {
                     max = energy;
                 }
             }
@@ -45,151 +56,174 @@ export class Exercise {
 
 
 const MAX_HITS = 10000;
+const MIN_SPEED = 3;
+const MAX_SPEED = 40;
 
-export class Part{
-    constructor() {
+
+// ЗНАЧЕНИЯ
+export class ListValue {
+    list = [];
+
+    constructor({name, list, currentIndex = 0}) {
+        this.name = name;
+        this.list = list;
+        this.current = this.list[currentIndex];
     }
 }
 
-export class BaseTrain extends Part{
+export class RangeValue {
+    min = 0;
+    max = 100;
 
-}
-export class PowerTrain extends Part{
-
-}
-export class ControlSpeedTrain extends Part{
-
-}
-export class FTP extends Part{
-
-}
-export class Pause extends Part{
-    
-}
-
-
-export class Train {
-    _id = +new Date();
-    static fieldsDictionary = {
-        hitsRange: 'Количество ударов',
-        trainType: 'Тип тренировки',
-        hand: "Рука",
-        target: "Мишень",
-        ringBefore: "Кольцо до",
-        ringAfter: "Кольцо после",
-        swing: "Замах",
-        speed: "Скорость", //или число (если null, то Н/Д)
-        delay: "Задержка",
+    constructor({name, min, max, value} = {}) {
+        this.name = name;
+        this.min = min;
+        this.max = max;
+        this.value = value;
     }
+}
 
-    static types = {
-        trainType: ["Базовая", 'Силовая', 'Контроль скорости', "FTP"],
-        hand: ['Правая', "Левая"],
-        target: ["L1", "L2", "L3", "L4", "L5", "L6", "L7", "L8", "L9", "0", "R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9",],
-        hitsRange: 'NUMBER',
-        ringBefore: 'NUMBER',
-        ringAfter: 'NUMBER',
-        swing: 'NUMBER',
-        speed: 'NUMBER',
-        delay: 'NUMBER',
+export class ConstantValue {
+    constructor({name, value}) {
+        this.name = name;
+        this.value = value;
     }
+}
 
-    hitsRange = 100;
-    trainType = Train.types.trainType[0];
+// ТИПЫ
 
-    hand = Train.types.hand[0];
-    target = Train.types.target[0];
+export class Part {
+    constructor(part = {}) {
+        for (let key of Object.keys(part)) {
+            const insertedValue = part[key];
+            const obj = this["_" + key];
+            if (!obj) continue;
 
-    ringBefore = 30;
-    ringAfter = 20;
-    swing = 16;
-    speed = 0.6//или число (если null, то Н/Д)
-    delay = 1.5;
+            if (obj instanceof ListValue) {
+                if (obj.list.includes(insertedValue)) {
+                    obj.value = insertedValue;
+                } else throw new Error("такого значения нет");
+            }
 
-    constructor({
-                    trainType = Train.types.trainType[0],
-                    hitsRange = 100,
-                    hand = Train.types.hand[0],
-                    target = Train.types.target[0],
-                    ringBefore = 30,
-                    ringAfter = 20,
-                    swing = 16,
-                    delay = 1.5,
-                    speed = 0.6,
-                } = {}) {
-        switch (trainType) {
-            case 'Силовая':
-            case "Контроль скорости":
-                this.hitsRange = hitsRange ?? 100;
-                this.trainType = trainType;
-                this.hand = hand;
-                this.target = target;
-                this.ringBefore = ringBefore;
-                this.ringAfter = ringAfter;
-                this.swing = swing;
-                this.delay = delay;
-                this.speed = trainType === 'Силовая' ? 1 : 0.4;
-                break;
-
-            case 'FTP':
-                this.hitsRange = MAX_HITS;
-                this.trainType = trainType;
-                this.hand = hand;
-                this.target = target;
-                this.ringBefore = ringBefore;
-                this.ringAfter = ringAfter;
-                this.swing = swing;
-                this.speed = 1;
-                this.delay = 0;
-                break;
-
-            case 'Базовая':
-                this.hitsRange = hitsRange ?? 100;
-                this.trainType = trainType;
-                this.hand = hand;
-                this.target = target;
-                this.ringBefore = ringBefore;
-                this.ringAfter = ringAfter;
-                this.swing = swing;
-                this.speed = speed ?? 0.6;
-                this.delay = delay;
-                break;
+            if (obj instanceof RangeValue) {
+                if (insertedValue < obj.min || insertedValue > obj.max) throw new Error("вышел за пределы");
+                obj.value = insertedValue;
+            }
         }
     }
 
+    getParam(key) {
+        return this['_' + key];
+    }
+}
+
+export class Train extends Part{}
+
+export class BaseTrain extends Train {
+    static type = 'Базовая';
+    static keys = ["hits", "hand", "target", "ringBefore", "ringAfter", "swing", "speed", "delay"];
+    _coefficient = 0.6;
+    hits = new RangeValue({name: "Количество ударов", min: 100, max: 10000, value: 100});
+    hand = new ListValue({name: "Рука", list: ['Правая', "Левая"], currentIndex: 0});
+    target = new ListValue({
+        name: "Мишень",
+        list: ["L1", "L2", "L3", "L4", "L5", "L6", "L7", "L8", "L9", "0", "R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9",],
+        currentIndex: 0
+    })
+    ringBefore = new RangeValue({
+        name: "Кольцо до",
+        value: 30,
+        min: 10,
+        max: 100,
+    })
+    ringAfter = new RangeValue({
+        name: "Кольцо после",
+        value: 20,
+        min: 10,
+        max: 100,
+    })
+
+    swing = new RangeValue({
+        name: "Замах",
+        value: 16,
+        min: 1,
+        max: 20,
+    })
+    speed = new ConstantValue({
+        name: "Скорость",
+        value: (MAX_SPEED + MIN_SPEED) / 2,
+    })
+
+    delay = new RangeValue({
+        name: "Задержка",
+        min: 0,
+        value: 1.5,
+        max: 10,
+    })
+
     getEnergy() {
-        return Math.round((this.hitsRange * this.speed ** 2) / 2);
+        return Math.round(this._coefficient * (this.hits.value * this.speed.value ** 2) / 2);
     }
 }
 
-export class Pause {
+export class PowerTrain extends Part {
+    static type = 'Силовая';
+    static keys = ["hits", "hand", "target", "ringBefore", "ringAfter", "swing", "speed", "delay"];
+    _coefficient = 0.4;
+    hits = new RangeValue({name: "Количество ударов", min: 100, max: 10000, value: 100});
+    hand = new ListValue({name: "Рука", list: ['Правая', "Левая"], currentIndex: 0});
+    target = new ListValue({
+        name: "Мишень",
+        list: ["L1", "L2", "L3", "L4", "L5", "L6", "L7", "L8", "L9", "0", "R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9",],
+        currentIndex: 0
+    })
+    ringBefore = new RangeValue({
+        name: "Кольцо до",
+        value: 30,
+        min: 10,
+        max: 100,
+    })
+    ringAfter = new RangeValue({
+        name: "Кольцо после",
+        value: 20,
+        min: 10,
+        max: 100,
+    })
 
-    _id = +new Date();
-    static types = {
-        pause: null,
-        pauseTime: "NUMBER",
-        hand: undefined,
-        target: undefined,
-        ringBefore: undefined,
-        ringAfter: undefined,
-        swing: undefined,
-        speed: undefined,
-        delay: undefined,
-    }
+    swing = new RangeValue({
+        name: "Замах",
+        value: 16,
+        min: 1,
+        max: 20,
+    })
+    speed = new ConstantValue({
+        name: "Скорость",
+        value: (MAX_SPEED + MIN_SPEED) / 2,
+    })
 
-    pause = "Пауза";
-    pauseTime = 10;
-    hand = undefined;
-    target = undefined;
-    ringBefore = undefined;
-    ringAfter = undefined;
-    swing = undefined;
-    speed = undefined; //или число (если null, то Н/Д)
-    delay = undefined;
+    delay = new RangeValue({
+        name: "Задержка",
+        min: 0,
+        value: 1.5,
+        max: 10,
+    })
 
-    constructor({pause = 'Пауза', pauseTime = 10} = {}) {
-        this.pause = pause;
-        this.pauseTime = pauseTime;
+    getEnergy() {
+        return Math.round(this._coefficient * (this.hits.value * this.speed.value ** 2) / 2);
     }
 }
 
+export class ControlSpeedTrain extends Part {
+
+}
+
+export class FTP extends Part {
+
+}
+
+export class Pause extends Part {
+    pause = new RangeValue({name: "Время", value: 10, min: 1, max: 20});
+}
+
+
+export const PARTS = [BaseTrain, PowerTrain, Pause];
