@@ -3,12 +3,17 @@
 .number-input{
     display: flex;
     //gap: 1rem;
-    width: 100%;
+    width: fit-content;
     height: 100%;
 
     &__input{
+        display: block;
         border:none;
+        width: 100%;
         color: inherit;
+        &-container{
+            flex-shrink: 1;
+        }
         &:focus{
             outline: none;
         }

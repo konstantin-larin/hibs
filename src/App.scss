@@ -81,6 +81,12 @@ ul {
     }
 }
 
+button{
+    background: none;
+    border: none;
+
+}
+
 //UTILITIES
 
 
@@ -107,6 +113,13 @@ ul {
 
 .center-row {
     display: flex;
+    align-items: center;
+}
+
+.aligned-between{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -210,7 +223,7 @@ ul {
     @include text-h5($color-dark-blue, 400);
 }
 .text-h5-dark-blue_bold {
-    @include text-h5($color-dark-blue, 400);
+    @include text-h5($color-dark-blue, 500);
 }
 
 

@@ -7,10 +7,15 @@ import {useEffect, useRef, useState} from "react";
 import {useUsersExercises} from "@contexts/UsersExercisesContext.jsx";
 import {Navigate, useNavigate} from "react-router-dom";
 import {useAuth} from "@contexts/AuthContext.jsx";
+import PartsList from "../../common/PartsList/PartsList.jsx";
+import {Exercise} from "@services/exercises.js";
+
+
 export default function EditExercisePage() {
     const {user} = useAuth();
     const navigate = useNavigate();
     const {editedExercise, setEditedExercise, sendExercise} = useUsersExercises();
+    const [parts, setParts] = useState(editedExercise ? [...editedExercise.parts] : []);
     const [name, setName] = useState('');
     const [shortName, setShortName] = useState('');
     const [description, setDescription] = useState('');
@@ -18,6 +23,14 @@ export default function EditExercisePage() {
     const history = JSON.parse(sessionStorage.getItem('history'));
     const pathName = location.pathname;
     const lastPath = useRef('/');
+
+
+    useEffect(() => {
+        if(parts){
+            editedExercise.parts = [...parts];
+            setEditedExercise(new Exercise(editedExercise));
+        }
+    }, [parts]);
 
     if(history.length > 1){
         const _lastPath = history.at(-1);
@@ -51,7 +64,6 @@ export default function EditExercisePage() {
     }
 
     if(editedExercise){
-
         return (
             <Layout>
                 <Block style={'default'} tag={'form'} onSubmit={handleOnSubmit} className={'edited-exercise'}>
@@ -72,6 +84,7 @@ export default function EditExercisePage() {
                         placeholder={'Введите описание'}></CommonInput>
                     <CommonInput value={description} onChange={handleDescriptionOnChange}
                         label={'Описание'} placeholder={'Введите описание'}></CommonInput>
+                    <PartsList parts={parts} setParts={setParts} mode={'edit'}></PartsList>
                 </Block>
             </Layout>
         )

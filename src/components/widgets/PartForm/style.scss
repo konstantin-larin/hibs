@@ -1,0 +1,16 @@
+@use "@styles" as *;
+
+.train-form{
+    width: 80% !important;
+    min-height: 60vh;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+
+    &__input{
+        min-width: 10rem;
+        max-width: 10rem;
+        width: fit-content;
+    }
+}
+

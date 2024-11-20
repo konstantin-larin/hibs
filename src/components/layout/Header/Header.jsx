@@ -1,5 +1,5 @@
 import "./style.scss";
-import Home from "../../../assets/icons/Home.jsx";
+import HomeIcon from "../../../assets/icons/HomeIcon.jsx";
 import {useLocation, useNavigate} from "react-router-dom";
 import {Fragment, useEffect, useRef, useState} from "react";
 import {usePreferences} from "@contexts/PreferencesContext.jsx";
@@ -54,7 +54,7 @@ export default function Header() {
         <header className={'header'}>
             <div className={'header__content'}>
                 <div className="header__path">
-                    <Home></Home>
+                    <HomeIcon></HomeIcon>
                     <div>/</div>
                     <div>HIBS</div>
                     {

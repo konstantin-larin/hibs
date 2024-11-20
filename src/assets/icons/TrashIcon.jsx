@@ -1,6 +1,6 @@
 import "./style.scss";
 
-export default function Trash() {
+export default function TrashIcon() {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -1,6 +1,6 @@
 import "./style.scss";
 
-export default function Home() {
+export default function HomeIcon() {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"

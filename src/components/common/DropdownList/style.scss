@@ -2,11 +2,11 @@
 
 .dropdown{
     &{
-        width: 100%;
-        height: 100%;
+        width: fit-content;
         cursor:pointer;
         user-select: none;
         position: relative;
+        @include text-h5($color-gray, 400);
     }
 
     &__trigger{
@@ -16,32 +16,35 @@
         gap: 1rem;
     }
     &__list{
+
         position: absolute;
         top: 100%;
         min-width: 100%;
         width: fit-content;
         padding: 0;
-        background: $color-white;
         z-index: $layer-1;
         max-height: 0px;
-        transition: $transition-default;
-        overflow-y: hidden;
+        transition: all 0.1s linear;
+        background: $color-white;
+
+        overflow-y: auto;
         &_opened{
             padding: 0.5rem 0;
             max-height: 7.5rem;
-            overflow-y: auto;
-
+        }
+        &_noscroll{
+            overflow-y: hidden !important;
         }
 
         & > *{
-            transition: $transition-default;
+            width: 100%;
+            transition: 0.15s background linear;
             margin-top: 0.5rem;
-            //&:hover{
-            //
-            //}
         }
     }
     path{
         fill: $color-gray;
     }
+
 }
+

@@ -11,18 +11,30 @@ export const PreferencesProvider = ({children}) => {
     useEffect(() => {
         const history = JSON.parse(sessionStorage.getItem('history'));
         const pathname = location.pathname;
-        if(history.at(-1) !== pathname){
+        if (history.at(-1) !== pathname) {
             sessionStorage.setItem('history', JSON.stringify([...history, pathname]));
         }
     }, [location])
 
-
+    const [modalOpened, setModalOpened] = useState(false);
+    const [ModalInner, setModalInner] = useState(<>Привет</>);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= breakpoints.mdBreakpoint);
     const [sidebarIsClosed, setSidebarIsClosed] = useState(true);
 
     function windowOnResize() {
         setIsMobile(window.innerWidth <= breakpoints.mdBreakpoint);
     }
+
+    useEffect(() => {
+        if(!modalOpened){
+            setModalInner(<></>);
+        }
+        if (sidebarIsClosed && !modalOpened) {
+            enableBodyScroll(document.body);
+        } else {
+            disableBodyScroll(document.body);
+        }
+    }, [sidebarIsClosed, modalOpened]);
 
     useEffect(() => {
         window.addEventListener('resize', windowOnResize);
@@ -37,20 +49,24 @@ export const PreferencesProvider = ({children}) => {
         }
     }, [isMobile]);
 
-    useEffect(() => {
-        if (sidebarIsClosed) {
-            enableBodyScroll(document.body);
-        } else {
-            disableBodyScroll(document.body);
-        }
-    }, [sidebarIsClosed]);
+
 
 
     const [exercisesIsOpened, setExercisesIsOpened] = useState(true);
 
     return (
         <PreferencesContext.Provider
-            value={{exercisesIsOpened, setExercisesIsOpened, isMobile, setSidebarIsClosed, sidebarIsClosed}}>
+            value={{
+                exercisesIsOpened,
+                setExercisesIsOpened,
+                isMobile,
+                setSidebarIsClosed,
+                sidebarIsClosed,
+                modalOpened,
+                setModalOpened,
+                ModalInner,
+                setModalInner,
+            }}>
             {children}
         </PreferencesContext.Provider>
     )

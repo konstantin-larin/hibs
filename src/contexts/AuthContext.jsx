@@ -18,7 +18,9 @@ export const AuthProvider = ({ children }) => {
             role: 'admin',
             name: "Константин",
             surname: "Ларин",
-
+            minSpeed: 3,
+            maxSpeed: 40,
+            hits: 1000,
         }
         if(remember){
             localStorage.setItem('user', JSON.stringify(user));

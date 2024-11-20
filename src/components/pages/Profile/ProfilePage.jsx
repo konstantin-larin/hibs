@@ -4,7 +4,7 @@ import Block from "@common/Block/Block.jsx";
 import ProfileIcon from "../../../assets/icons/ProfileIcon.jsx";
 import InfoIcon from "../../../assets/icons/InfoIcon.jsx";
 import LockIcon from "../../../assets/icons/LockIcon.jsx";
-import Trash from "../../../assets/icons/Trash.jsx";
+import TrashIcon from "../../../assets/icons/TrashIcon.jsx";
 import ProfileMe from "@pages/Profile/ProfileMe.jsx";
 import {useAuth} from "@contexts/AuthContext.jsx";
 import ProfileInfo from "@pages/Profile/ProfileInfo.jsx";
@@ -29,7 +29,7 @@ export default function ProfilePage() {
                         Изменить пароль
                     </a>
                     <a href={'#delete'} className={'profile-nav__elem'}>
-                        <Trash></Trash>
+                        <TrashIcon></TrashIcon>
                         Удалить учетную запись
                     </a>
                 </Block>
