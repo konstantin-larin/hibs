@@ -7,11 +7,14 @@ import {Navigate, useNavigate} from "react-router-dom";
 import {useAuth} from "@contexts/AuthContext.jsx";
 import ExerciseGraph from "../../widgets/ExerciseGraph/ExerciseGraph.jsx";
 import Button from "@common/Button/Button.jsx";
+import EditIcon from "../../../assets/icons/EditIcon.jsx";
+import PartsList from "../../widgets/PartsList/PartsList.jsx";
 
 export default function EditExercisePage() {
     const {user} = useAuth();
     const navigate = useNavigate();
     const {viewedExercise, setViewedExercise, setEditedExercise} = useUsersExercises();
+    const [parts, setParts] = useState(viewedExercise ? [...viewedExercise.parts] : null);
     const history = JSON.parse(sessionStorage.getItem('history'));
     const pathName = location.pathname;
     const lastPath = useRef('/');
@@ -30,7 +33,7 @@ export default function EditExercisePage() {
     }
 
 
-    if (viewedExercise) {
+    if (viewedExercise && parts) {
 
         return (
             <Layout>
@@ -50,7 +53,10 @@ export default function EditExercisePage() {
                                         <div>{viewedExercise.getMaxHits()} ударов</div>
                                     </div>
                                 </div>
-                                <Button style={'black'} onClick={editExercise}>Редактировать</Button>
+                                <Button style={'black'} onClick={editExercise}>
+                                    <EditIcon></EditIcon>
+                                    Редактировать
+                                </Button>
                             </div>
                             <h4 className={'text-sm-dark-blue mt-1'}>Описание</h4>
                             <p className={'mt-1 ml-1'}>
@@ -64,6 +70,7 @@ export default function EditExercisePage() {
                             </div>
                         </div>
                     </div>
+                    <PartsList parts={parts} setParts={setParts} mode={'view'}></PartsList>
                 </Block>
             </Layout>
         )

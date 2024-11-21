@@ -39,8 +39,8 @@ export default function DropdownList({
     return (
         <div className={'dropdown ' + className} ref={el}>
             <div className={'dropdown__trigger'} onClick={handleTogglerOnClick}>
-                <div>{currentItem.label}</div>
-                <div className={'rotate-180'}>
+                <div className={'dropdown__label'}>{currentItem.label}</div>
+                <div className={'rotate-180 dropdown__trigger-btn'}>
                     <ShevronUp></ShevronUp>
                 </div>
             </div>

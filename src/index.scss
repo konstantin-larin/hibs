@@ -158,6 +158,12 @@ $breakpoint-xxl: 1600px;
         padding: calc($inset-y-1 * 1.5) calc($inset-x-1);
     }
 }
+@mixin padding-btn-sm{
+    padding: calc($inset-y-1 * 0.5) calc($inset-x-1 * 0.7);
+    @media screen and (min-width: $breakpoint-sm) {
+        padding: calc($inset-y-1) calc($inset-x-1);
+    }
+}
 
 
 @mixin text-sm($color: $color-gray, $fw: 400) {
@@ -221,6 +227,24 @@ $breakpoint-xxl: 1600px;
     color: $color;
     min-height: 4rem;
 
+    &:disabled{
+        cursor: default;
+        pointer-events: none;
+    }
+}
+
+@mixin button-sm($bg: $color-red, $color){
+    background: $bg;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    border-radius: $radius-sm;
+    transition: all $transition-duration-2 ease-out;
+    @include padding-btn-sm();
+    @include center-flex;
+    gap: 0.6rem;
+    color: $color;
+    min-height: 4rem
 }
 
 

@@ -11,7 +11,11 @@ export const PreferencesProvider = ({children}) => {
     useEffect(() => {
         const history = JSON.parse(sessionStorage.getItem('history'));
         const pathname = location.pathname;
-        if (history.at(-1) !== pathname) {
+        if (history.at(-1) === pathname){
+            history.pop();
+            sessionStorage.setItem('history', JSON.stringify([...history, pathname]));
+        }
+        if (pathname !== '/exercises/edit' ) {
             sessionStorage.setItem('history', JSON.stringify([...history, pathname]));
         }
     }, [location])

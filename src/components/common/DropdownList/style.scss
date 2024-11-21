@@ -14,22 +14,29 @@
         align-items: center;
         justify-content: space-between;
         gap: 1rem;
+        &-btn{
+            width: fit-content;
+        }
+    }
+    &__label{
+        flex-grow: 1;
+        width: fit-content;
     }
     &__list{
-
         position: absolute;
         top: 100%;
         min-width: 100%;
         width: fit-content;
-        padding: 0;
         z-index: $layer-1;
         max-height: 0px;
         transition: all 0.1s linear;
         background: $color-white;
 
+
         overflow-y: auto;
         &_opened{
-            padding: 0.5rem 0;
+            padding: 0.5rem;
+            padding-left: 0;
             max-height: 7.5rem;
         }
         &_noscroll{

@@ -7,10 +7,21 @@
     max-height: 80vh;
     overflow-y: auto;
 
+    &__fieldset{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: $offset-1;
+    }
     &__input{
-        min-width: 10rem;
-        max-width: 10rem;
-        width: fit-content;
+        width: 100% !important;
+        @media screen and (min-width: $breakpoint-xs) {
+            width: fit-content;
+            min-width: 15rem;
+            max-width: 15rem;
+        }
     }
 }
 

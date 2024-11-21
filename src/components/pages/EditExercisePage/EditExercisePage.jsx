@@ -7,7 +7,7 @@ import {useEffect, useRef, useState} from "react";
 import {useUsersExercises} from "@contexts/UsersExercisesContext.jsx";
 import {Navigate, useNavigate} from "react-router-dom";
 import {useAuth} from "@contexts/AuthContext.jsx";
-import PartsList from "../../common/PartsList/PartsList.jsx";
+import PartsList from "../../widgets/PartsList/PartsList.jsx";
 import {Exercise} from "@services/exercises.js";
 
 
@@ -15,64 +15,72 @@ export default function EditExercisePage() {
     const {user} = useAuth();
     const navigate = useNavigate();
     const {editedExercise, setEditedExercise, sendExercise} = useUsersExercises();
-    const [parts, setParts] = useState(editedExercise ? [...editedExercise.parts] : []);
-    const [name, setName] = useState('');
-    const [shortName, setShortName] = useState('');
-    const [description, setDescription] = useState('');
+    const [parts, setParts] = useState(editedExercise ? [...editedExercise.parts] : null);
+    const [name, setName] = useState(editedExercise?.name ?? '');
+    const [shortName, setShortName] = useState(editedExercise?.shortName ?? '');
+    const [description, setDescription] = useState(editedExercise?.description ?? '');
     const [isPending, setIsPending] = useState(false);
     const history = JSON.parse(sessionStorage.getItem('history'));
     const pathName = location.pathname;
     const lastPath = useRef('/');
 
 
-    useEffect(() => {
-        if(parts){
-            editedExercise.parts = [...parts];
-            setEditedExercise(new Exercise(editedExercise));
-        }
-    }, [parts]);
-
-    if(history.length > 1){
+    if (history.length > 1) {
         const _lastPath = history.at(-1);
-        if(!pathName.includes(_lastPath)){
+        if (!pathName.includes(_lastPath)) {
             lastPath.current = _lastPath;
         }
     }
 
-    function handleNameOnChange(e){
+    function handleNameOnChange(e) {
         setName(e.target.value);
     }
-    function handleShortNameOnChange(e){
+
+    function handleShortNameOnChange(e) {
         setShortName(e.target.value);
     }
-    function handleDescriptionOnChange(e){
+
+    function handleDescriptionOnChange(e) {
         setDescription(e.target.value);
     }
 
-    function handleOnSubmit(e){
+    function handleOnSubmit(e) {
         e.preventDefault();
         editedExercise.name = name;
         editedExercise.shortName = shortName;
         editedExercise.description = description;
+        editedExercise.parts = parts;
         setIsPending(true);
         sendExercise(editedExercise).then(res => {
-            if(res){
+            if (res) {
                 setIsPending(false);
                 setEditedExercise(null);
             }
         })
     }
 
-    if(editedExercise){
+    if (editedExercise && parts) {
         return (
             <Layout>
                 <Block style={'default'} tag={'form'} onSubmit={handleOnSubmit} className={'edited-exercise'}>
                     <div className={'edited-exercise__head'}>
                         <h1 className={'text-h4-dark-blue'}>О&nbsp;занятии</h1>
                         <div className={'edited-exercise__head-buttons'}>
-                            {user.role === 'admin' && <Button style={'green'}>Опубликовать</Button>}
-                            <Button style={'black'} disabled={isPending} type={'submit'}>Сохранить</Button>
+                            {parts.length > 0 ?
+                                (
+                                    <>
+                                        {user.role === 'admin' && <Button style={'green'}>Опубликовать</Button>}
+                                        <Button style={'black'} disabled={isPending} type={'submit'}>Сохранить</Button>
+                                    </>
+                                )   :
+                                (
+                                    <Button style={'red'} disabled={true}>
+                                        Тренировки не добавлены
+                                    </Button>
+                                )
+                            }
                         </div>
+
                     </div>
                     <CommonInput value={name} onChange={handleNameOnChange}
                         required={true}

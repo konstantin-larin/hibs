@@ -14,9 +14,16 @@ const itemsParts = PARTS_TYPES.map(partType => {
 })
 
 
-export default function PartForm({editPart = new BaseTrain(), setParts, parts}) {
+function sklLabel(text){
+    if(text.endsWith('а')){
+        text = text.slice(0, -1) + 'у';
+    }
+    return text.toLowerCase();
+}
+
+export default function PartForm({editPart = null, setParts, parts}) {
     const {setModalOpened} = usePreferences();
-    const [part, setPart] = useState(editPart);
+    const [part, setPart] = useState((editPart ?? new BaseTrain()));
     const [partType, setPartType] = useState(itemsParts[0]);
     const PartType = useRef(partType.value);
 
@@ -43,7 +50,7 @@ export default function PartForm({editPart = new BaseTrain(), setParts, parts}) 
     return (
         <Block style={'default'} tag={'form'} className={'train-form'} onSubmit={handleOnSubmit}>
             <h3 className={'text-h3-dark-blue'}>Создание тренировки</h3>
-            <div className={'aligned-between mt-1'}>
+            <div className={'train-form__fieldset'}>
                 <h4 className={'text-h5-dark-blue w-fit'}>Выберите тип тренировки</h4>
                 <DropdownList items={itemsParts} currentItem={partType} onChoose={handleOnChooseType}
                     className={'train-form__input'}></DropdownList>
@@ -53,7 +60,12 @@ export default function PartForm({editPart = new BaseTrain(), setParts, parts}) 
                     const param = part.getParam(key);
                     let Input = <></>;
                     if (param instanceof ConstantValue) {
-                        Input = <p className={'train-form__input'}>{param.value}</p>
+                        return (
+                            <div className={'train-form__fieldset'} key={uuidv4()}>
+                                <h4 className={'text-h5-dark-blue w-fit'}>{param.name}</h4>
+                                <p className={'train-form__input'}>{param.value}</p>
+                            </div>
+                        )
                     }
                     if (param instanceof RangeValue) {
                         function handleOnChange(value) {
@@ -64,14 +76,20 @@ export default function PartForm({editPart = new BaseTrain(), setParts, parts}) 
                             setPart(new PartType.current(part));
                         }
 
-                        Input = <NumInput
-                            max={param.max}
-                            onChange={handleOnChange}
-                            initialValue={param.value}
-                            min={param.min}
-                            addValue={param.addValue}
-                            className={'train-form__input'}
-                        ></NumInput>
+                        return (
+                            <div className={'train-form__fieldset'} key={uuidv4()}>
+                                <h4 className={'text-h5-dark-blue w-fit'}>Ввведите {sklLabel(param.name)}</h4>
+                                    < NumInput
+                                        max = {param.max}
+                                        onChange = {handleOnChange}
+                                        initialValue = {param.value}
+                                        min = {param.min}
+                                        addValue = {param.addValue}
+                                        className = {'train-form__input'}
+                                        decimals={param.decimals}
+                                    > < /NumInput>
+                                </div>
+                            )
                     }
                     if (param instanceof ListValue) {
                         function handleOnChoose(item) {
@@ -83,24 +101,24 @@ export default function PartForm({editPart = new BaseTrain(), setParts, parts}) 
                             setPart(new PartType.current(part));
                         }
 
-                        Input = <DropdownList
-                            items={param.items}
-                            className={'train-form__input'}
-                            onChoose={handleOnChoose}
-                            currentItem={param.currentItem}
-                        ></DropdownList>
+                        return (
+                                <div className={'train-form__fieldset'} key={uuidv4()}>
+                                    <h4 className={'text-h5-dark-blue w-fit'}>Выберите {sklLabel(param.name)}</h4>
+                                    <DropdownList
+                                        items = {param.items}
+                                        className = {'train-form__input'}
+                                        onChoose = {handleOnChoose}
+                                        currentItem={param.currentItem}
+                                    ></DropdownList>
+                                </div>
+                            )
 
                     }
-
-                    return (
-                        <div className={'aligned-between mt-1'} key={uuidv4()}>
-                            <h4 className={'text-h5-dark-blue w-fit'}>Выберите {param.name.toLowerCase()}</h4>
-                            {Input}
-                        </div>
-                    )
                 })
             }
-            <Button type={'submit'} style={'red'} className={'ml-auto mt-2'}>Создать</Button>
+            <Button type={'submit'} style={'red'} className={'ml-auto mt-2'}>
+                {editPart ? "Изменить" : "Создать"}
+            </Button>
         </Block>
     )
 }

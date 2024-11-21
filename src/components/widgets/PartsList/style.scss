@@ -1,0 +1,36 @@
+@use "../../../index" as *;
+
+.parts-list {
+    &__item {
+        &-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        &-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        &-value {
+            width: fit-content;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+    }
+    &__edit{
+        cursor: pointer;
+        width: 2rem;
+        svg{
+            width: 100%;
+        }
+        path{
+            fill: $color-gray;
+        }
+    }
+}
+

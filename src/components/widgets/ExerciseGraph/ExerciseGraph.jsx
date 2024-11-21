@@ -24,7 +24,7 @@ export default function ExerciseGraph({
     const trains = exercise.parts.filter(part => part instanceof Train);
     const graph = [];
     for (let train of trains) {
-        const hits = train.hits;
+        const hits = train.hits.value;
         const energy = train.getEnergy();
         const point = graph.find(point => point.x === hits);
         if (point) {
@@ -92,10 +92,10 @@ export default function ExerciseGraph({
                 </table>
                 <svg width={width} height={height}>
                     {graph.map(point => {
-                        const x = Math.floor((point.x / maxX) * width) - 5;
+                        const x = Math.floor((point.x / maxX) * width) - 6;
                         const y = height - Math.floor((point.y / maxY) * height);
                         return (
-                            <line key={uuidv4()} x1={x} y1={height - 3} x2={x} y2={y}></line>
+                            <line key={uuidv4()} x1={x} y1={height - 3} x2={x} y2={y + 3}></line>
                         )
                     })}
                 </svg>

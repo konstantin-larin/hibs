@@ -9,6 +9,8 @@
     &__head{
         display: flex;
         justify-content: space-between;
+        gap: $offset-1;
+        flex-wrap: wrap;
         width: 100%;
 
         &-buttons{
