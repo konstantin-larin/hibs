@@ -4,6 +4,7 @@ import Block from "@common/Block/Block.jsx";
 import Button from "@common/Button/Button.jsx";
 import CommonInput from "@common/CommonInput/CommonInput.jsx";
 import {useEffect, useRef, useState} from "react";
+import {usePreferences} from "@contexts/PreferencesContext.jsx";
 import {useUsersExercises} from "@contexts/UsersExercisesContext.jsx";
 import {Navigate, useNavigate} from "react-router-dom";
 import {useAuth} from "@contexts/AuthContext.jsx";
@@ -20,17 +21,8 @@ export default function EditExercisePage() {
     const [shortName, setShortName] = useState(editedExercise?.shortName ?? '');
     const [description, setDescription] = useState(editedExercise?.description ?? '');
     const [isPending, setIsPending] = useState(false);
-    const history = JSON.parse(sessionStorage.getItem('history'));
-    const pathName = location.pathname;
-    const lastPath = useRef('/');
-
-
-    if (history.length > 1) {
-        const _lastPath = history.at(-1);
-        if (!pathName.includes(_lastPath)) {
-            lastPath.current = _lastPath;
-        }
-    }
+    const {useLastPath} = usePreferences();
+    const lastPath = useLastPath();
 
     function handleNameOnChange(e) {
         setName(e.target.value);
@@ -97,7 +89,7 @@ export default function EditExercisePage() {
             </Layout>
         )
     } else {
-        return (<Navigate to={lastPath.current}></Navigate>)
+        return (<Navigate to={lastPath}></Navigate>)
     }
 
 }

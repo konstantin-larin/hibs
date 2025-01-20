@@ -1,6 +1,6 @@
 import './App.scss'
 import {useEffect} from "react";
-import {BrowserRouter, Route, Routes, useLocation} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import ProfilePage from "./components/pages/Profile/ProfilePage.jsx";
 import {AuthProvider} from "./contexts/AuthContext.jsx";
 import LoginPage from "./components/pages/Login/LoginPage.jsx";

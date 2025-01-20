@@ -1,20 +1,23 @@
 // AuthContext.js
-import React, { createContext, useContext, useState } from 'react';
+import React, {createContext, useContext, useEffect, useState} from 'react';
 import avatar from "@images/richard.png";
+import {loginUser, fetchUserData, refreshToken, logoutUser} from "@services/auth.js";
+
 const AuthContext = createContext({});
+export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-    // console.log(JSON.parse(localStorage.getItem('user')));
-    let rememberedUser = localStorage.getItem('user');
-    if(rememberedUser){
-        rememberedUser = JSON.parse(rememberedUser);
-    } else rememberedUser = null;
-    const [user, setUser] = useState(rememberedUser); // user = null означает, что пользователь не авторизован
+    const [user, setUser] = useState(null);
+    const [accessToken, setAccessToken] = useState(localStorage.getItem('accessToken'));
+    const [refreshTokenValue, setRefreshTokenValue] = useState(localStorage.getItem('refreshToken'));
+    const [error, setError] = useState(null);
 
-    const login = ({user, remember}) => {
-        user = {
-            ...user,
+    function _setUser(_user){
+        _user = {
+        ..._user,
             avatar,
+            firstTime: true, //первый раз
+
             role: 'admin',
             name: "Константин",
             surname: "Ларин",
@@ -22,26 +25,62 @@ export const AuthProvider = ({ children }) => {
             maxSpeed: 40,
             hits: 1000,
         }
-        if(remember){
-            localStorage.setItem('user', JSON.stringify(user));
-        } else {
-            localStorage.removeItem('user');
+        setUser(_user);
+    }
+
+    useEffect(() => {
+        if(accessToken){
+            fetchUserData(accessToken)
+                .then(_setUser)
+                .catch(handleError)
         }
-        setUser(user); // Эмулируем логин, устанавливая имя пользователя
+    }, [accessToken]);
+
+    const handleError = (err) => {
+        console.log(err);
+        setError(err);
+    }
+
+    const login = async ({credentials, remember}) => {
+        try {
+            const {accessToken, refreshToken} = await loginUser(credentials);
+            setAccessToken(accessToken)
+            setRefreshTokenValue(refreshToken);
+        } catch(err) {
+            handleError(err);
+        }
     };
 
-    const logout = () => {
-        localStorage.removeItem('user');
-        setUser(null); // Эмулируем выход
+    const refreshAccessToken = async () => {
+        if(!refreshTokenValue) return;
+
+        try {
+            const {token} = await refreshToken(refreshToken);
+            setAccessToken(token);
+        } catch(err) {
+            handleError(err);
+        }
+    }
+
+    const logout = async () => {
+        await logoutUser();
+        setUser(null);
+        setAccessToken(null);
+        setRefreshTokenValue(null);
     };
 
-    const isAuthenticated = () => !!user;
+
+    const isAuthenticated = () => {
+        return !!user;
+    };
 
     return (
-        <AuthContext.Provider value={{ user, login, logout, isAuthenticated}}>
+        <AuthContext.Provider value={{ user, login, logout, refreshAccessToken, isAuthenticated, error}}>
             {children}
         </AuthContext.Provider>
     );
 };
 
-export const useAuth = () => useContext(AuthContext);
+
+
+

@@ -333,9 +333,9 @@ export class ControlSpeedTrain extends Train {
 
         this.step = part.step ?? new RangeValue({
             name: "Шаг изменения скорости",
-            min: MIN_SPEED,
-            max: MAX_SPEED,
-            value: MIN_SPEED,
+            min: 1,
+            max: 40,
+            value: 1,
         });
 
         this.startSpeed = part.startSpeed ?? new ConstantValue({
@@ -409,4 +409,4 @@ export class Pause extends Part {
 }
 
 
-export const PARTS_TYPES = [BaseTrain, PowerTrain, ControlSpeedTrain, FTP3Min, FTP300, Pause];
+export const PARTS_TYPES = [BaseTrain, PowerTrain, ControlSpeedTrain, Pause];

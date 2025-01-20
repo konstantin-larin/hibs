@@ -9,22 +9,14 @@ import ExerciseGraph from "../../widgets/ExerciseGraph/ExerciseGraph.jsx";
 import Button from "@common/Button/Button.jsx";
 import EditIcon from "../../../assets/icons/EditIcon.jsx";
 import PartsList from "../../widgets/PartsList/PartsList.jsx";
-
+import {usePreferences} from "@contexts/PreferencesContext.jsx";
 export default function EditExercisePage() {
     const {user} = useAuth();
     const navigate = useNavigate();
     const {viewedExercise, setViewedExercise, setEditedExercise} = useUsersExercises();
     const [parts, setParts] = useState(viewedExercise ? [...viewedExercise.parts] : null);
-    const history = JSON.parse(sessionStorage.getItem('history'));
-    const pathName = location.pathname;
-    const lastPath = useRef('/');
-
-    if(history.length > 1){
-        const _lastPath = history.at(-1);
-        if(!pathName.includes(_lastPath)){
-            lastPath.current = _lastPath;
-        }
-    }
+    const {useLastPath} = usePreferences();
+    const lastPath = useLastPath();
 
 
     function editExercise(){
@@ -64,9 +56,9 @@ export default function EditExercisePage() {
                             </p>
 
                             <div className={'mt-2 viewed-exercise__buttons'}>
-                                {!lastPath.current.endsWith('/saved') &&
+                                {!lastPath.endsWith('/saved') &&
                                     <Button style={'blue'}>Добавить на устройство</Button>}
-                                {!lastPath.current.endsWith('/my') && <Button style={'green'}>Добавить в Мои занятия</Button>}
+                                {!lastPath.endsWith('/my') && <Button style={'green'}>Добавить в Мои занятия</Button>}
                             </div>
                         </div>
                     </div>
@@ -75,7 +67,7 @@ export default function EditExercisePage() {
             </Layout>
         )
     } else {
-        return (<Navigate to={lastPath.current}></Navigate>)
+        return (<Navigate to={lastPath}></Navigate>)
     }
 
 }

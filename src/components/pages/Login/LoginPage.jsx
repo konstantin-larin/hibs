@@ -1,4 +1,3 @@
-import AuthBg from "@common/AuthBg/AuthBg.jsx";
 import Block from "@common/Block/Block.jsx";
 import "./style.scss"
 import Text from "@common/Text/Text.jsx";
@@ -10,10 +9,15 @@ import Button from "@common/Button/Button.jsx";
 import {Link, Navigate, useNavigate} from "react-router-dom";
 import {validateEmail, validatePassword, Validation} from "@services/validation.js";
 import {useAuth} from "@contexts/AuthContext.jsx";
+import {usePreferences} from "@contexts/PreferencesContext.jsx";
 
 export default function LoginPage() {
-    const navigate = useNavigate();
     const auth = useAuth();
+
+    const {useLastPath} = usePreferences();
+    const lastPath = useLastPath();
+
+    const [disabled, setDisabled] = useState(false);
     const [email, setEmail] = useState("");
     const [emailValidation, setEmailValidation] = useState(new Validation());
     const [password, setPassword] = useState("");
@@ -30,6 +34,7 @@ export default function LoginPage() {
 
     function handleSubmit(e) {
         e.preventDefault();
+
         const emailValid = validateEmail(email);
         if (emailValid.error) {
             setEmailValidation(emailValid);
@@ -41,13 +46,18 @@ export default function LoginPage() {
             setPasswordValidation(passwordValid)
             return;
         }
+        setDisabled(true);
 
-        auth.login({user: {email, password}, remember: rememberMe});
+        auth.login({credentials: {username: email, password}, remember: rememberMe})
+            .then(() => {
+                    setDisabled(false);
+                }
+            );
     }
 
-    if(auth.isAuthenticated()){
+    if (auth.isAuthenticated()) {
         return (
-            <Navigate to={'/profile'}></Navigate>
+            <Navigate to={lastPath}></Navigate>
         )
     } else {
         return (
@@ -85,7 +95,7 @@ export default function LoginPage() {
 
                     <Switch label={'Запомнить меня'} className={'mt-3'} switched={rememberMe}
                         setSwitched={setRememberMe}></Switch>
-                    <Button style={'red'} className={'mt-4 w-full'} type={'submit'}>
+                    <Button style={'red'} className={'mt-4 w-full'} type={'submit'} disabled={disabled}>
                         <Text style={'btn'} tag={'p'}>ВОЙТИ</Text>
                     </Button>
                     <div className={'mt-4 text-center mb-1'}>

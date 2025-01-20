@@ -27,8 +27,8 @@ export const validatePassword = (password) => {
     if(defaultValidation.error){
         return defaultValidation;
     }
-    if(password.length < 8){
-        return new Validation({error: true, message: "Пароль должен быть не менее 8 символов"});
+    if(password.length < 5){
+        return new Validation({error: true, message: "Пароль должен быть не менее 5 символов"});
     }
     return new Validation({error: false});
 }
