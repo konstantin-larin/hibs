@@ -1,9 +1,10 @@
 import "./style.scss";
-import AuthBg from "@common/AuthBg/AuthBg.jsx";
 import Block from "@common/Block/Block.jsx";
 import Text from "@common/Text/Text.jsx";
 import FormGrid from "@common/FormGrid/FormGrid.jsx";
 import CommonInput from "@common/CommonInput/CommonInput.jsx";
+import {useSignUp} from "@contexts/SignUpContext.jsx";
+
 import {
     validateEmail,
     validatePassword,
@@ -20,17 +21,18 @@ import {usePreferences} from "@contexts/PreferencesContext.jsx";
 
 export default function RegisterPage() {
     const navigate =useNavigate();
+    const {activateEmail, userData} = useSignUp();
 
     const {isMobile} = usePreferences();
-    const [name, setName] = useState('');
+    const [name, setName] = useState(userData? userData.firstName : '');
     const [nameValidation, setNameValidation] = useState(new Validation());
-    const [surname, setSurname] = useState('');
+    const [surname, setSurname] = useState(userData ? userData.lastName : '');
     const [surnameValidation, setSurnameValidation] = useState(new Validation());
-    const [email, setEmail] = useState('');
+    const [email, setEmail] = useState(userData ? userData.email : '');
     const [emailValidation, setEmailValidation] = useState(new Validation());
-    const [password, setPassword] = useState('');
+    const [password, setPassword] = useState(userData ? userData.password : '');
     const [passwordValidation, setPasswordValidation] = useState(new Validation());
-    const [repeatedPassword, setRepeatedPassword] = useState('');
+    const [repeatedPassword, setRepeatedPassword] = useState(userData ? userData.password : '');
     const [repeatedPasswordValidation, setRepeatedPasswordValidation] = useState(new Validation());
 
     function handleOnSubmit(e){
@@ -66,7 +68,10 @@ export default function RegisterPage() {
             return;
         }
 
-        navigate('/profile');
+        activateEmail({firstName: name, lastName: surname, email: email, password: password})
+            .then(() => {
+               navigate('/verify-email');
+            });
     }
     function handleNameOnChange(evt) {
         setName(evt.target.value);

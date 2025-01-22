@@ -55,55 +55,58 @@ export default function LoginPage() {
             );
     }
 
+    if (auth.isFetching()){
+        return <div></div>
+    }
     if (auth.isAuthenticated()) {
         return (
             <Navigate to={lastPath}></Navigate>
         )
-    } else {
-        return (
-            <div className={'screen'}>
-                {/*<AuthBg></AuthBg>*/}
-                <Block style={'default'} tag={'form'} className={'login'} onSubmit={handleSubmit}>
-                    <div className={'login__header'}>
-                        <Logo></Logo>
-                        <Text style={'h3-white'} tag={'h1'}>
-                            Вход
-                        </Text>
-                    </div>
-                    <NiceInput
-                        required
-                        label={'Email'}
-                        type={'email'}
-                        value={email}
-                        validation={emailValidation}
-                        setValidation={setEmailValidation}
-                        onChange={handleEmailChange}
-                        autoComplete={'username'}
-                    ></NiceInput>
-
-                    <NiceInput
-                        required
-                        label={'Пароль'}
-                        type={'password'}
-                        value={password}
-                        validation={passwordValidation}
-                        setValidation={setPasswordValidation}
-                        className={'mt-1'}
-                        onChange={handlePasswordChange}
-                        autoComplete="current-password"
-                    ></NiceInput>
-
-                    <Switch label={'Запомнить меня'} className={'mt-3'} switched={rememberMe}
-                        setSwitched={setRememberMe}></Switch>
-                    <Button style={'red'} className={'mt-4 w-full'} type={'submit'} disabled={disabled}>
-                        <Text style={'btn'} tag={'p'}>ВОЙТИ</Text>
-                    </Button>
-                    <div className={'mt-4 text-center mb-1'}>
-                        <Text style={'label'} tag={'span'}>Нет аккаунта?{" "}</Text>
-                        <Link to={'/register'}><Text style={"important"} tag={'span'}>Зарегистрироваться</Text></Link>
-                    </div>
-                </Block>
-            </div>
-        )
     }
+    return (
+        <div className={'screen'}>
+            {/*<AuthBg></AuthBg>*/}
+            <Block style={'default'} tag={'form'} className={'login'} onSubmit={handleSubmit}>
+                <div className={'login__header'}>
+                    <Logo></Logo>
+                    <Text style={'h3-white'} tag={'h1'}>
+                        Вход
+                    </Text>
+                </div>
+                <NiceInput
+                    required
+                    label={'Email'}
+                    type={'email'}
+                    value={email}
+                    validation={emailValidation}
+                    setValidation={setEmailValidation}
+                    onChange={handleEmailChange}
+                    autoComplete={'username'}
+                ></NiceInput>
+
+                <NiceInput
+                    required
+                    label={'Пароль'}
+                    type={'password'}
+                    value={password}
+                    validation={passwordValidation}
+                    setValidation={setPasswordValidation}
+                    className={'mt-1'}
+                    onChange={handlePasswordChange}
+                    autoComplete="current-password"
+                ></NiceInput>
+
+                <Switch label={'Запомнить меня'} className={'mt-3'} switched={rememberMe}
+                    setSwitched={setRememberMe}></Switch>
+                <Button style={'red'} className={'mt-4 w-full'} type={'submit'} disabled={disabled}>
+                    <Text style={'btn'} tag={'p'}>ВОЙТИ</Text>
+                </Button>
+                <div className={'mt-4 text-center mb-1'}>
+                    <Text style={'label'} tag={'span'}>Нет аккаунта?{" "}</Text>
+                    <Link to={'/register'}><Text style={"important"} tag={'span'}>Зарегистрироваться</Text></Link>
+                </div>
+            </Block>
+        </div>
+    )
+
 }

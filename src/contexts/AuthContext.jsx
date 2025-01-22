@@ -2,12 +2,14 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import avatar from "@images/richard.png";
 import {loginUser, fetchUserData, refreshToken, logoutUser} from "@services/auth.js";
-
+import {useSignUp} from "@contexts/SignUpContext.jsx";
 const AuthContext = createContext({});
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
+    const {setUserData, setEmailCanBeReactivated} = useSignUp();
     const [user, setUser] = useState(null);
+    const [fetching, setFetching] = useState(true);
     const [accessToken, setAccessToken] = useState(localStorage.getItem('accessToken'));
     const [refreshTokenValue, setRefreshTokenValue] = useState(localStorage.getItem('refreshToken'));
     const [error, setError] = useState(null);
@@ -17,10 +19,7 @@ export const AuthProvider = ({ children }) => {
         ..._user,
             avatar,
             firstTime: true, //первый раз
-
             role: 'admin',
-            name: "Константин",
-            surname: "Ларин",
             minSpeed: 3,
             maxSpeed: 40,
             hits: 1000,
@@ -31,8 +30,15 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         if(accessToken){
             fetchUserData(accessToken)
-                .then(_setUser)
+                .then((user) => {
+                    _setUser(user);
+                    setUserData(null);
+                    setFetching(false);
+                })
                 .catch(handleError)
+        }
+        else {
+            setFetching(false);
         }
     }, [accessToken]);
 
@@ -46,10 +52,15 @@ export const AuthProvider = ({ children }) => {
             const {accessToken, refreshToken} = await loginUser(credentials);
             setAccessToken(accessToken)
             setRefreshTokenValue(refreshToken);
+            if(remember){
+                localStorage.setItem('accessToken', accessToken);
+                localStorage.setItem('refreshToken', refreshToken);
+            }
         } catch(err) {
             handleError(err);
         }
     };
+
 
     const refreshAccessToken = async () => {
         if(!refreshTokenValue) return;
@@ -70,12 +81,13 @@ export const AuthProvider = ({ children }) => {
     };
 
 
-    const isAuthenticated = () => {
-        return !!user;
-    };
+    const isFetching = () => fetching
+    const isAuthenticated = () => !!user;
 
     return (
-        <AuthContext.Provider value={{ user, login, logout, refreshAccessToken, isAuthenticated, error}}>
+        <AuthContext.Provider value={{
+            user, login, logout, refreshAccessToken, isAuthenticated, isFetching, error,
+        }}>
             {children}
         </AuthContext.Provider>
     );

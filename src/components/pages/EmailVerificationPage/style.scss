@@ -1,0 +1,11 @@
+@use "@styles" as *;
+.email-verify{
+    max-width: 50rem;
+}
+.email-verify-panel{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: $offset-1;
+    gap: 1rem;
+}

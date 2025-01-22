@@ -9,14 +9,20 @@ const PreferencesContext = createContext({});
 export const PreferencesProvider = ({children}) => {
     const location = useLocation();
     useEffect(() => {
-        const history = JSON.parse(sessionStorage.getItem('history'));
+        let history = JSON.parse(sessionStorage.getItem('history'));
         const pathname = location.pathname;
-        if (history.at(-1) === pathname){
-            history.pop();
-            sessionStorage.setItem('history', JSON.stringify([...history, pathname]));
+        if(history.length > 3){
+            history = [...history.slice(history.length - 3), pathname];
         }
-        if (pathname !== '/exercises/edit' ) {
-            sessionStorage.setItem('history', JSON.stringify([...history, pathname]));
+        else {
+            history = [...history, pathname];
+        }
+        // if (history.at(-1) === pathname){
+        //     history.pop();
+        //     sessionStorage.setItem('history', JSON.stringify(history));
+        // }
+        if (pathname !== '/exercises/edit' && pathname !== '/verify-email') {
+            sessionStorage.setItem('history', JSON.stringify(history));
         }
     }, [location])
 
@@ -61,7 +67,7 @@ export const PreferencesProvider = ({children}) => {
     function useLastPath(){
         const history = JSON.parse(sessionStorage.getItem('history'));
         const pathName = location.pathname;
-        const lastPath = useRef('/');
+        const lastPath = useRef('/profile');
 
 
         if (history.length > 1) {

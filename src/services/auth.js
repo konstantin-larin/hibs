@@ -1,6 +1,6 @@
 import axios from 'axios';
-const apiUrl = 'https://dev.madrocket.tech/api';
 
+const apiUrl = 'https://dev.madrocket.tech/api';
 // Create axios instance with interceptors
 const api = axios.create({
     baseURL: apiUrl,
@@ -33,7 +33,7 @@ api.interceptors.response.use(
             const refreshTokenValue = localStorage.getItem('refreshToken');
             if (refreshTokenValue) {
                 try {
-                    const { accessToken } = await refreshToken(refreshTokenValue);
+                    const {accessToken} = await refreshToken(refreshTokenValue);
                     localStorage.setItem('accessToken', accessToken);
                     api.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
                     return api(originalRequest); // Retry original request with new token
@@ -54,9 +54,7 @@ export const loginUser = async (credentials) => {
         const response = await api.post('/auth/login', credentials);
         const accessToken = response.data.token;
         const refreshToken = response.data.refreshToken;
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('refreshToken', refreshToken);
-        return { accessToken, refreshToken };
+        return {accessToken, refreshToken};
     } catch (error) {
         throw new Error(error.response?.data?.message || 'Login failed');
     }
@@ -86,12 +84,35 @@ export const refreshToken = async (refreshToken) => {
         return response.data; // Предполагается, что в ответе будут новые токены
     } catch (error) {
         console.error('Ошибка при обновлении токена:', error.response?.data || error.message);
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
         throw error; // Пробрасываем ошибку дальше для обработки
     }
 };
 
-export const logoutUser  = async () => {
+export const logoutUser = async () => {
     await api.post('/auth/logout');
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
 }
+
+export const sendCodeOnEmail = async (email) => {
+    try {
+        const response = await axios.post( `https://dev.madrocket.tech/api/noauth/resendEmailActivation?email=${encodeURIComponent(email)}`);
+        console.log('Код отправлен:', response.data);
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
+export const signUpUser = async (userInfo) => {
+    try {
+        console.log(userInfo);
+        const response = await api.post('/noauth/signup', userInfo);
+        return response.data;
+    } catch (error) {
+        throw error; // Пробрасываем ошибку дальше для обработки
+    }
+
+}
+
