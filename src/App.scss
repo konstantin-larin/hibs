@@ -16,6 +16,10 @@ body {
     min-width: 30rem;
 }
 
+main{
+    position: relative;
+}
+
 div {
     width: 100%;
 }
@@ -236,4 +240,42 @@ button{
 
 .text-sm-dark-blue{
     @include text-sm($color-dark-blue, 400);
+}
+
+.table{
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+    //tbody{
+    //    tr{
+    //        cursor: pointer;
+    //        transition: $transition-default;
+    //        &:hover{
+    //            background: rgb(0, 0, 0, 0.1);
+    //        }
+    //    }
+    //}
+    th{
+        color: $color-dark-blue;
+    }
+    td{
+        color: $color-dark-gray;
+    }
+    td, th{
+        padding: 0.6rem;
+    }
+}
+
+.square{
+    width: 2rem;
+    height: 2rem;
+    border: 1.3px solid $color-dark;
+    border-radius: $radius-xs;
+}
+
+
+
+
+button{
+    cursor: pointer;
 }

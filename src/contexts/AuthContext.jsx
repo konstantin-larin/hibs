@@ -1,7 +1,7 @@
 // AuthContext.js
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import avatar from "@images/richard.png";
-import {loginUser, fetchUserData, refreshToken, logoutUser} from "@services/auth.js";
+import {loginUser, fetchUserData, refreshToken, logoutUser} from "@services/api.js";
 import {useSignUp} from "@contexts/SignUpContext.jsx";
 const AuthContext = createContext({});
 export const useAuth = () => useContext(AuthContext);
@@ -43,10 +43,15 @@ export const AuthProvider = ({ children }) => {
     }, [accessToken]);
 
     const handleError = (err) => {
-        console.log(err);
         setError(err);
     }
 
+    const isAdmin = () => {
+        if(user){
+            return user.role === 'admin';
+        }
+        return false;
+    }
     const login = async ({credentials, remember}) => {
         try {
             const {accessToken, refreshToken} = await loginUser(credentials);
@@ -86,7 +91,7 @@ export const AuthProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider value={{
-            user, login, logout, refreshAccessToken, isAuthenticated, isFetching, error,
+            user, login, logout, refreshAccessToken, isAuthenticated, isFetching, error, isAdmin
         }}>
             {children}
         </AuthContext.Provider>

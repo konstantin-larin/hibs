@@ -67,7 +67,7 @@ export const PreferencesProvider = ({children}) => {
     function useLastPath(){
         const history = JSON.parse(sessionStorage.getItem('history'));
         const pathName = location.pathname;
-        const lastPath = useRef('/profile');
+        const lastPath = useRef('/');
 
 
         if (history.length > 1) {

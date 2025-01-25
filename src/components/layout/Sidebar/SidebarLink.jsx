@@ -2,6 +2,7 @@ import "@layout/style.scss";
 import {Link, useLocation} from "react-router-dom";
 import Text from "@common/Text/Text.jsx";
 import {usePreferences} from "@contexts/PreferencesContext.jsx";
+import {useEffect} from "react";
 
 export default function SidebarLink({to, img, label}) {
     const {isMobile, setSidebarIsClosed} = usePreferences();

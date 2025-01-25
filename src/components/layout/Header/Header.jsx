@@ -17,6 +17,8 @@ const pathesDictionary = {
     'profile': 'Профиль',
     'calendar': 'Календарь',
     'statistic': 'Статистика',
+    'admin': 'Администрирование',
+    'users': 'Пользователи',
 }
 
 

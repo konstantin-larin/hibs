@@ -6,7 +6,7 @@ import {v4 as uuidv4} from "uuid";
 export default function DropdownList({
                                          items = [{value: 1, label: 'dkfe'}, {value: 2, label: 'dlwee'},],
                                          currentItem = items[0],
-                                         onChoose = (val) => val,
+                                         onChoose = (item) => item,
                                          className}
 )
 {

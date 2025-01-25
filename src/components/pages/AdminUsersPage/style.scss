@@ -1,0 +1,27 @@
+@use "@styles" as *;
+
+.table{
+    path{
+        fill: $color-dark-blue !important;
+    }
+}
+.panel{
+    display: flex;
+    padding-right: 1rem;
+    justify-content: flex-end;
+    gap: $offset-2;
+    margin-bottom: $offset-1;
+    & > *{
+        width: fit-content;
+    }
+    &-btn{
+        cursor: pointer;
+    }
+    & .icon-sm,
+    & .icon{
+        width: 2rem;
+        path{
+            fill: $color-dark-blue !important;
+        }
+    }
+}

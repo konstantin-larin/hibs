@@ -10,6 +10,7 @@ import {Link, Navigate, useNavigate} from "react-router-dom";
 import {validateEmail, validatePassword, Validation} from "@services/validation.js";
 import {useAuth} from "@contexts/AuthContext.jsx";
 import {usePreferences} from "@contexts/PreferencesContext.jsx";
+import Spinner from "@common/Spinner/Spinner.jsx";
 
 export default function LoginPage() {
     const auth = useAuth();
@@ -56,7 +57,7 @@ export default function LoginPage() {
     }
 
     if (auth.isFetching()){
-        return <div></div>
+        return <Spinner></Spinner>
     }
     if (auth.isAuthenticated()) {
         return (

@@ -40,22 +40,14 @@ export default function EmailVerificationPage() {
                 <div className={'register__header'}>
                     <Text style={'h3-white'} tag={'h1'}>Подтверждение email</Text>
                 </div>
-
-                <div>
-                    <CommonInput
-                        label={'Введите код'}
-                        value={code} onChange={handleCodeOnChange}
-                    >
-                    </CommonInput>
-                </div>
                 <div className={'email-verify-panel'}>
                     <div>
                         {emailCanBeReactivated
                             ?
-                            <div>Отправить код заново</div>
+                            <div>Отправить сообщение на почту заново заново</div>
                             :
                             <div>
-                                Отправить код заново через {minutes > 9 ? minutes : '0' + minutes}:{seconds > 9 ? seconds : '0' + seconds}
+                                Отправить сообщение на почту заново через {minutes > 9 ? minutes : '0' + minutes}:{seconds > 9 ? seconds : '0' + seconds}
                             </div>
                         }
                     </div>

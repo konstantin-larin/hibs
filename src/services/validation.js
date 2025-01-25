@@ -63,3 +63,8 @@ export const validateName = (name) => {
     }
     return new Validation({error: false});
 }
+
+export const validatePhone = (phone) => {
+    const defaultValidation = defaultValidate(name);
+    
+}

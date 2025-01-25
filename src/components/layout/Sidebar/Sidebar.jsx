@@ -25,6 +25,7 @@ function ProfileImg() {
 
 export default function Sidebar() {
     const {exercisesIsOpened, setExercisesIsOpened, isMobile, sidebarIsClosed, setSidebarIsClosed} = usePreferences();
+    const {isAdmin} = useAuth();
 
     function handleCrossOnClick() {
         setSidebarIsClosed(true);
@@ -74,6 +75,16 @@ export default function Sidebar() {
                 <SidebarLink label={'Календарь'} img={CalendarIcon} to={'/calendar'}></SidebarLink>
                 <SidebarLink label={'Статистика'} img={StatisticIcon} to={'/statistic'}></SidebarLink>
             </div>
+
+            {
+                isAdmin &&
+                <>
+                    <p className={'text-h5-white'}>Админка</p>
+                    <div className={'sidebar__content'}>
+                        <SidebarLink label={'Пользователи'} img={CalendarIcon} to={'/admin/users'}></SidebarLink>
+                    </div>
+                </>
+            }
         </aside>
     )
 }

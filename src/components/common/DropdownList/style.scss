@@ -2,6 +2,7 @@
 
 .dropdown{
     &{
+        min-width: 13rem;
         width: fit-content;
         cursor:pointer;
         user-select: none;

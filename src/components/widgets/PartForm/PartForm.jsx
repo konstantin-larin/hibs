@@ -78,7 +78,7 @@ export default function PartForm({editPart = null, setParts, parts}) {
 
                         return (
                             <div className={'train-form__fieldset'} key={uuidv4()}>
-                                <h4 className={'text-h5-dark-blue w-fit'}>Ввведите {sklLabel(param.name)}</h4>
+                                <h4 className={'text-h5-dark-blue w-fit'}>Введите {sklLabel(param.name)}</h4>
                                     < NumInput
                                         max = {param.max}
                                         onChange = {handleOnChange}

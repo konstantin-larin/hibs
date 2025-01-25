@@ -1,5 +1,5 @@
 import React, {createContext, useContext, useEffect, useRef, useState} from 'react';
-import {sendCodeOnEmail} from "@services/auth.js";
+import {sendCodeOnEmail} from "@services/api.js";
 
 const SignUpContext = createContext({});
 export const useSignUp = () => useContext(SignUpContext);
@@ -50,7 +50,11 @@ export const SignUpProvider = ({children}) => {
     const activateEmail = async (_userData) => {
         if (userData) {
             if (_userData.email !== userData.email) {
-                setEmail(_userData.email);
+                sendCodeOnEmail(email)
+                    .then(() => {setEmail(_userData.email)})
+                    .catch(err => {
+                        console.log(err);
+                    })
             }
         } else {
             setEmail(_userData.email);

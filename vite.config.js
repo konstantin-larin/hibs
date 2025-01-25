@@ -10,7 +10,9 @@ export default defineConfig({
       "@services": resolve("src/services"),
       '@images': resolve('src/assets/images'),        // Путь до папки assets
       '@fonts': resolve('src/assets/fonts'),
+      '@icons': resolve('src/assets/icons'),
       '@styles': resolve('src/index.scss'),
+      "@widgets": resolve('src/components/widgets'),
       '@common': resolve('src/components/common'), // Путь до папки components
       '@hooks': resolve('src/components/hooks'),
       '@layout': resolve('src/components/layout'),

@@ -14,6 +14,8 @@ api.interceptors.request.use(
         const accessToken = localStorage.getItem('accessToken');
         if (accessToken) {
             config.headers.Authorization = `Bearer ${accessToken}`;
+            console.log(config.headers);
+            console.log(config);
         }
         return config;
     },
@@ -24,7 +26,6 @@ api.interceptors.response.use(
     (response) => response,
     async (error) => {
         const originalRequest = error.config;
-
         // Handle token expiration and refresh token logic
         if (error.response.status === 401 && !originalRequest._retry) {
             originalRequest._retry = true;
@@ -33,9 +34,9 @@ api.interceptors.response.use(
             const refreshTokenValue = localStorage.getItem('refreshToken');
             if (refreshTokenValue) {
                 try {
-                    const {accessToken} = await refreshToken(refreshTokenValue);
-                    localStorage.setItem('accessToken', accessToken);
-                    api.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
+                    const {token} = await refreshToken(refreshTokenValue);
+                    localStorage.setItem('accessToken', token);
+                    api.defaults.headers['Authorization'] = `Bearer ${token}`;
                     return api(originalRequest); // Retry original request with new token
                 } catch (err) {
                     console.error('Token refresh failed', err);
@@ -56,7 +57,7 @@ export const loginUser = async (credentials) => {
         const refreshToken = response.data.refreshToken;
         return {accessToken, refreshToken};
     } catch (error) {
-        throw new Error(error.response?.data?.message || 'Login failed');
+        throw new Error(error.response?.data?.message || 'LoginPage failed');
     }
 };
 
@@ -98,7 +99,7 @@ export const logoutUser = async () => {
 
 export const sendCodeOnEmail = async (email) => {
     try {
-        const response = await axios.post( `https://dev.madrocket.tech/api/noauth/resendEmailActivation?email=${encodeURIComponent(email)}`);
+        const response = await axios.post(`https://dev.madrocket.tech/api/noauth/resendEmailActivation?email=${encodeURIComponent(email)}`);
         console.log('Код отправлен:', response.data);
     } catch (error) {
         throw new Error(error);
@@ -111,8 +112,73 @@ export const signUpUser = async (userInfo) => {
         const response = await api.post('/noauth/signup', userInfo);
         return response.data;
     } catch (error) {
-        throw error; // Пробрасываем ошибку дальше для обработки
+        throw new Error(error); // Пробрасываем ошибку дальше для обработки
     }
 
 }
 
+
+export const getUsers = async () => {
+    try {
+        const response = await api.get('/users', {
+            params: {
+                pageSize: 100000,
+                page: 0,
+            }
+        });
+        return response.data;
+    } catch (err) {
+        throw new Error(err)
+    }
+}
+
+export const getUser = async (userId) => {
+    try {
+        const response = await api.get(`/user/`, {
+            params: {userId}
+        });
+        return response.data;
+    } catch (err) {
+        throw new Error(err)
+    }
+}
+
+export const postUser = async (user, sendActivationMail, admin) => {
+    try {
+        const newUser = {
+            "tenantId": {
+                "entityType": "TENANT",
+                "id": admin.tenantId.id,
+            },
+            "customerId": {
+                "entityType": "CUSTOMER",
+                "id": "6889ea00-d1fb-11ef-bcf7-fdccb01d971f"
+            },
+            ...user,
+            "additionalInfo": {}
+        }
+        //
+        const response = await api.post(`/user`,
+            newUser,
+            {
+                params: {sendActivationMail: false}
+            })
+        return response.data;
+    } catch (err) {
+        console.log(err);
+        throw new Error(err)
+    }
+}
+
+export const deleteUser = async (id) => {
+    try {
+        const response = await api.delete(`/user`,
+            {
+                params: {userId: id},
+            })
+        return response.data;
+    } catch (err) {
+        console.log(err);
+        throw new Error(err)
+    }
+}

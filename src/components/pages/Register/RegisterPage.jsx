@@ -41,11 +41,13 @@ export default function RegisterPage() {
         const nameValid = validateName(name);
         if(nameValid.error){
             setNameValidation(nameValid);
+            return;
         }
 
         const surnameValid = validateName(surname);
         if(surnameValid.error){
             setSurnameValidation(surnameValid);
+            return;
         }
 
 
