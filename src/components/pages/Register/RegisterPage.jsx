@@ -18,10 +18,13 @@ import NameIcon from "../../../assets/icons/NameIcon.jsx";
 import {Link, Navigate, useNavigate} from "react-router-dom";
 import Button from "@common/Button/Button.jsx";
 import {usePreferences} from "@contexts/PreferencesContext.jsx";
+import {useAuth} from "@contexts/AuthContext.jsx";
+import Alert from "@widgets/Alert/Alert.jsx";
 
 export default function RegisterPage() {
     const navigate =useNavigate();
     const {activateEmail, userData} = useSignUp();
+    const auth = useAuth();
 
     const {isMobile} = usePreferences();
     const [name, setName] = useState(userData? userData.firstName : '');
@@ -97,68 +100,75 @@ export default function RegisterPage() {
 
     return (
         <div className={'screen'}>
+            <Alert></Alert>
             {/*<AuthBg></AuthBg>*/}
             <Block style={'default'} className={'register'} tag={'form'} onSubmit={handleOnSubmit}>
                 <div className={'register__header'}>
                     <Text style={'h3-white'} tag={'h1'}>Регистрация</Text>
                 </div>
-                <Text style={'h4-dark-blue'} tag={'h2'} className={'mb-4'}>Заполните информацию</Text>
+                <div className={'center-flex'}>
+                    <Text style={'h4-dark-blue'} tag={'h2'} className={'mb-4'}>Свяжитесь с администратором </Text>
+                </div>
+                <div className={'mt-2 text-center mb-1'}>
+                    <Link to={'/login'}><Text style={"important"} tag={'span'}>Обратно к логину</Text></Link>
+                </div>
+                {/*<Text style={'h4-dark-blue'} tag={'h2'} className={'mb-4'}>Заполните информацию</Text>*/}
 
-                <FormGrid>
-                    <CommonInput
-                        label={'Имя'}
-                        placeholder={'Введите ваше имя'}
-                        icon={NameIcon}
-                        validation={nameValidation} setValidation={setNameValidation}
-                        value={name} onChange={handleNameOnChange}
-                    >
-                    </CommonInput>
-                    <CommonInput
-                        label={'Фамилия'}
-                        placeholder={'Введите вашу фамилию'}
-                        validation={surnameValidation} setValidation={setSurnameValidation}
-                        value={surname} onChange={handleSurnameOnChange}
-                    >
-                    </CommonInput>
+                {/*<FormGrid>*/}
+                {/*    <CommonInput*/}
+                {/*        label={'Имя'}*/}
+                {/*        placeholder={'Введите ваше имя'}*/}
+                {/*        icon={NameIcon}*/}
+                {/*        validation={nameValidation} setValidation={setNameValidation}*/}
+                {/*        value={name} onChange={handleNameOnChange}*/}
+                {/*    >*/}
+                {/*    </CommonInput>*/}
+                {/*    <CommonInput*/}
+                {/*        label={'Фамилия'}*/}
+                {/*        placeholder={'Введите вашу фамилию'}*/}
+                {/*        validation={surnameValidation} setValidation={setSurnameValidation}*/}
+                {/*        value={surname} onChange={handleSurnameOnChange}*/}
+                {/*    >*/}
+                {/*    </CommonInput>*/}
 
-                    <CommonInput
-                        placeholder={'Введите вашу почту'}
-                        autoComplete={'username'}
-                        label={'Email'} validation={emailValidation} setValidation={setEmailValidation}
-                        value={email} onChange={handleEmailOnChange} type={'email'}
-                    >
-                    </CommonInput>
-                    {!isMobile && <div></div>}
-                    <CommonInput
-                        placeholder={'Введите ваш пароль'}
-                        autoComplete={'new-password'}
-                        icon={PasswordHideIcon}
-                        label={'Пароль'} validation={passwordValidation} setValidation={setPasswordValidation}
-                        value={password} onChange={handlePasswordOnChange} type={'password'}
-                    >
-                    </CommonInput>
-                    <CommonInput
-                        icon={PasswordHideIcon}
-                        label={'Повторите пароль'}
-                        autoComplete={'new-password'}
-                        placeholder={'Введите ваш пароль'}
-                        validation={repeatedPasswordValidation} setValidation={setRepeatedPasswordValidation}
-                        value={repeatedPassword} onChange={handleRepeatedPasswordOnChange} type={'password'}
-                    >
-                    </CommonInput>
+                {/*    <CommonInput*/}
+                {/*        placeholder={'Введите вашу почту'}*/}
+                {/*        autoComplete={'username'}*/}
+                {/*        label={'Email'} validation={emailValidation} setValidation={setEmailValidation}*/}
+                {/*        value={email} onChange={handleEmailOnChange} type={'email'}*/}
+                {/*    >*/}
+                {/*    </CommonInput>*/}
+                {/*    {!isMobile && <div></div>}*/}
+                {/*    <CommonInput*/}
+                {/*        placeholder={'Введите ваш пароль'}*/}
+                {/*        autoComplete={'new-password'}*/}
+                {/*        icon={PasswordHideIcon}*/}
+                {/*        label={'Пароль'} validation={passwordValidation} setValidation={setPasswordValidation}*/}
+                {/*        value={password} onChange={handlePasswordOnChange} type={'password'}*/}
+                {/*    >*/}
+                {/*    </CommonInput>*/}
+                {/*    <CommonInput*/}
+                {/*        icon={PasswordHideIcon}*/}
+                {/*        label={'Повторите пароль'}*/}
+                {/*        autoComplete={'new-password'}*/}
+                {/*        placeholder={'Введите ваш пароль'}*/}
+                {/*        validation={repeatedPasswordValidation} setValidation={setRepeatedPasswordValidation}*/}
+                {/*        value={repeatedPassword} onChange={handleRepeatedPasswordOnChange} type={'password'}*/}
+                {/*    >*/}
+                {/*    </CommonInput>*/}
 
-                    <div className={'center-row'}>
-                        <Text style={'p'} tag={'div'} className={''}>
-                            Уже есть аккаунт?{" "}
-                            <Text style={'important'} tag={'span'}>
-                                <Link to={'/login'}>Войти</Link>
-                            </Text>
-                        </Text>
-                    </div>
-                    <Button style={'black'} type={'submit'} className={'ml-auto'}>
-                        <Text style={'btn'} tag={'p'}>Далее</Text>
-                    </Button>
-                </FormGrid>
+                {/*    <div className={'center-row'}>*/}
+                {/*        <Text style={'p'} tag={'div'} className={''}>*/}
+                {/*            Уже есть аккаунт?{" "}*/}
+                {/*            <Text style={'important'} tag={'span'}>*/}
+                {/*                <Link to={'/login'}>Войти</Link>*/}
+                {/*            </Text>*/}
+                {/*        </Text>*/}
+                {/*    </div>*/}
+                {/*    <Button style={'black'} type={'submit'} className={'ml-auto'}>*/}
+                {/*        <Text style={'btn'} tag={'p'}>Далее</Text>*/}
+                {/*    </Button>*/}
+                {/*</FormGrid>*/}
             </Block>
         </div>
     )

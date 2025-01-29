@@ -6,14 +6,14 @@ import {useAuth} from "@contexts/AuthContext.jsx";
 
 export default function ProfileMe() {
     const {logout, user} = useAuth();
-    console.log(user);
+
     return (
         <Block style={'default'} tag={'section'} id={'me'} className={'profile__me'}>
             <div className={'profile__name'}>
                 <div className={'profile__name-img'}>
                     <img src={user.avatar} alt="avatar"/>
                 </div>
-                {user.name} {user.surname}
+                {user.firstName ?? ''} {user.lastName ?? ''}
             </div>
             <Button style={'red'} onClick={() => {
                 logout();

@@ -11,11 +11,12 @@ import {validateEmail, validatePassword, Validation} from "@services/validation.
 import {useAuth} from "@contexts/AuthContext.jsx";
 import {usePreferences} from "@contexts/PreferencesContext.jsx";
 import Spinner from "@common/Spinner/Spinner.jsx";
+import Alert from "@widgets/Alert/Alert.jsx";
 
 export default function LoginPage() {
     const auth = useAuth();
 
-    const {useLastPath} = usePreferences();
+    const {useLastPath, setAlertIsOpen, setAlertMessage} = usePreferences();
     const lastPath = useLastPath();
 
     const [disabled, setDisabled] = useState(false);
@@ -36,6 +37,7 @@ export default function LoginPage() {
     function handleSubmit(e) {
         e.preventDefault();
 
+
         const emailValid = validateEmail(email);
         if (emailValid.error) {
             setEmailValidation(emailValid);
@@ -49,14 +51,22 @@ export default function LoginPage() {
         }
         setDisabled(true);
 
+
         auth.login({credentials: {username: email, password}, remember: rememberMe})
             .then(() => {
                     setDisabled(false);
+                })
+            .catch(err => {
+                if(err.status === 401){
+                    setAlertIsOpen(true);
+                    setAlertMessage('Введены неверные email или пароль')
                 }
-            );
+                setDisabled(false);
+            })
+        ;
     }
 
-    if (auth.isFetching()){
+    if (auth.isFetching()) {
         return <Spinner></Spinner>
     }
     if (auth.isAuthenticated()) {
@@ -66,6 +76,7 @@ export default function LoginPage() {
     }
     return (
         <div className={'screen'}>
+            <Alert></Alert>
             {/*<AuthBg></AuthBg>*/}
             <Block style={'default'} tag={'form'} className={'login'} onSubmit={handleSubmit}>
                 <div className={'login__header'}>

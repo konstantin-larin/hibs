@@ -2,30 +2,38 @@ import {createContext, useContext, useEffect, useState, useRef} from "react";
 import breakpoints from "@services/breakpoints.js";
 import {disableBodyScroll, enableBodyScroll} from "body-scroll-lock";
 import {useLocation} from "react-router-dom";
+import {useAuth} from "@contexts/AuthContext.jsx";
 
 const PreferencesContext = createContext({});
 
 
 export const PreferencesProvider = ({children}) => {
     const location = useLocation();
+    const auth = useAuth();
     useEffect(() => {
         let history = JSON.parse(sessionStorage.getItem('history'));
-        const pathname = location.pathname;
-        if(history.length > 3){
-            history = [...history.slice(history.length - 3), pathname];
-        }
-        else {
-            history = [...history, pathname];
-        }
-        // if (history.at(-1) === pathname){
-        //     history.pop();
-        //     sessionStorage.setItem('history', JSON.stringify(history));
-        // }
-        if (pathname !== '/exercises/edit' && pathname !== '/verify-email') {
-            sessionStorage.setItem('history', JSON.stringify(history));
+        if(auth.isAuthenticated()){
+            const pathname = location.pathname;
+            if(history.length > 3){
+                history = [...history.slice(history.length - 3), pathname];
+            }
+            else {
+                history = [...history, pathname];
+            }
+            // if (history.at(-1) === pathname){
+            //     history.pop();
+            //     sessionStorage.setItem('history', JSON.stringify(history));
+            // }
+            if (pathname !== '/exercises/edit' && pathname !== '/verify-email') {
+                sessionStorage.setItem('history', JSON.stringify(history));
+            }
+        } else{
+            sessionStorage.setItem('history', JSON.stringify([]));
         }
     }, [location])
 
+    const [alertIsOpen, setAlertIsOpen] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
     const [modalOpened, setModalOpened] = useState(false);
     const [ModalInner, setModalInner] = useState(<>Привет</>);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= breakpoints.mdBreakpoint);
@@ -69,7 +77,6 @@ export const PreferencesProvider = ({children}) => {
         const pathName = location.pathname;
         const lastPath = useRef('/');
 
-
         if (history.length > 1) {
             const _lastPath = history.at(-1);
             if (!pathName.includes(_lastPath)) {
@@ -93,6 +100,10 @@ export const PreferencesProvider = ({children}) => {
                 setModalOpened,
                 ModalInner,
                 setModalInner,
+                alertIsOpen,
+                setAlertIsOpen,
+                alertMessage,
+                setAlertMessage,
             }}>
             {children}
         </PreferencesContext.Provider>

@@ -1,5 +1,4 @@
 import React, {createContext, useContext, useEffect, useRef, useState} from 'react';
-import {sendCodeOnEmail} from "@services/api.js";
 
 const SignUpContext = createContext({});
 export const useSignUp = () => useContext(SignUpContext);

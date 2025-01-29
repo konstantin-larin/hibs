@@ -97,10 +97,10 @@ export default function ProfilePassword() {
                         <h3 className={'text-h4-dark-blue'}>Изменить пароль</h3>
                         <h4 className={'text-h5-gray mt-1'}>Следуйте инструкции, чтобы подобрать надежный пароль</h4>
                         <ul>
-                            <li>One special characters</li>
-                            <li>Min 6 characters</li>
-                            <li>One number (2 are recommended)</li>
-                            <li>Change it often</li>
+                            <li>Только уникальные символы</li>
+                            <li>Минимум 6 символов</li>
+                            <li>Один из символов - число (рекомендуется 2)</li>
+                            <li>Рекомендуется менять пароль часто</li>
                         </ul>
                     </div>
 

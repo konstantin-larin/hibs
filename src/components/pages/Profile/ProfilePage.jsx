@@ -37,7 +37,7 @@ export default function ProfilePage() {
                     <ProfileMe></ProfileMe>
                     <ProfileInfo></ProfileInfo>
                     <ProfilePassword></ProfilePassword>
-                    <ProfileDelete></ProfileDelete>
+                    {/*<ProfileDelete></ProfileDelete>*/}
                 </div>
             </div>
         </Layout>

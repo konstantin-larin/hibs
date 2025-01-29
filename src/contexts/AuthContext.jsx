@@ -62,7 +62,7 @@ export const AuthProvider = ({ children }) => {
                 localStorage.setItem('refreshToken', refreshToken);
             }
         } catch(err) {
-            handleError(err);
+            throw err;
         }
     };
 

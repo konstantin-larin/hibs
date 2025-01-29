@@ -1,0 +1,25 @@
+@use "@styles" as *;
+.alert{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: $layer-4;
+    background: rgba(0, 0, 0, 0.4);
+    transition: $transition-default;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &-inner{
+        min-width: 50% !important;
+        width: fit-content !important;
+        text-align: center;
+
+    }
+}
+
+.alert-opened{
+    opacity: 1;
+}

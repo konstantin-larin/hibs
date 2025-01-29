@@ -1,14 +1,16 @@
 import "./style.scss";
 import Layout from "@layout/Layout.jsx";
-import {getUsers} from "@services/api.js";
+import {deleteUser, getUsers} from "@services/api.js";
 import {useEffect, useRef, useState} from "react";
 import AdminUsersTable from "@pages/AdminUsersPage/AdminUsersTable.jsx";
 import PlusIcon from "@icons/PlusIcon.jsx";
 import RefreshIcon from "@icons/RefreshIcon.jsx";
 import UserForm from "@widgets/UserForm/UserForm.jsx";
 import {usePreferences} from "@contexts/PreferencesContext.jsx";
+import {useAuth} from "@contexts/AuthContext.jsx";
 
 export default function AdminUsersPage() {
+    const auth = useAuth();
     const [currentUser, setCurrentUser] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const {setModalInner, setModalOpened, modalOpened} = usePreferences();
@@ -23,13 +25,27 @@ export default function AdminUsersPage() {
         }
         setModalOpened(false);
     }
-    function openUserForm(){
+
+    function deleteTheUser(user){
+        const userId = user.id.id;
+        const userIndex = users.findIndex(us => us.id.id === userId);
+        if(userIndex > -1){
+            deleteUser(userId)
+                .then(() => {
+                    users.splice(userIndex, 1);
+                    setUsers([...users]);
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+        }
+    }
+    useEffect(() => {
         if(currentUser){
             setModalOpened(true);
             setModalInner(<UserForm submitUser={submitUser} user={currentUser}></UserForm>);
         }
-    }
-    useEffect(openUserForm, [currentUser]);
+    }, [currentUser]);
     useEffect(() => {
         if(!modalOpened){
             setCurrentUser(null);
@@ -43,7 +59,9 @@ export default function AdminUsersPage() {
                     setIsLoading(false);
                     setUsers(_users.data);
                 })
-                .catch(err => console.log(err));
+                .catch(err =>{
+                    console.log(err);
+                });
         }
     }, [isLoading]);
 
@@ -63,7 +81,7 @@ export default function AdminUsersPage() {
                     <PlusIcon></PlusIcon>
                 </button>
             </div>
-            <AdminUsersTable users={users} isLoading={isLoading} setCurrentUser={setCurrentUser}/>
+            <AdminUsersTable deleteUser={deleteTheUser} users={users} isLoading={isLoading} setCurrentUser={setCurrentUser}/>
         </Layout>
     )
 }

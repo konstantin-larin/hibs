@@ -25,7 +25,7 @@ function ProfileImg() {
 
 export default function Sidebar() {
     const {exercisesIsOpened, setExercisesIsOpened, isMobile, sidebarIsClosed, setSidebarIsClosed} = usePreferences();
-    const {isAdmin} = useAuth();
+    const {isAdmin, user} = useAuth();
 
     function handleCrossOnClick() {
         setSidebarIsClosed(true);
@@ -45,7 +45,7 @@ export default function Sidebar() {
             </div>
             <div className={'sidebar__strip'}></div>
             <div className="sidebar__content">
-                <SidebarLink label={'Brooklyn Alice'} to={'/profile'} img={ProfileImg}></SidebarLink>
+                <SidebarLink label={user.firstName + ' ' + user.lastName} to={'/profile'} img={ProfileImg}></SidebarLink>
             </div>
             <div className={'sidebar__strip'}></div>
             <div className="sidebar__content">

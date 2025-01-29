@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const apiUrl = 'https://dev.madrocket.tech/api';
 // Create axios instance with interceptors
+let token = localStorage.getItem('accessToken');
 const api = axios.create({
     baseURL: apiUrl,
     headers: {
@@ -11,11 +12,8 @@ const api = axios.create({
 
 api.interceptors.request.use(
     (config) => {
-        const accessToken = localStorage.getItem('accessToken');
-        if (accessToken) {
-            config.headers.Authorization = `Bearer ${accessToken}`;
-            console.log(config.headers);
-            console.log(config);
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
         }
         return config;
     },
@@ -29,7 +27,6 @@ api.interceptors.response.use(
         // Handle token expiration and refresh token logic
         if (error.response.status === 401 && !originalRequest._retry) {
             originalRequest._retry = true;
-
             // Attempt to refresh token
             const refreshTokenValue = localStorage.getItem('refreshToken');
             if (refreshTokenValue) {
@@ -55,9 +52,10 @@ export const loginUser = async (credentials) => {
         const response = await api.post('/auth/login', credentials);
         const accessToken = response.data.token;
         const refreshToken = response.data.refreshToken;
+        token = accessToken;
         return {accessToken, refreshToken};
     } catch (error) {
-        throw new Error(error.response?.data?.message || 'LoginPage failed');
+        throw error;
     }
 };
 
@@ -97,18 +95,18 @@ export const logoutUser = async () => {
     localStorage.removeItem('refreshToken');
 }
 
-export const sendCodeOnEmail = async (email) => {
+export const sendActivationMail = async (email) => {
     try {
-        const response = await axios.post(`https://dev.madrocket.tech/api/noauth/resendEmailActivation?email=${encodeURIComponent(email)}`);
-        console.log('Код отправлен:', response.data);
+        const response = await api.post(`user/sendActivationMail`, {}, {params:{email: email}});
+        return response.data;
     } catch (error) {
+        console.log(error);
         throw new Error(error);
     }
 }
 
 export const signUpUser = async (userInfo) => {
     try {
-        console.log(userInfo);
         const response = await api.post('/noauth/signup', userInfo);
         return response.data;
     } catch (error) {
@@ -161,11 +159,10 @@ export const postUser = async (user, sendActivationMail, admin) => {
         const response = await api.post(`/user`,
             newUser,
             {
-                params: {sendActivationMail: false}
+                params: {sendActivationMail}
             })
         return response.data;
     } catch (err) {
-        console.log(err);
         throw new Error(err)
     }
 }
@@ -178,7 +175,6 @@ export const deleteUser = async (id) => {
             })
         return response.data;
     } catch (err) {
-        console.log(err);
         throw new Error(err)
     }
 }

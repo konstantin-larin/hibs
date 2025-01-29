@@ -1,12 +1,13 @@
 import "./style.scss";
 import {v4 as uuidv4} from 'uuid';
 import Spinner from "@common/Spinner/Spinner.jsx";
-import {getUser} from "@services/api.js";
+import {getUser, sendActivationMail} from "@services/api.js";
 import TrashIcon from "@icons/TrashIcon.jsx";
 import EditIcon from "@icons/EditIcon.jsx";
 import UserForm from "@widgets/UserForm/UserForm.jsx";
+import MailIcon from "@icons/MailIcon.jsx";
 
-export default function AdminUsersTable({users, isLoading, setCurrentUser}) {
+export default function AdminUsersTable({users, isLoading, setCurrentUser, deleteUser}) {
 
     if (isLoading) {
         return <Spinner></Spinner>
@@ -49,12 +50,29 @@ export default function AdminUsersTable({users, isLoading, setCurrentUser}) {
                         <td>{user.phone || 'Нет'}</td>
                         <td>{user.email}</td>
                         <td>
-                            <button onClick={() => {setCurrentUser(user)}}>
+                            <button onClick={() => {
+                                sendActivationMail(user.email)
+                                    .then(res => {
+                                        console.log("ok");
+                                    })
+                                    .catch(err => {
+                                        console.log(err);
+                                    })
+                            }}>
+                                <MailIcon></MailIcon>
+                            </button>
+                        </td>
+                        <td>
+                            <button onClick={() => {
+                                setCurrentUser(user)
+                            }}>
                                 <EditIcon></EditIcon>
                             </button>
                         </td>
                         <td>
-                            <button >
+                            <button onClick={() => {
+                                deleteUser(user)
+                            }}>
                                 <TrashIcon></TrashIcon>
                             </button>
                         </td>

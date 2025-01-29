@@ -25,24 +25,23 @@ function App() {
         <SignUpProvider>
             <AuthProvider>
                 <UsersExercisesProvider>
-                    <BrowserRouter basename={'/hibs/'}>
+                    <BrowserRouter>
                         <PreferencesProvider>
                             <Routes>
                                 <Route path={'/'} element={<MainPage/>}></Route>
-                                <Route path={'/exercises/exercise'} element={<ViewExercisePage/>}></Route>
-                                <Route path={'/exercises/edit'} element={<EditExercisePage/>}></Route>
-                                <Route path="/login" element={<LoginPage/>}/>
-                                <Route path={'/register'} element={<RegisterPage/>}></Route>
-                                <Route path={'/verify-email'} element={<EmailVerificationPage/>}></Route>
-                                <Route path={'/profile'} element={<ProfilePage/>}></Route>
-                                <Route path={'/calendar'} element={<CalendarPage/>}></Route>
-                                <Route path={'/statistic'} element={<StatisticPage/>}></Route>
-                                <Route path={'/exercises/library'} element={<ExercisesLibraryPage/>}></Route>
-                                <Route path={'/exercises/my'} element={<MyExercisesPage/>}></Route>
-                                <Route path={'/exercises/saved'} element={<SavedExercisesPage/>}></Route>
-
+                                <Route path={'/exercises/exercise/'} element={<ViewExercisePage/>}></Route>
+                                <Route path={'/exercises/edit/'} element={<EditExercisePage/>}></Route>
+                                <Route path="/login/" element={<LoginPage/>}/>
+                                <Route path={'/register/'} element={<RegisterPage/>}></Route>
+                                <Route path={'/verify-email/'} element={<EmailVerificationPage/>}></Route>
+                                <Route path={'/profile/'} element={<ProfilePage/>}></Route>
+                                <Route path={'/calendar/'} element={<CalendarPage/>}></Route>
+                                <Route path={'/statistic/'} element={<StatisticPage/>}></Route>
+                                <Route path={'/exercises/library/'} element={<ExercisesLibraryPage/>}></Route>
+                                <Route path={'/exercises/my/'} element={<MyExercisesPage/>}></Route>
+                                <Route path={'/exercises/saved/'} element={<SavedExercisesPage/>}></Route>
                                 <Route path={'/admin/*'} element={<AdminRoute/>}>
-                                    <Route path={'users'} element={<AdminUsersPage/>}></Route>
+                                    <Route path={'users/'} element={<AdminUsersPage/>}></Route>
                                 </Route>
                                 <Route path={"*"} element={<LoginPage/>}></Route>
                             </Routes>
